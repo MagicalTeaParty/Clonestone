@@ -11,7 +11,7 @@ namespace MTPKonsole
         static void Main(string[] args)
         {
             //Hallo
-            //Leonhard schreibt :)
+            //Pfeiffer schreibt :)
         }
     }
 }
