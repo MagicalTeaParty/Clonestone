@@ -12,6 +12,9 @@ namespace MTPKonsole
         {
             //Hallo
             //Pfeiffer schreibt :)
+            //Christian schreibt :)
+
+            Console.WriteLine("Hallo");
 
             Console.WriteLine("Nix Hallo");
         }
