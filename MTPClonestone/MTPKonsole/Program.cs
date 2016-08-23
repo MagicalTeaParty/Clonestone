@@ -14,7 +14,7 @@ namespace MTPKonsole
             //Pfeiffer schreibt :)
             //Christian schreibt :)
 
-            Console.WriteLine("Hallo");
+            Console.WriteLine("Test");
         }
     }
 }
