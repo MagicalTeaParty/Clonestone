@@ -16,5 +16,10 @@ namespace MTPKonsole
 
             Console.WriteLine("sdff");
         }
+
+        static void MethodeInEinemBranch()
+        {
+            Console.WriteLine("Branch");
+        }
     }
 }
