@@ -14,7 +14,8 @@ namespace MTPKonsole
             //Pfeiffer schreibt :)
             //Christian schreibt :)
 
-            Console.WriteLine("sdff");
+            Console.WriteLine("Hallo Welt");
+            Console.WriteLine("Willkommen in der IN21");
         }
 
         static void MethodeInEinemBranch()
