@@ -293,8 +293,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.4225352, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85.4, y: -18.5}
-  m_SizeDelta: {x: 132.9, y: 67}
+  m_AnchoredPosition: {x: 132.5, y: -42.4}
+  m_SizeDelta: {x: 227.1, y: 114.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680992248
 MonoBehaviour:
@@ -328,7 +328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: akt36blablabla i hob recht lieber herr Cervence
+  m_Text: Der Text vom Trainer ist nich anzugreifen!
 --- !u!222 &1680992249
 CanvasRenderer:
   m_ObjectHideFlags: 0
