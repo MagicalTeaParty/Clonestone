@@ -244,7 +244,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
-  m_TargetDisplay: 0
 --- !u!224 &1303087590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -329,7 +328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: akt36blablabla i hob recht lieber herr pfeiffer
+  m_Text: akt36blablabla i hob recht lieber herr Cervence
 --- !u!222 &1680992249
 CanvasRenderer:
   m_ObjectHideFlags: 0
