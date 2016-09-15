@@ -19,13 +19,13 @@ Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClo
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.071 seconds
+- Completed reload, in  0.094 seconds
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.dll (this message is harmless)
-desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.030298 ms
+UnloadTime: 1.082330 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 14a4 -> priority: 1 
+  Thread -> id: 9ec -> priority: 1 
