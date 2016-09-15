@@ -19,13 +19,17 @@ Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClo
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.094 seconds
+- Completed reload, in  0.053 seconds
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.082330 ms
+UnloadTime: 1.378597 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 9ec -> priority: 1 
+  Thread -> id: 11b0 -> priority: 1 
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
