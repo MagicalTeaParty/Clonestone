@@ -4,47 +4,31 @@ using UnityEngine.Networking;
 
 class cardDrag : NetworkBehaviour
 {
-    //private Color mouseOverColor = Color.blue;
-    //private Color originalColor = Color.yellow;
-    private bool dragging = false;
-    private float distance;
-
-
-    //void OnMouseEnter()
-    //{
-    //    GetComponent<Renderer>().material.color = mouseOverColor;
-    //}
-
-    //void OnMouseExit()
-    //{
-    //    GetComponent<Renderer>().material.color = originalColor;
-    //}
+    private Vector3 screenPoint;
+    private Vector3 offset;
 
     void OnMouseDown()
-    {
-        // Vector2 und nicht Vector3, um nur die x- und y-Koordinaten der Karte zu verändern und nicht auch die z-Koordinate. Die Karte wird sonst bei jedem Klick weiter in die Ferne gerückt.
-        distance = Vector2.Distance(transform.position, Camera.main.transform.position);
-        dragging = true;
-    }
-
-    void OnMouseUp()
-    {
-        dragging = false;
-    }
-
-    void Update()
     {
         if (!isLocalPlayer)
         {
             return;
         }
 
-        if (dragging)
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+    }
+
+    void OnMouseDrag()
+    {
+        if (!isLocalPlayer)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // s. OnMouseDown()
-            Vector2 rayPoint = ray.GetPoint(distance);
-            transform.position = rayPoint;
+            return;
         }
+
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        transform.position = curPosition;
     }
 }
