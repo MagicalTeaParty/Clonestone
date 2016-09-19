@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollPosition: {x: 0, y: 0}
   innerText: hi
+  news: {fileID: 1000010571309340, guid: 84d06d90defde5247b2016e09e2097e8, type: 2}
 --- !u!1 &1218932006
 GameObject:
   m_ObjectHideFlags: 0
