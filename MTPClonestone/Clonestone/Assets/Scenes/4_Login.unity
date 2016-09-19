@@ -848,6 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   email: {fileID: 1187709835}
   password: {fileID: 1781435771}
+  stayIn: {fileID: 379433751}
 --- !u!1 &858738911
 GameObject:
   m_ObjectHideFlags: 0

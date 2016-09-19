@@ -1,16 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.IO;
 
 public class Login : MonoBehaviour {
 
     public InputField email;
     public InputField password;
+    public Toggle stayIn;
+
+    public void Start()
+    {
+        if (PlayerPrefs.GetInt("stayIn") == 1)
+        {
+            stayIn.isOn = true;
+        }
+        else
+        {
+            stayIn.isOn = false;
+        }
 
 
+        if (stayIn.isOn)
+        {
+            using (TextReader reader = File.OpenText("newfile.txt"))
+            {
+                string meinString = reader.ReadLine();
+                string[] meineStrings = meinString.Split(new char[] { ' ' });
+                email.text = meineStrings[0];
+                password.text = meineStrings[1];
+            }
+        }       
+    }
+
+    public void Update()
+    {
+        if (stayIn.isOn == true)
+        {
+            PlayerPrefs.SetInt("stayIn", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("stayIn", 0);
+        }
+    }
 
     public void onClick()
     {
+        if (stayIn.isOn)
+        {
+            using (System.IO.StreamWriter writer = new StreamWriter("newfile.txt"))
+            {
+                writer.WriteLine(email.text + " " + password.text);
+            }
+            // TEST TEST TEST
+            Debug.Log("StayIn : " + stayIn.isOn);
+        }
+
+
         StartCoroutine("SendLoginInformation");
     }
 

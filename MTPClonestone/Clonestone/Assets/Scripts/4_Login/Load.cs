@@ -3,10 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using System.IO;
 
-
 public class Load : MonoBehaviour {
 
-    public InputField username;
+    public InputField email;
     public InputField password;
 
     public void Start()
@@ -17,7 +16,7 @@ public class Load : MonoBehaviour {
         {
             string meinString = reader.ReadLine();
             string[] meineStrings = meinString.Split(new char[] { ' ' });
-            username.text = meineStrings[0];
+            email.text = meineStrings[0];
             password.text = meineStrings[1];
         }
     }
