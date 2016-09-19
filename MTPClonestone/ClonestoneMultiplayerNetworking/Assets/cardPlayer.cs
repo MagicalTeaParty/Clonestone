@@ -4,12 +4,15 @@ using UnityEngine.Networking;
 
 class cardPlayer : NetworkBehaviour
 {
-    // Use this for initialization
+    public override void OnStartLocalPlayer()
+    {
+        transform.RotateAround(transform.position, transform.up, 180f);
+    }
     void Start()
     {
-        if (isLocalPlayer)
+        if (!isLocalPlayer)
         {
-            transform.RotateAround(transform.position, transform.up, 180f);
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
