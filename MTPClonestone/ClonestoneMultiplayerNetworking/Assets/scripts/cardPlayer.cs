@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 
 class cardPlayer : NetworkBehaviour
 {
@@ -11,8 +9,6 @@ class cardPlayer : NetworkBehaviour
     void Start()
     {
         if (!isLocalPlayer)
-        {
             transform.GetChild(0).gameObject.SetActive(false);
-        }
     }
 }
