@@ -8,6 +8,12 @@ namespace ClonestoneMVC.Controllers
 {
     public class AdministrationController : Controller
     {
+        [HttpGet]
+        public string Save()
+        {
+            return null;
+        }
+
         [HttpPost]
         public string Save(string email, string password)
         {
