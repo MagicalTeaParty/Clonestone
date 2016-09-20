@@ -9,6 +9,8 @@ class cardPlayer : NetworkBehaviour
     void Start()
     {
         if (!isLocalPlayer)
+        {
             transform.GetChild(0).gameObject.SetActive(false);
+        }
     }
 }
