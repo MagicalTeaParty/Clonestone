@@ -117,7 +117,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 199, y: 18.75}
+  m_AnchoredPosition: {x: 107, y: 18.75}
   m_SizeDelta: {x: 19, y: 37.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &44619868
@@ -280,7 +280,7 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 154.5, y: 56.5}
+  m_AnchoredPosition: {x: 60, y: 56.5}
   m_SizeDelta: {x: 29, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358558186
@@ -382,7 +382,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -427, y: 56}
+  m_AnchoredPosition: {x: -283, y: 56}
   m_SizeDelta: {x: 190, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &388336049
@@ -673,7 +673,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 634.69653
+  MaxDistance: 655.87305
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -947,7 +947,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 453, y: 18.75}
+  m_AnchoredPosition: {x: 361, y: 18.75}
   m_SizeDelta: {x: 55, y: 37.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1184558930
@@ -1127,7 +1127,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 335, y: 56}
+  m_AnchoredPosition: {x: 243, y: 57}
   m_SizeDelta: {x: 291, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1941438947
