@@ -7,6 +7,7 @@ using System.Text;
 using System;
 
 public class Login : MonoBehaviour {
+    //Ich bin ein .....
 
     // Variablen die auf IO Objekte in der Login Scene beziehen.
     public InputField email;
