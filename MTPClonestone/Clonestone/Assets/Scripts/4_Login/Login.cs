@@ -41,7 +41,7 @@ public class Login : MonoBehaviour {
     }
 
     /// <summary>
-    /// Methode dient nur dazu den Wert im Toggle "stayin" zu speichern.
+    /// Methode dient nur dazu den Wert im Toggle "stayIn" zu speichern.
     /// </summary>
     public void Update()
     {
