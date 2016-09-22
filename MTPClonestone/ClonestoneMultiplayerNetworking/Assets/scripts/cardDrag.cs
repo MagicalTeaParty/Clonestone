@@ -5,21 +5,15 @@ class cardDrag : NetworkBehaviour
 {
     private Vector3 screenPoint;
     private Vector3 offset;
-    private Vector3 originalScale;
+    private Vector3 originalPosition;
 
-    //Scale the card up when the mouse hovers over it
+    //Change z-coordinate when the mouse hovers over it
     void OnMouseEnter()
     {
         if (isLocalPlayer)
         {
-            //Save object's current scale
-            originalScale = transform.localScale;
-
-            //Scale up until vector3.x reaches 0.8
-            while (transform.localScale.x < 0.8)
-            {
-                transform.localScale *= 1.01f;
-            } 
+            originalPosition = transform.position;
+            transform.position = originalPosition + new Vector3(0f, 0f, -0.1f);
         }
     }
 
@@ -27,8 +21,7 @@ class cardDrag : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            //Restore object's original scale
-            gameObject.transform.localScale = originalScale;
+            transform.position = new Vector3(transform.position.x, transform.position.y, originalPosition.z);
         }
     }
 
@@ -38,9 +31,9 @@ class cardDrag : NetworkBehaviour
         if (isLocalPlayer)
         {
             //Save object's position
-            screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+            screenPoint = Camera.main.WorldToScreenPoint(transform.position);
             //Save difference between the mouse' and the object's positions
-            offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+            offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         }
     }
 
@@ -53,7 +46,11 @@ class cardDrag : NetworkBehaviour
             //Convert the screen point to world point plus the difference between mouse and object
             Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
             //Set the object's position to the new position
-            transform.position = curPosition;
+            if (curPosition.x < 0)
+            {
+                transform.position = curPosition;
+            }
+            else transform.position = originalPosition;
         }
     }
 }
