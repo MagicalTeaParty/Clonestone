@@ -16,7 +16,7 @@ Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClo
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.238 seconds
+- Completed reload, in  0.193 seconds
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\leonhard.pfeiffer\Documents\GitHub\Clonestone\MTPClonestone\ClonestoneMultiplayerNetworking\testRun_Data\Managed\System.dll (this message is harmless)
 desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
@@ -24,6 +24,7 @@ desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.008924 ms
+UnloadTime: 0.986166 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1a78 -> priority: 1 
+  Thread -> id: eac -> priority: 1 
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:56187}

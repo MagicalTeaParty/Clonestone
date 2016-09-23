@@ -1,11 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-class cardDrag : NetworkBehaviour
+class cardController : NetworkBehaviour
 {
     private Vector3 screenPoint;
     private Vector3 offset;
     private Vector3 originalPosition;
+
+    //Should only happen for the local player
+    public override void OnStartLocalPlayer()
+    {
+        //Rotate the object up by 180°
+        transform.RotateAround(transform.position, transform.up, 180f);
+    }
+    void Start()
+    {
+        //The enemy player must not see the player's cards' front
+        if (!isLocalPlayer)
+        {
+            //Set the first child (= plane with active picture) inactive
+            transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 
     //Change z-coordinate when the mouse hovers over it
     void OnMouseEnter()
@@ -46,11 +62,7 @@ class cardDrag : NetworkBehaviour
             //Convert the screen point to world point plus the difference between mouse and object
             Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
             //Set the object's position to the new position
-            if (curPosition.x < 0)
-            {
-                transform.position = curPosition;
-            }
-            else transform.position = originalPosition;
+            transform.position = curPosition;
         }
     }
 }
