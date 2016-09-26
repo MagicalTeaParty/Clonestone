@@ -11,8 +11,6 @@ public class VolumeChange : MonoBehaviour {
 	public void OnValueChange()
     {
         volumeAudio.volume = soundSlider.value;
-
-        Debug.Log(soundSlider.value);
     }
 
 
