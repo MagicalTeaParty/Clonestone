@@ -6,7 +6,7 @@ public class OpenOptions : MonoBehaviour {
 
 	public void OptionsOpen()
     {
-        PlayerPrefs.SetInt("previousLevel", Application.loadedLevel);
+        PlayerPrefs.SetInt("previousLevel", SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadScene(5);
     }
 }
