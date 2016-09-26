@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Szenename: 2_MTPLogo
-  DelayTime: 5
+  DelayTime: 2
 --- !u!1 &286845597
 GameObject:
   m_ObjectHideFlags: 0

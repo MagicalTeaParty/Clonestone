@@ -5,14 +5,24 @@ using UnityEngine.UI;
 public class VolumeChange : MonoBehaviour {
 
     public Slider soundSlider;
-    public AudioSource volumeAudio;
+    private AudioSource volumeAudio;
        
+
+    private void Awake()
+    {
+        GameObject musicPlayer = GameObject.Find("MusicPlayer");
+        AudioSource musicPlayerAudioSrc = musicPlayer.GetComponent<AudioSource>();
+        volumeAudio = musicPlayerAudioSrc;
+    }
 
 	public void OnValueChange()
     {
-        volumeAudio.volume = soundSlider.value;
+        if (volumeAudio != null)
+        {
+            volumeAudio.volume = soundSlider.value;
 
-        Debug.Log(soundSlider.value);
+            Debug.Log(soundSlider.value);
+        }
     }
 
 
