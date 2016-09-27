@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTPKonsole", "MTPKonsole\MT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClonestoneMVC", "ClonestoneMVC\ClonestoneMVC.csproj", "{AC744F9E-8F85-4417-9094-A93F6F808038}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Klassenplanung", "Klassenplanung\Klassenplanung.csproj", "{5A8384EA-4169-46F0-ADDC-8B9D57235284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AC744F9E-8F85-4417-9094-A93F6F808038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC744F9E-8F85-4417-9094-A93F6F808038}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC744F9E-8F85-4417-9094-A93F6F808038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A8384EA-4169-46F0-ADDC-8B9D57235284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A8384EA-4169-46F0-ADDC-8B9D57235284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A8384EA-4169-46F0-ADDC-8B9D57235284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A8384EA-4169-46F0-ADDC-8B9D57235284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
