@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClonestoneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblability">
+          <Key>
+            <PropertyRef Name="idability" />
+          </Key>
+          <Property Name="idability" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ability" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblcard">
+          <Key>
+            <PropertyRef Name="idcard" />
+          </Key>
+          <Property Name="idcard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cardname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="mana" Type="tinyint" Nullable="false" />
+          <Property Name="life" Type="smallint" Nullable="false" />
+          <Property Name="attack" Type="smallint" Nullable="false" />
+          <Property Name="flavor" Type="varchar" MaxLength="500" />
+          <Property Name="fktype" Type="int" Nullable="false" />
+          <Property Name="fkclass" Type="int" />
+          <Property Name="fkability" Type="int" />
+          <Property Name="pic" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblclass">
+          <Key>
+            <PropertyRef Name="idclass" />
+          </Key>
+          <Property Name="idclass" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="class" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbldeck">
+          <Key>
+            <PropertyRef Name="iddeck" />
+          </Key>
+          <Property Name="iddeck" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deckname" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fkperson" Type="int" />
+        </EntityType>
+        <EntityType Name="tbldeckcard">
+          <Key>
+            <PropertyRef Name="iddeckcard" />
+          </Key>
+          <Property Name="iddeckcard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkdeck" Type="int" Nullable="false" />
+          <Property Name="fkcard" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbledit">
+          <Key>
+            <PropertyRef Name="idedit" />
+          </Key>
+          <Property Name="idedit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" />
+          <Property Name="content" Type="varchar" MaxLength="2000" />
+          <Property Name="fkperson" Type="int" />
+          <Property Name="editdate" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="tbleditFile">
+          <Key>
+            <PropertyRef Name="ideditfile" />
+          </Key>
+          <Property Name="ideditfile" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkedit" Type="int" Nullable="false" />
+          <Property Name="uidfile" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="editfile" Type="varbinary(max)" />
+          <Property Name="mimetype" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tblgame">
+          <Key>
+            <PropertyRef Name="idgame" />
+          </Key>
+          <Property Name="idgame" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkperson1" Type="int" />
+          <Property Name="fkperson2" Type="int" />
+          <Property Name="win" Type="tinyint" />
+          <Property Name="gamestart" Type="smalldatetime" />
+          <Property Name="gameende" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="tbllogin">
+          <Key>
+            <PropertyRef Name="idlogin" />
+          </Key>
+          <Property Name="idlogin" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="passcode" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblperson">
+          <Key>
+            <PropertyRef Name="idperson" />
+          </Key>
+          <Property Name="idperson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblpersonrole">
+          <Key>
+            <PropertyRef Name="fkperson" />
+            <PropertyRef Name="fkrole" />
+          </Key>
+          <Property Name="fkperson" Type="int" Nullable="false" />
+          <Property Name="fkrole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="idrole" />
+          </Key>
+          <Property Name="idrole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolename" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbltype">
+          <Key>
+            <PropertyRef Name="idtype" />
+          </Key>
+          <Property Name="idtype" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typename" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblcard__fkabili__2E1BDC42">
+          <End Role="tblability" Type="Self.tblability" Multiplicity="0..1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblability">
+              <PropertyRef Name="idability" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fkability" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblcard__fkclass__2D27B809">
+          <End Role="tblclass" Type="Self.tblclass" Multiplicity="0..1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblclass">
+              <PropertyRef Name="idclass" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fkclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblcard__fktype__2C3393D0">
+          <End Role="tbltype" Type="Self.tbltype" Multiplicity="1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltype">
+              <PropertyRef Name="idtype" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fktype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeck__fkperso__1DE57479">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tbldeck" Type="Self.tbldeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbldeck">
+              <PropertyRef Name="fkperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeckca__fkcar__31EC6D26">
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="1" />
+          <End Role="tbldeckcard" Type="Self.tbldeckcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcard">
+              <PropertyRef Name="idcard" />
+            </Principal>
+            <Dependent Role="tbldeckcard">
+              <PropertyRef Name="fkcard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeckca__fkdec__30F848ED">
+          <End Role="tbldeck" Type="Self.tbldeck" Multiplicity="1" />
+          <End Role="tbldeckcard" Type="Self.tbldeckcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbldeck">
+              <PropertyRef Name="iddeck" />
+            </Principal>
+            <Dependent Role="tbldeckcard">
+              <PropertyRef Name="fkdeck" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbledit__fkperso__3B75D760">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tbledit" Type="Self.tbledit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbledit">
+              <PropertyRef Name="fkperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbleditFi__fkedi__534D60F1">
+          <End Role="tbledit" Type="Self.tbledit" Multiplicity="1" />
+          <End Role="tbleditFile" Type="Self.tbleditFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbledit">
+              <PropertyRef Name="idedit" />
+            </Principal>
+            <Dependent Role="tbleditFile">
+              <PropertyRef Name="fkedit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblgame__fkperso__34C8D9D1">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tblgame" Type="Self.tblgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tblgame">
+              <PropertyRef Name="fkperson1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblgame__fkperso__35BCFE0A">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tblgame" Type="Self.tblgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tblgame">
+              <PropertyRef Name="fkperson2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbllogin__idlogi__1A14E395">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="1" />
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbllogin">
+              <PropertyRef Name="idlogin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblperson__fkper__15502E78">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="1" />
+          <End Role="tblpersonrole" Type="Self.tblpersonrole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tblpersonrole">
+              <PropertyRef Name="fkperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblperson__fkrol__164452B1">
+          <End Role="tblrole" Type="Self.tblrole" Multiplicity="1" />
+          <End Role="tblpersonrole" Type="Self.tblpersonrole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblrole">
+              <PropertyRef Name="idrole" />
+            </Principal>
+            <Dependent Role="tblpersonrole">
+              <PropertyRef Name="fkrole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClonestoneModelStoreContainer">
+          <EntitySet Name="tblability" EntityType="Self.tblability" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblcard" EntityType="Self.tblcard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblclass" EntityType="Self.tblclass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldeck" EntityType="Self.tbldeck" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbldeckcard" EntityType="Self.tbldeckcard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbledit" EntityType="Self.tbledit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbleditFile" EntityType="Self.tbleditFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblgame" EntityType="Self.tblgame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbllogin" EntityType="Self.tbllogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblperson" EntityType="Self.tblperson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblpersonrole" EntityType="Self.tblpersonrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblrole" EntityType="Self.tblrole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbltype" EntityType="Self.tbltype" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblcard__fkabili__2E1BDC42" Association="Self.FK__tblcard__fkabili__2E1BDC42">
+            <End Role="tblability" EntitySet="tblability" />
+            <End Role="tblcard" EntitySet="tblcard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblcard__fkclass__2D27B809" Association="Self.FK__tblcard__fkclass__2D27B809">
+            <End Role="tblclass" EntitySet="tblclass" />
+            <End Role="tblcard" EntitySet="tblcard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblcard__fktype__2C3393D0" Association="Self.FK__tblcard__fktype__2C3393D0">
+            <End Role="tbltype" EntitySet="tbltype" />
+            <End Role="tblcard" EntitySet="tblcard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeck__fkperso__1DE57479" Association="Self.FK__tbldeck__fkperso__1DE57479">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tbldeck" EntitySet="tbldeck" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeckca__fkcar__31EC6D26" Association="Self.FK__tbldeckca__fkcar__31EC6D26">
+            <End Role="tblcard" EntitySet="tblcard" />
+            <End Role="tbldeckcard" EntitySet="tbldeckcard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeckca__fkdec__30F848ED" Association="Self.FK__tbldeckca__fkdec__30F848ED">
+            <End Role="tbldeck" EntitySet="tbldeck" />
+            <End Role="tbldeckcard" EntitySet="tbldeckcard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbledit__fkperso__3B75D760" Association="Self.FK__tbledit__fkperso__3B75D760">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tbledit" EntitySet="tbledit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbleditFi__fkedi__534D60F1" Association="Self.FK__tbleditFi__fkedi__534D60F1">
+            <End Role="tbledit" EntitySet="tbledit" />
+            <End Role="tbleditFile" EntitySet="tbleditFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblgame__fkperso__34C8D9D1" Association="Self.FK__tblgame__fkperso__34C8D9D1">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tblgame" EntitySet="tblgame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblgame__fkperso__35BCFE0A" Association="Self.FK__tblgame__fkperso__35BCFE0A">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tblgame" EntitySet="tblgame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbllogin__idlogi__1A14E395" Association="Self.FK__tbllogin__idlogi__1A14E395">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tbllogin" EntitySet="tbllogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblperson__fkper__15502E78" Association="Self.FK__tblperson__fkper__15502E78">
+            <End Role="tblperson" EntitySet="tblperson" />
+            <End Role="tblpersonrole" EntitySet="tblpersonrole" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblperson__fkrol__164452B1" Association="Self.FK__tblperson__fkrol__164452B1">
+            <End Role="tblrole" EntitySet="tblrole" />
+            <End Role="tblpersonrole" EntitySet="tblpersonrole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClonestoneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblability">
+          <Key>
+            <PropertyRef Name="idability" />
+          </Key>
+          <Property Name="idability" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ability" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblcards" Relationship="Self.FK__tblcard__fkabili__2E1BDC42" FromRole="tblability" ToRole="tblcard" />
+        </EntityType>
+        <EntityType Name="tblcard">
+          <Key>
+            <PropertyRef Name="idcard" />
+          </Key>
+          <Property Name="idcard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cardname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mana" Type="Byte" Nullable="false" />
+          <Property Name="life" Type="Int16" Nullable="false" />
+          <Property Name="attack" Type="Int16" Nullable="false" />
+          <Property Name="flavor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="fktype" Type="Int32" Nullable="false" />
+          <Property Name="fkclass" Type="Int32" />
+          <Property Name="fkability" Type="Int32" />
+          <Property Name="pic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblability" Relationship="Self.FK__tblcard__fkabili__2E1BDC42" FromRole="tblcard" ToRole="tblability" />
+          <NavigationProperty Name="tblclass" Relationship="Self.FK__tblcard__fkclass__2D27B809" FromRole="tblcard" ToRole="tblclass" />
+          <NavigationProperty Name="tbltype" Relationship="Self.FK__tblcard__fktype__2C3393D0" FromRole="tblcard" ToRole="tbltype" />
+          <NavigationProperty Name="tbldeckcards" Relationship="Self.FK__tbldeckca__fkcar__31EC6D26" FromRole="tblcard" ToRole="tbldeckcard" />
+        </EntityType>
+        <EntityType Name="tblclass">
+          <Key>
+            <PropertyRef Name="idclass" />
+          </Key>
+          <Property Name="idclass" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblcards" Relationship="Self.FK__tblcard__fkclass__2D27B809" FromRole="tblclass" ToRole="tblcard" />
+        </EntityType>
+        <EntityType Name="tbldeck">
+          <Key>
+            <PropertyRef Name="iddeck" />
+          </Key>
+          <Property Name="iddeck" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deckname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fkperson" Type="Int32" />
+          <NavigationProperty Name="tblperson" Relationship="Self.FK__tbldeck__fkperso__1DE57479" FromRole="tbldeck" ToRole="tblperson" />
+          <NavigationProperty Name="tbldeckcards" Relationship="Self.FK__tbldeckca__fkdec__30F848ED" FromRole="tbldeck" ToRole="tbldeckcard" />
+        </EntityType>
+        <EntityType Name="tbldeckcard">
+          <Key>
+            <PropertyRef Name="iddeckcard" />
+          </Key>
+          <Property Name="iddeckcard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkdeck" Type="Int32" Nullable="false" />
+          <Property Name="fkcard" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblcard" Relationship="Self.FK__tbldeckca__fkcar__31EC6D26" FromRole="tbldeckcard" ToRole="tblcard" />
+          <NavigationProperty Name="tbldeck" Relationship="Self.FK__tbldeckca__fkdec__30F848ED" FromRole="tbldeckcard" ToRole="tbldeck" />
+        </EntityType>
+        <EntityType Name="tbledit">
+          <Key>
+            <PropertyRef Name="idedit" />
+          </Key>
+          <Property Name="idedit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="fkperson" Type="Int32" />
+          <Property Name="editdate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblperson" Relationship="Self.FK__tbledit__fkperso__3B75D760" FromRole="tbledit" ToRole="tblperson" />
+          <NavigationProperty Name="tbleditFiles" Relationship="Self.FK__tbleditFi__fkedi__534D60F1" FromRole="tbledit" ToRole="tbleditFile" />
+        </EntityType>
+        <EntityType Name="tbleditFile">
+          <Key>
+            <PropertyRef Name="ideditfile" />
+          </Key>
+          <Property Name="ideditfile" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkedit" Type="Int32" Nullable="false" />
+          <Property Name="uidfile" Type="Guid" Nullable="false" />
+          <Property Name="editfile" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="mimetype" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbledit" Relationship="Self.FK__tbleditFi__fkedi__534D60F1" FromRole="tbleditFile" ToRole="tbledit" />
+        </EntityType>
+        <EntityType Name="tblgame">
+          <Key>
+            <PropertyRef Name="idgame" />
+          </Key>
+          <Property Name="idgame" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkperson1" Type="Int32" />
+          <Property Name="fkperson2" Type="Int32" />
+          <Property Name="win" Type="Byte" />
+          <Property Name="gamestart" Type="DateTime" Precision="0" />
+          <Property Name="gameende" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tblperson" Relationship="Self.FK__tblgame__fkperso__34C8D9D1" FromRole="tblgame" ToRole="tblperson" />
+          <NavigationProperty Name="tblperson1" Relationship="Self.FK__tblgame__fkperso__35BCFE0A" FromRole="tblgame" ToRole="tblperson" />
+        </EntityType>
+        <EntityType Name="tbllogin">
+          <Key>
+            <PropertyRef Name="idlogin" />
+          </Key>
+          <Property Name="idlogin" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passcode" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblperson" Relationship="Self.FK__tbllogin__idlogi__1A14E395" FromRole="tbllogin" ToRole="tblperson" />
+        </EntityType>
+        <EntityType Name="tblperson">
+          <Key>
+            <PropertyRef Name="idperson" />
+          </Key>
+          <Property Name="idperson" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbldecks" Relationship="Self.FK__tbldeck__fkperso__1DE57479" FromRole="tblperson" ToRole="tbldeck" />
+          <NavigationProperty Name="tbledits" Relationship="Self.FK__tbledit__fkperso__3B75D760" FromRole="tblperson" ToRole="tbledit" />
+          <NavigationProperty Name="tblgames" Relationship="Self.FK__tblgame__fkperso__34C8D9D1" FromRole="tblperson" ToRole="tblgame" />
+          <NavigationProperty Name="tblgames1" Relationship="Self.FK__tblgame__fkperso__35BCFE0A" FromRole="tblperson" ToRole="tblgame" />
+          <NavigationProperty Name="tbllogin" Relationship="Self.FK__tbllogin__idlogi__1A14E395" FromRole="tblperson" ToRole="tbllogin" />
+          <NavigationProperty Name="tblroles" Relationship="Self.tblpersonrole" FromRole="tblperson" ToRole="tblrole" />
+        </EntityType>
+        <EntityType Name="tblrole">
+          <Key>
+            <PropertyRef Name="idrole" />
+          </Key>
+          <Property Name="idrole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblpersons" Relationship="Self.tblpersonrole" FromRole="tblrole" ToRole="tblperson" />
+        </EntityType>
+        <EntityType Name="tbltype">
+          <Key>
+            <PropertyRef Name="idtype" />
+          </Key>
+          <Property Name="idtype" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblcards" Relationship="Self.FK__tblcard__fktype__2C3393D0" FromRole="tbltype" ToRole="tblcard" />
+        </EntityType>
+        <Association Name="FK__tblcard__fkabili__2E1BDC42">
+          <End Role="tblability" Type="Self.tblability" Multiplicity="0..1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblability">
+              <PropertyRef Name="idability" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fkability" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblcard__fkclass__2D27B809">
+          <End Role="tblclass" Type="Self.tblclass" Multiplicity="0..1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblclass">
+              <PropertyRef Name="idclass" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fkclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblcard__fktype__2C3393D0">
+          <End Role="tbltype" Type="Self.tbltype" Multiplicity="1" />
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbltype">
+              <PropertyRef Name="idtype" />
+            </Principal>
+            <Dependent Role="tblcard">
+              <PropertyRef Name="fktype" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeckca__fkcar__31EC6D26">
+          <End Role="tblcard" Type="Self.tblcard" Multiplicity="1" />
+          <End Role="tbldeckcard" Type="Self.tbldeckcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblcard">
+              <PropertyRef Name="idcard" />
+            </Principal>
+            <Dependent Role="tbldeckcard">
+              <PropertyRef Name="fkcard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeck__fkperso__1DE57479">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tbldeck" Type="Self.tbldeck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbldeck">
+              <PropertyRef Name="fkperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbldeckca__fkdec__30F848ED">
+          <End Role="tbldeck" Type="Self.tbldeck" Multiplicity="1" />
+          <End Role="tbldeckcard" Type="Self.tbldeckcard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbldeck">
+              <PropertyRef Name="iddeck" />
+            </Principal>
+            <Dependent Role="tbldeckcard">
+              <PropertyRef Name="fkdeck" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbledit__fkperso__3B75D760">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tbledit" Type="Self.tbledit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbledit">
+              <PropertyRef Name="fkperson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbleditFi__fkedi__534D60F1">
+          <End Role="tbledit" Type="Self.tbledit" Multiplicity="1" />
+          <End Role="tbleditFile" Type="Self.tbleditFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbledit">
+              <PropertyRef Name="idedit" />
+            </Principal>
+            <Dependent Role="tbleditFile">
+              <PropertyRef Name="fkedit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblgame__fkperso__34C8D9D1">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tblgame" Type="Self.tblgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tblgame">
+              <PropertyRef Name="fkperson1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblgame__fkperso__35BCFE0A">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="0..1" />
+          <End Role="tblgame" Type="Self.tblgame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tblgame">
+              <PropertyRef Name="fkperson2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbllogin__idlogi__1A14E395">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="1" />
+          <End Role="tbllogin" Type="Self.tbllogin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblperson">
+              <PropertyRef Name="idperson" />
+            </Principal>
+            <Dependent Role="tbllogin">
+              <PropertyRef Name="idlogin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblpersonrole">
+          <End Role="tblperson" Type="Self.tblperson" Multiplicity="*" />
+          <End Role="tblrole" Type="Self.tblrole" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ClonestoneEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblabilities" EntityType="Self.tblability" />
+          <EntitySet Name="tblcards" EntityType="Self.tblcard" />
+          <EntitySet Name="tblclasses" EntityType="Self.tblclass" />
+          <EntitySet Name="tbldecks" EntityType="Self.tbldeck" />
+          <EntitySet Name="tbldeckcards" EntityType="Self.tbldeckcard" />
+          <EntitySet Name="tbledits" EntityType="Self.tbledit" />
+          <EntitySet Name="tbleditFiles" EntityType="Self.tbleditFile" />
+          <EntitySet Name="tblgames" EntityType="Self.tblgame" />
+          <EntitySet Name="tbllogins" EntityType="Self.tbllogin" />
+          <EntitySet Name="tblpersons" EntityType="Self.tblperson" />
+          <EntitySet Name="tblroles" EntityType="Self.tblrole" />
+          <EntitySet Name="tbltypes" EntityType="Self.tbltype" />
+          <AssociationSet Name="FK__tblcard__fkabili__2E1BDC42" Association="Self.FK__tblcard__fkabili__2E1BDC42">
+            <End Role="tblability" EntitySet="tblabilities" />
+            <End Role="tblcard" EntitySet="tblcards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblcard__fkclass__2D27B809" Association="Self.FK__tblcard__fkclass__2D27B809">
+            <End Role="tblclass" EntitySet="tblclasses" />
+            <End Role="tblcard" EntitySet="tblcards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblcard__fktype__2C3393D0" Association="Self.FK__tblcard__fktype__2C3393D0">
+            <End Role="tbltype" EntitySet="tbltypes" />
+            <End Role="tblcard" EntitySet="tblcards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeckca__fkcar__31EC6D26" Association="Self.FK__tbldeckca__fkcar__31EC6D26">
+            <End Role="tblcard" EntitySet="tblcards" />
+            <End Role="tbldeckcard" EntitySet="tbldeckcards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeck__fkperso__1DE57479" Association="Self.FK__tbldeck__fkperso__1DE57479">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tbldeck" EntitySet="tbldecks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbldeckca__fkdec__30F848ED" Association="Self.FK__tbldeckca__fkdec__30F848ED">
+            <End Role="tbldeck" EntitySet="tbldecks" />
+            <End Role="tbldeckcard" EntitySet="tbldeckcards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbledit__fkperso__3B75D760" Association="Self.FK__tbledit__fkperso__3B75D760">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tbledit" EntitySet="tbledits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbleditFi__fkedi__534D60F1" Association="Self.FK__tbleditFi__fkedi__534D60F1">
+            <End Role="tbledit" EntitySet="tbledits" />
+            <End Role="tbleditFile" EntitySet="tbleditFiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblgame__fkperso__34C8D9D1" Association="Self.FK__tblgame__fkperso__34C8D9D1">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tblgame" EntitySet="tblgames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblgame__fkperso__35BCFE0A" Association="Self.FK__tblgame__fkperso__35BCFE0A">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tblgame" EntitySet="tblgames" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbllogin__idlogi__1A14E395" Association="Self.FK__tbllogin__idlogi__1A14E395">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tbllogin" EntitySet="tbllogins" />
+          </AssociationSet>
+          <AssociationSet Name="tblpersonrole" Association="Self.tblpersonrole">
+            <End Role="tblperson" EntitySet="tblpersons" />
+            <End Role="tblrole" EntitySet="tblroles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClonestoneModelStoreContainer" CdmEntityContainer="ClonestoneEntities">
+          <EntitySetMapping Name="tblabilities">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblability">
+              <MappingFragment StoreEntitySet="tblability">
+                <ScalarProperty Name="idability" ColumnName="idability" />
+                <ScalarProperty Name="ability" ColumnName="ability" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblcards">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblcard">
+              <MappingFragment StoreEntitySet="tblcard">
+                <ScalarProperty Name="idcard" ColumnName="idcard" />
+                <ScalarProperty Name="cardname" ColumnName="cardname" />
+                <ScalarProperty Name="mana" ColumnName="mana" />
+                <ScalarProperty Name="life" ColumnName="life" />
+                <ScalarProperty Name="attack" ColumnName="attack" />
+                <ScalarProperty Name="flavor" ColumnName="flavor" />
+                <ScalarProperty Name="fktype" ColumnName="fktype" />
+                <ScalarProperty Name="fkclass" ColumnName="fkclass" />
+                <ScalarProperty Name="fkability" ColumnName="fkability" />
+                <ScalarProperty Name="pic" ColumnName="pic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblclasses">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblclass">
+              <MappingFragment StoreEntitySet="tblclass">
+                <ScalarProperty Name="idclass" ColumnName="idclass" />
+                <ScalarProperty Name="class" ColumnName="class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldecks">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbldeck">
+              <MappingFragment StoreEntitySet="tbldeck">
+                <ScalarProperty Name="iddeck" ColumnName="iddeck" />
+                <ScalarProperty Name="deckname" ColumnName="deckname" />
+                <ScalarProperty Name="fkperson" ColumnName="fkperson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbldeckcards">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbldeckcard">
+              <MappingFragment StoreEntitySet="tbldeckcard">
+                <ScalarProperty Name="iddeckcard" ColumnName="iddeckcard" />
+                <ScalarProperty Name="fkdeck" ColumnName="fkdeck" />
+                <ScalarProperty Name="fkcard" ColumnName="fkcard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbledits">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbledit">
+              <MappingFragment StoreEntitySet="tbledit">
+                <ScalarProperty Name="idedit" ColumnName="idedit" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="fkperson" ColumnName="fkperson" />
+                <ScalarProperty Name="editdate" ColumnName="editdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbleditFiles">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbleditFile">
+              <MappingFragment StoreEntitySet="tbleditFile">
+                <ScalarProperty Name="ideditfile" ColumnName="ideditfile" />
+                <ScalarProperty Name="fkedit" ColumnName="fkedit" />
+                <ScalarProperty Name="uidfile" ColumnName="uidfile" />
+                <ScalarProperty Name="editfile" ColumnName="editfile" />
+                <ScalarProperty Name="mimetype" ColumnName="mimetype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblgames">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblgame">
+              <MappingFragment StoreEntitySet="tblgame">
+                <ScalarProperty Name="idgame" ColumnName="idgame" />
+                <ScalarProperty Name="fkperson1" ColumnName="fkperson1" />
+                <ScalarProperty Name="fkperson2" ColumnName="fkperson2" />
+                <ScalarProperty Name="win" ColumnName="win" />
+                <ScalarProperty Name="gamestart" ColumnName="gamestart" />
+                <ScalarProperty Name="gameende" ColumnName="gameende" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbllogins">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbllogin">
+              <MappingFragment StoreEntitySet="tbllogin">
+                <ScalarProperty Name="idlogin" ColumnName="idlogin" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="passcode" ColumnName="passcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblpersons">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblperson">
+              <MappingFragment StoreEntitySet="tblperson">
+                <ScalarProperty Name="idperson" ColumnName="idperson" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblroles">
+            <EntityTypeMapping TypeName="ClonestoneModel.tblrole">
+              <MappingFragment StoreEntitySet="tblrole">
+                <ScalarProperty Name="idrole" ColumnName="idrole" />
+                <ScalarProperty Name="rolename" ColumnName="rolename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbltypes">
+            <EntityTypeMapping TypeName="ClonestoneModel.tbltype">
+              <MappingFragment StoreEntitySet="tbltype">
+                <ScalarProperty Name="idtype" ColumnName="idtype" />
+                <ScalarProperty Name="typename" ColumnName="typename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblpersonrole" TypeName="ClonestoneModel.tblpersonrole" StoreEntitySet="tblpersonrole">
+            <EndProperty Name="tblperson">
+              <ScalarProperty Name="idperson" ColumnName="fkperson" />
+            </EndProperty>
+            <EndProperty Name="tblrole">
+              <ScalarProperty Name="idrole" ColumnName="fkrole" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -33,8 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +54,85 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClonestoneModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClonestoneModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClonestoneModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClonestoneModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClonestoneModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tblability.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblcard.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblclass.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbldeck.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbldeckcard.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbledit.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbleditFile.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblgame.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbllogin.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblperson.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblrole.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbltype.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="ClonestoneModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ClonestoneModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ClonestoneModel.edmx.diagram">
+      <DependentUpon>ClonestoneModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClonestoneModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClonestoneModel.edmx</DependentUpon>
+      <LastGenOutput>ClonestoneModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ClonestoneModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ClonestoneModel.edmx</DependentUpon>
+      <LastGenOutput>ClonestoneModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
