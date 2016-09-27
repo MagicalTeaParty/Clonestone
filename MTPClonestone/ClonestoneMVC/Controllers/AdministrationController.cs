@@ -44,7 +44,7 @@ namespace ClonestoneMVC.Controllers
             }
 
             //Ergebnis zurückschicken
-            return "FEHLER";
+            return "email or password WRONG!";
         }
     }
 }

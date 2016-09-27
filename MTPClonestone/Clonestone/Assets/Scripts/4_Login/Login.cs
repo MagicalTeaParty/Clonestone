@@ -5,14 +5,15 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour {
-    //Ich bin ein .....
 
     // Variablen die auf IO Objekte in der Login Scene beziehen.
     public InputField email;
     public InputField password;
     public Toggle stayIn;
+    public Text failText;
 
     /// <summary>
     /// Methode prüft bei Start ob Toggel "stayin" true oder false ist, im Falle true werden die in der Datei "newfile.txt" strings gesplittet und auf die InputFields "email" und "password" geschrieben. 
@@ -107,6 +108,29 @@ public class Login : MonoBehaviour {
         //  TEST TEST TEST 
         Debug.Log("Data: " + www.text);
         Debug.Log("Error: " + www.error);
+        Debug.Log(failText.text);
+
+
+        Verify(www);
+    }
+
+    /// <summary>
+    /// Methode zur Überprüfung ob die Eingegebenen Daten vom User mit der Datenbank überein stimmen 
+    /// -> "OK" sprung zur Mainscene
+    /// -> "else" Fehlermeldung einblenden.
+    /// </summary>
+    /// <param name="www"></param>
+    public void Verify(WWW www)
+    {       
+        if (www.text == "OK")
+        {
+            SceneManager.LoadScene(4);
+        }
+
+        else
+        {
+            failText.enabled = true; 
+        }
     }
 
     /// <summary>
