@@ -18,4 +18,18 @@ public class OpenURL : MonoBehaviour {
         Application.OpenURL("http://www.standard.at");
     }
 
+    public void onClickTutorial()
+
+    {
+        /// TODO - Link auf Tutorial!
+        Application.OpenURL("http://www.golem.de");
+    }
+
+    public void onClickProfil()
+
+    {
+        /// TODO - Link auf Profil!
+        Application.OpenURL("http://www.heise.de");
+    }
+
 }
