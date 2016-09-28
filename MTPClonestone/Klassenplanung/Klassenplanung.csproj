@@ -40,7 +40,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability.cs" />
+    <Compile Include="Button.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="ConcedeButton.cs" />
+    <Compile Include="EndTurnButton.cs" />
+    <Compile Include="GameBoard.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="Hero.cs" />
+    <Compile Include="HeroPowerButton.cs" />
+    <Compile Include="IOnBoard.cs" />
+    <Compile Include="ManaBar.cs" />
+    <Compile Include="ManaCrystal.cs" />
+    <Compile Include="ManaOverload.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="MenuButton.cs" />
+    <Compile Include="Minion.cs" />
+    <Compile Include="NetworkManager.cs" />
+    <Compile Include="OpponentManaBar.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerManaBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rope.cs" />
+    <Compile Include="Spell.cs" />
+    <Compile Include="TurnHistory.cs" />
+    <Compile Include="TurnTimer.cs" />
+    <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="KlassendiagrammClonestone.cd" />
