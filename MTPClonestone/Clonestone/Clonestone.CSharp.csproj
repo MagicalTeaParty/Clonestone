@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\1_HagerGroup\MusicPlayer.cs" />
+    <Compile Include="Assets\Scripts\3_Loading\RPB.cs" />
     <Compile Include="Assets\Scripts\4_Login\Load.cs" />
     <Compile Include="Assets\Scripts\4_Login\Login.cs" />
     <Compile Include="Assets\Scripts\4_Login\Save.cs" />
