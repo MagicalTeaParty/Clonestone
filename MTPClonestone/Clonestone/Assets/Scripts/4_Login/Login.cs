@@ -94,9 +94,9 @@ public class Login : MonoBehaviour {
         Debug.Log("Hash: " + hashpass);
 
         //WICHTIG! Controller wird mit dem Controllernamen ohne *Controller angesprochen! 
-        string saveUrl = "http://localhost:53861/Administration/Save";
+        string saveUrl = "http://localhost:53861/Administration/verifyLogin";
         WWWForm form = new WWWForm();
-        //WICHTIG! Formfelder müssen ident zu den Übergabewerten der Save() Methode sein!
+        //WICHTIG! Formfelder müssen ident zu den Übergabewerten der verifyLogin() Methode sein!
         form.AddField("email", email);
         form.AddField("password", hashpass);
         WWW www = new WWW(saveUrl, form);

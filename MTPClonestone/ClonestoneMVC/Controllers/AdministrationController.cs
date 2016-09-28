@@ -1,6 +1,7 @@
 ﻿using ClonestoneMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,18 +11,16 @@ namespace ClonestoneMVC.Controllers
     public class AdministrationController : Controller
     {
         [HttpGet]
-        public string Save()
+        public string verifyLogin()
         {
             return null;
         }
 
         [HttpPost]
-        public string Save(string email, string password)
+        public string verifyLogin(string email, string password)
         {
             try
             {
-
-                ///TODO Vergleich email pw mit DB
                 using(ClonestoneEntities cont = new ClonestoneEntities())
                 {
                     var res = (from l in cont.tbllogins
@@ -36,10 +35,12 @@ namespace ClonestoneMVC.Controllers
             }
             catch(Exception e)
             {
+              //TODO - Fehlerbehandlung
               //Fehlerbehandlung
             }
             finally
             {
+              //TODO - Fehlerbehandlung
               //Aufräumarbeiten
             }
 

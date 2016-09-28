@@ -275,7 +275,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="spGetMana5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="itin21_ClonestoneFSModelStoreContainer">
           <EntitySet Name="tblability" EntityType="Self.tblability" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblcard" EntityType="Self.tblcard" Schema="dbo" store:Type="Tables" />
@@ -820,22 +819,6 @@
               <ScalarProperty Name="idrole" ColumnName="fkrole" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="spGetMana5" FunctionName="itin21_ClonestoneFSModel.Store.spGetMana5">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="itin21_ClonestoneFSModel.spGetMana5_Result">
-                <ScalarProperty Name="idcard" ColumnName="idcard" />
-                <ScalarProperty Name="cardname" ColumnName="cardname" />
-                <ScalarProperty Name="mana" ColumnName="mana" />
-                <ScalarProperty Name="life" ColumnName="life" />
-                <ScalarProperty Name="attack" ColumnName="attack" />
-                <ScalarProperty Name="flavor" ColumnName="flavor" />
-                <ScalarProperty Name="fktype" ColumnName="fktype" />
-                <ScalarProperty Name="fkclass" ColumnName="fkclass" />
-                <ScalarProperty Name="fkability" ColumnName="fkability" />
-                <ScalarProperty Name="pic" ColumnName="pic" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

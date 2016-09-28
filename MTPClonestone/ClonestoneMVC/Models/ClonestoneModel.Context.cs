@@ -40,9 +40,5 @@ namespace ClonestoneMVC.Models
         public virtual DbSet<tblrole> tblroles { get; set; }
         public virtual DbSet<tbltype> tbltypes { get; set; }
     
-        public virtual ObjectResult<spGetMana5_Result> spGetMana5()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetMana5_Result>("spGetMana5");
-        }
     }
 }

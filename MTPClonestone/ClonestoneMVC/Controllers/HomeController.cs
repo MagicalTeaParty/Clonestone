@@ -23,7 +23,7 @@ namespace ClonestoneMVC.Controllers
                 List<tblcard> lambdaRes = cont.tblcards.Where(c=>c.mana==5).ToList();
 
                 //Abfrage mittels SP
-                var spRes = cont.spGetMana5().ToList();
+                //var spRes = cont.spGetMana5().ToList();
             }
 
                 return View();
