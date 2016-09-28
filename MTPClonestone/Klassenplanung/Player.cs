@@ -2,7 +2,7 @@
 
 namespace Klassenplanung
 {
-    internal class Player
+    public class Player
     {
         //Fields
         string loginName;
@@ -14,5 +14,13 @@ namespace Klassenplanung
         bool isActive;
         List<Card> discardPile;
         List<Minion> minionsOnBoard;
+
+        //Methods
+        void GetHand() { }
+        void GetManaCrystal() { }
+        void RefillMana() { }
+        void DrawCard() { }
+        void DiscardCard() { }
+        void PlayCard() { }
     }
 }

@@ -3,9 +3,11 @@
     class TurnTimer
     {
         //Fields
-        int Countdown;
+        int TurnTime;
         int timeLeft;
-
         Rope rope;
+
+        //Methods
+        void CountDown() { }
     }
 }

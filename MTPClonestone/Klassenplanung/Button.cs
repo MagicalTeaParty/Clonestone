@@ -1,6 +1,7 @@
 ﻿namespace Klassenplanung
 {
-    internal class Button
+    class Button
     {
+        public virtual void ClickButton() { }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Klassenplanung
 {
-    class GameWorld
+    public class GameWorld
     {
         //Fields
         Camera mainCamera;
