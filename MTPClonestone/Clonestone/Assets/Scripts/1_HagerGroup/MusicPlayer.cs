@@ -64,6 +64,5 @@ public class MusicPlayer : MonoBehaviour {
     void Update()
     {
         CurrentMusicTime = music.time;
-
     }
 }
