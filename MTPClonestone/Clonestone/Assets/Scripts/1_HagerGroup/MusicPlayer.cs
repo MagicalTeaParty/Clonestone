@@ -9,6 +9,7 @@ public class MusicPlayer : MonoBehaviour {
 	public AudioClip gameClip;
 		
 	private AudioSource music;
+    float CurrentMusicTime;
 	
 	void Awake () {
 		if (instance != null && instance != this) {
@@ -47,14 +48,22 @@ public class MusicPlayer : MonoBehaviour {
         
         if(level == 7) //wenn es das gameboard ist
         {
+            music.time = CurrentMusicTime;
             music.clip = gameClip;
         }
         else //alle anderen scenen
         {
+            music.time = CurrentMusicTime;
             music.clip = menueClip;
         }
 
         music.loop = true;
         music.Play();
+    }
+
+    void Update()
+    {
+        CurrentMusicTime = music.time;
+
     }
 }

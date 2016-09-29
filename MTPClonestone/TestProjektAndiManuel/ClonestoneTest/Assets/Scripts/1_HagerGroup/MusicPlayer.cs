@@ -9,20 +9,28 @@ public class MusicPlayer : MonoBehaviour {
 	public AudioClip gameClip;
 		
 	private AudioSource music;
-	
-	void Awake () {
-		if (instance != null && instance != this) {
-			Destroy (gameObject);
-			print ("Duplicate music player self-destructing!");
-		} else {
-			instance = this;
-			GameObject.DontDestroyOnLoad(gameObject);
-			music = GetComponent<AudioSource>();
-			music.clip = menueClip;
-			music.loop = true;
-			music.Play();
-		}
-	}
+    float currentMusicTime;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            print("Duplicate music player self-destructing!");
+        }
+        else
+        {
+            instance = this;
+            GameObject.DontDestroyOnLoad(gameObject);
+            music = GetComponent<AudioSource>();
+            music.clip = menueClip;
+            music.loop = true;
+            music.Play();
+        }
+    }
+
+
+
 
     //siehe: http://answers.unity3d.com/questions/1174255/since-onlevelwasloaded-is-deprecated-in-540b15-wha.html
 
@@ -47,14 +55,22 @@ public class MusicPlayer : MonoBehaviour {
         
         if(level == 7) //wenn es das gameboard ist
         {
-            music.clip = gameClip;
+            music.time = currentMusicTime;
+            music.clip = gameClip;           
         }
         else //alle anderen scenen
-        {
+        {            
+            music.time = currentMusicTime;
             music.clip = menueClip;
         }
 
         music.loop = true;
         music.Play();
     }
+
+    void Update()
+    {
+        currentMusicTime = music.time;
+    }
+
 }
