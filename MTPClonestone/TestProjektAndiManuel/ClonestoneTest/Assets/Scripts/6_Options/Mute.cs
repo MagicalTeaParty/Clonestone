@@ -5,6 +5,7 @@ using System;
 
 public class Mute : MonoBehaviour {
 
+    bool isMute;
 
     [SerializeField]
     public Toggle muteToggle;
@@ -21,25 +22,23 @@ public class Mute : MonoBehaviour {
         value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
 
         muteToggle = GetComponent<Toggle>();
-        
+
         muteToggle.isOn = value;
 
 
         soundMute();
 
-        
+
     }
 
-   
+
 
     public void onValueChange()
     {
         value = Convert.ToBoolean(muteToggle.isOn.ToString());
 
-        PlayerPrefs.SetString("muteValue", value.ToString());    
+        PlayerPrefs.SetString("muteValue", value.ToString());
 
         soundMute();
     }
-
-   
 }

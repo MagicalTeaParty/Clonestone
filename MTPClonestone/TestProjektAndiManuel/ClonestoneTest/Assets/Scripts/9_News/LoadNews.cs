@@ -33,7 +33,9 @@ public class LoadNews : MonoBehaviour {
         actNews.GetComponentInChildren<Text>().text = "START";
         //actNews.GetComponent<Text>().text = "START";
 
-        actNews.transform.parent = newsGrid.transform;
+        actNews.transform.SetParent(newsGrid.transform);
+
+        //actNews.transform.parent = newsGrid.transform;
     }
 	
 	// Update is called once per frame
