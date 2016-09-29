@@ -29,6 +29,7 @@
         <AssociationConnector Association="itin21_ClonestoneFSModel.FK__tblgame__fkperso__35BCFE0A" ManuallyRouted="false" />
         <AssociationConnector Association="itin21_ClonestoneFSModel.FK__tbllogin__idlogi__1A14E395" ManuallyRouted="false" />
         <AssociationConnector Association="itin21_ClonestoneFSModel.tblpersonrole" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="itin21_ClonestoneFSModel.vEditor" Width="1.5" PointX="7.125" PointY="1.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

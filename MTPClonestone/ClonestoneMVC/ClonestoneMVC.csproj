@@ -158,8 +158,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\EditorController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,6 +181,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ClonestoneModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetMana5_Result.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblability.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
@@ -212,6 +219,9 @@
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbltype.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vEditor.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +281,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Guest\Home.cshtml" />
+    <Content Include="Views\Guest\Gallery.cshtml" />
+    <Content Include="Views\Guest\News.cshtml" />
+    <Content Include="Views\Guest\Tutorial.cshtml" />
+    <Content Include="Views\User\Profil.cshtml" />
+    <Content Include="Views\User\Deckbuilder.cshtml" />
+    <Content Include="Views\Editor\EditNews.cshtml" />
+    <Content Include="Views\Editor\EditTutorial.cshtml" />
+    <Content Include="Views\Editor\EditGallery.cshtml" />
+    <Content Include="Views\Admin\AdminProfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
