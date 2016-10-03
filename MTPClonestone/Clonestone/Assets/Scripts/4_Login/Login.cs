@@ -6,20 +6,26 @@ using System.Security.Cryptography;
 using System.Text;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Login : MonoBehaviour {
 
-    // Variablen die auf IO Objekte in der Login Scene beziehen.
+    // Variablen die sich auf IO Objekte in der Login Scene beziehen.
     public InputField email;
     public InputField password;
     public Toggle stayIn;
     public Text failText;
+    EventSystem system;
 
     /// <summary>
     /// Methode prüft bei Start ob Toggel "stayin" true oder false ist, im Falle true werden die in der Datei "newfile.txt" strings gesplittet und auf die InputFields "email" und "password" geschrieben. 
     /// </summary>
     public void Start()
     {
+        // (WA Tab)
+        system = EventSystem.current;
+
+        // Abfrage Toggel ON oder OFF
         if (PlayerPrefs.GetInt("stayIn") == 1)
         {
             stayIn.isOn = true;
@@ -29,7 +35,7 @@ public class Login : MonoBehaviour {
             stayIn.isOn = false;
         }
 
-
+        
         if (stayIn.isOn)
         {
             using (TextReader reader = File.OpenText("newfile.txt"))
@@ -54,6 +60,22 @@ public class Login : MonoBehaviour {
         else
         {
             PlayerPrefs.SetInt("stayIn", 0);
+        }
+
+
+        // Workaround für Tabulator bei Eingabefeldern und Buttons (WA Tab)
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
+
+            if (next != null)
+            {
+                InputField inputfield = next.GetComponent<InputField>();
+                if (inputfield != null)
+                    inputfield.OnPointerClick(new PointerEventData(system));
+
+                system.SetSelectedGameObject(next.gameObject, new BaseEventData(system));
+            }
         }
     }
 
@@ -90,8 +112,9 @@ public class Login : MonoBehaviour {
 
 
         //  TEST TEST TEST
-        Debug.Log("Email: " + email + "Passw: " + pass);
-        Debug.Log("Hash: " + hashpass);
+        //Debug.Log("Email: " + email + "Passw: " + pass);
+        //Debug.Log("Hash: " + hashpass);
+
 
         //WICHTIG! Controller wird mit dem Controllernamen ohne *Controller angesprochen! 
         string saveUrl = "http://localhost:53861/Administration/verifyLogin";
@@ -105,10 +128,11 @@ public class Login : MonoBehaviour {
         ///TODO - Erklärung von yield
         yield return www;
 
+
         //  TEST TEST TEST 
-        Debug.Log("Data: " + www.text);
-        Debug.Log("Error: " + www.error);
-        Debug.Log(failText.text);
+        //Debug.Log("Data: " + www.text);
+        //Debug.Log("Error: " + www.error);
+        //Debug.Log(failText.text);
 
 
         Verify(www);
