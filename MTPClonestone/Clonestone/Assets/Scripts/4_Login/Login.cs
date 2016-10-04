@@ -122,6 +122,19 @@ public class Login : MonoBehaviour {
         //WICHTIG! Formfelder müssen ident zu den Übergabewerten der verifyLogin() Methode sein!
         form.AddField("email", email);
         form.AddField("password", hashpass);
+
+        var headers = form.headers;
+
+        //if(!headers.Contains("Content-Type"))
+        {
+
+            Debug.Log(headers["Content-Type"]);
+            //unnötig - gibt es schon
+            //headers["Content-Type"] = "application/x-www-form-urlencoded";
+            //headers["Content-Type"] = "text/x-cross-domain-policy";
+            //headers.Add("Content-Type", "application/x-www-form-urlencoded");
+        }
+
         WWW www = new WWW(saveUrl, form);
 
 

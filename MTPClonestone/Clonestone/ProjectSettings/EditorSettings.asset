@@ -7,7 +7,7 @@ EditorSettings:
   m_ExternalVersionControlSupport: Visible Meta Files
   m_SerializationMode: 2
   m_WebSecurityEmulationEnabled: 0
-  m_WebSecurityEmulationHostUrl: .com/mygame.unity3d.com/mygame.unity3d
+  m_WebSecurityEmulationHostUrl: http://localhost:53861/
   m_DefaultBehaviorMode: 1
   m_SpritePackerMode: 2
   m_SpritePackerPaddingPower: 1
