@@ -196,7 +196,7 @@ RectTransform:
   m_Children:
   - {fileID: 612781659}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 541, y: -404}
@@ -273,7 +273,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3271fba3c9414a240ab5a847552fae9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b83825a0c8e6d74ea1cee4e92387f49, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -328,7 +328,7 @@ RectTransform:
   - {fileID: 524789039}
   - {fileID: 1251935947}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -189}
@@ -750,7 +750,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Exit
+  m_Text: 
 --- !u!222 &612781661
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -844,6 +844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1257844041}
+  - {fileID: 2079205617}
   - {fileID: 1187709834}
   - {fileID: 1781435770}
   - {fileID: 2112652586}
@@ -853,7 +854,6 @@ RectTransform:
   - {fileID: 300153113}
   - {fileID: 379433750}
   - {fileID: 1178628537}
-  - {fileID: 2079205617}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
@@ -943,7 +943,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Opt
+  m_Text: 
 --- !u!222 &858738914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1041,7 +1041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 849837705}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -25}
@@ -1118,7 +1118,7 @@ RectTransform:
   - {fileID: 1222953282}
   - {fileID: 1945278681}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -62}
@@ -1252,7 +1252,7 @@ RectTransform:
   m_Children:
   - {fileID: 858738912}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 541, y: -322}
@@ -1329,7 +1329,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3271fba3c9414a240ab5a847552fae9e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9fc1a6eb04b5cf849840007f9c3fd55d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1495,7 +1495,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Stay Loged In
+  m_Text: stay logged in
 --- !u!222 &1251935949
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1602,7 +1602,7 @@ RectTransform:
   m_Children:
   - {fileID: 1588804459}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -250, y: -322}
@@ -1810,7 +1810,7 @@ RectTransform:
   m_Children:
   - {fileID: 435567081}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 250, y: -322}
@@ -2020,7 +2020,7 @@ RectTransform:
   - {fileID: 212881975}
   - {fileID: 1442695686}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -123}
@@ -2275,7 +2275,7 @@ GameObject:
   - 222: {fileID: 2079205619}
   - 114: {fileID: 2079205618}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2293,7 +2293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 849837705}
-  m_RootOrder: 10
+  m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 182}
@@ -2363,7 +2363,7 @@ RectTransform:
   m_Children:
   - {fileID: 479153904}
   m_Father: {fileID: 849837705}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -257}
