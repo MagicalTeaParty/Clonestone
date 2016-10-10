@@ -15,12 +15,12 @@ namespace ClonestoneMVC.Controllers
             using(ClonestoneEntities cont = new ClonestoneEntities())
             {
                 //Abfrage mittels LINQ
-                var linqRes = (from c in cont.tblcards
-                               where c.mana == 5
-                               select c).ToList();
+                //var linqRes = (from c in cont.tblcards
+                //               where c.mana == 5
+                //               select c).ToList();
 
                 //Abfrage mittels Lambda
-                List<tblcard> lambdaRes = cont.tblcards.Where(c=>c.mana==5).ToList();
+                //List<tblcard> lambdaRes = cont.tblcards.Where(c=>c.mana==5).ToList();
 
                 //Abfrage mittels SP
                 //var spRes = cont.spGetMana5().ToList();

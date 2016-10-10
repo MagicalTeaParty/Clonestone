@@ -147,19 +147,45 @@ public class Login : MonoBehaviour {
         //Debug.Log("Error: " + www.error);
         //Debug.Log(failText.text);
 
+        //Zerlegen des Strings der vom Controller zurückgegeben wird,
+        //und diese werden via "PlayerPrefs" gespeichert um sie in jeder Scene verwenden zu können!
+
+        Debug.Log("Data: " + www.text);
+        if (www.text != "")
+        {
+            string meinString = www.text;
+            string[] meineStrings = meinString.Split(new char[] { '|' });
+
+            int id = Convert.ToInt32(meineStrings[0]);
+            string gt =  meineStrings[1];
+
+            PlayerPrefs.SetInt("PlayerID", id);
+            PlayerPrefs.SetString("Gamertag", gt);
+        }
+        
 
         Verify(www);
+
+        
+
+
+    }
+
+    public void test()
+    {
+      
+
     }
 
     /// <summary>
     /// Methode zur Überprüfung ob die Eingegebenen Daten vom User mit der Datenbank überein stimmen 
-    /// -> "OK" sprung zur Mainscene
-    /// -> "else" Fehlermeldung einblenden.
+    /// -> solange der Rückgabewert kein Leerstring ist -> Login erfolgreich
     /// </summary>
     /// <param name="www"></param>
     public void Verify(WWW www)
-    {       
-        if (www.text == "OK")
+    { 
+       
+        if (www.text != "")
         {
             SceneManager.LoadScene(4);
         }

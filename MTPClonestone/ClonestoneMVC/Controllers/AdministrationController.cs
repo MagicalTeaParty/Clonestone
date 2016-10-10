@@ -23,13 +23,20 @@ namespace ClonestoneMVC.Controllers
             {
                 using(ClonestoneEntities cont = new ClonestoneEntities())
                 {
-                    var res = (from l in cont.tbllogins
-                               where l.email == email && l.passcode == password
-                               select l).FirstOrDefault();
+                    //var res = (from l in cont.tbllogins
+                    //           where l.email == email && l.passcode == password
+                    //           select l).FirstOrDefault();
 
-                    if(res != null)
+                    var gt = (from t in cont.tblpersons
+                              join s in cont.tbllogins
+                              on t.idperson equals s.idlogin
+                              where s.email == email && s.passcode == password
+                              select new { Id = t.idperson, Gamertag = t.gamertag }).FirstOrDefault();
+                    
+                    if (gt != null)
                     {
-                        return "OK";
+                        return gt.Id + "|" + gt.Gamertag;
+                        //return Json(gt);
                     }
                 }
             }
@@ -45,7 +52,8 @@ namespace ClonestoneMVC.Controllers
             }
 
             //Ergebnis zurückschicken
-            return "email or password WRONG!";
+            //return "email or password WRONG!";
+            return null;
         }
     }
 }

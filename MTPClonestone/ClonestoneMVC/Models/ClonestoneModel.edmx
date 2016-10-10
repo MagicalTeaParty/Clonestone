@@ -96,6 +96,7 @@
           <Property Name="idperson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="gamertag" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tblpersonrole">
           <Key>
@@ -118,26 +119,6 @@
           </Key>
           <Property Name="idtype" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typename" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vEditor">
-          <Key>
-            <PropertyRef Name="idedit" />
-            <PropertyRef Name="ideditfile" />
-            <PropertyRef Name="idperson" />
-            <PropertyRef Name="firstname" />
-            <PropertyRef Name="lastname" />
-          </Key>
-          <Property Name="idedit" Type="int" Nullable="false" />
-          <Property Name="ideditfile" Type="int" Nullable="false" />
-          <Property Name="idperson" Type="int" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="100" />
-          <Property Name="content" Type="varchar" MaxLength="2000" />
-          <Property Name="editdate" Type="smalldatetime" />
-          <Property Name="editfile" Type="varbinary(max)" />
-          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblcard__fkabili__2E1BDC42">
           <End Role="tblability" Type="Self.tblability" Multiplicity="0..1" />
@@ -309,19 +290,6 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
           <EntitySet Name="tblpersonrole" EntityType="Self.tblpersonrole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblrole" EntityType="Self.tblrole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbltype" EntityType="Self.tbltype" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="vEditor" EntityType="Self.vEditor" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vEditor].[idedit] AS [idedit], 
-    [vEditor].[ideditfile] AS [ideditfile], 
-    [vEditor].[idperson] AS [idperson], 
-    [vEditor].[title] AS [title], 
-    [vEditor].[content] AS [content], 
-    [vEditor].[editdate] AS [editdate], 
-    [vEditor].[editfile] AS [editfile], 
-    [vEditor].[firstname] AS [firstname], 
-    [vEditor].[lastname] AS [lastname]
-    FROM [dbo].[vEditor] AS [vEditor]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__tblcard__fkabili__2E1BDC42" Association="Self.FK__tblcard__fkabili__2E1BDC42">
             <End Role="tblability" EntitySet="tblability" />
             <End Role="tblcard" EntitySet="tblcard" />
@@ -492,6 +460,7 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
           <NavigationProperty Name="tblgames1" Relationship="Self.FK__tblgame__fkperso__35BCFE0A" FromRole="tblperson" ToRole="tblgame" />
           <NavigationProperty Name="tbllogin" Relationship="Self.FK__tbllogin__idlogi__1A14E395" FromRole="tblperson" ToRole="tbllogin" />
           <NavigationProperty Name="tblroles" Relationship="Self.tblpersonrole" FromRole="tblperson" ToRole="tblrole" />
+          <Property Name="gamertag" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblrole">
           <Key>
@@ -707,7 +676,6 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
             <End Role="tblrole" EntitySet="tblroles" />
           </AssociationSet>
           <FunctionImport Name="spGetMana5" ReturnType="Collection(itin21_ClonestoneFSModel.spGetMana5_Result)" />
-          <EntitySet Name="vEditors" EntityType="itin21_ClonestoneFSModel.vEditor" />
         </EntityContainer>
         <ComplexType Name="spGetMana5_Result">
           <Property Type="Int32" Name="idcard" Nullable="false" />
@@ -721,24 +689,6 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
           <Property Type="Int32" Name="fkability" Nullable="true" />
           <Property Type="Binary" Name="pic" Nullable="true" />
         </ComplexType>
-        <EntityType Name="vEditor">
-          <Key>
-            <PropertyRef Name="idedit" />
-            <PropertyRef Name="ideditfile" />
-            <PropertyRef Name="idperson" />
-            <PropertyRef Name="firstname" />
-            <PropertyRef Name="lastname" />
-          </Key>
-          <Property Name="idedit" Type="Int32" Nullable="false" />
-          <Property Name="ideditfile" Type="Int32" Nullable="false" />
-          <Property Name="idperson" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="content" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="editdate" Type="DateTime" Precision="0" />
-          <Property Name="editfile" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -841,6 +791,7 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
           <EntitySetMapping Name="tblpersons">
             <EntityTypeMapping TypeName="itin21_ClonestoneFSModel.tblperson">
               <MappingFragment StoreEntitySet="tblperson">
+                <ScalarProperty Name="gamertag" ColumnName="gamertag" />
                 <ScalarProperty Name="idperson" ColumnName="idperson" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="lastname" ColumnName="lastname" />
@@ -871,21 +822,6 @@ warning 6002: The table/view 'itin21_ClonestoneFS.dbo.vEditor' does not have a p
               <ScalarProperty Name="idrole" ColumnName="fkrole" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="vEditors">
-            <EntityTypeMapping TypeName="itin21_ClonestoneFSModel.vEditor">
-              <MappingFragment StoreEntitySet="vEditor">
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="editfile" ColumnName="editfile" />
-                <ScalarProperty Name="editdate" ColumnName="editdate" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="idperson" ColumnName="idperson" />
-                <ScalarProperty Name="ideditfile" ColumnName="ideditfile" />
-                <ScalarProperty Name="idedit" ColumnName="idedit" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

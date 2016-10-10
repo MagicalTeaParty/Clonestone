@@ -221,9 +221,6 @@
     <Compile Include="Models\tbltype.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vEditor.cs">
-      <DependentUpon>ClonestoneModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,7 @@ namespace ClonestoneMVC.Models
         public int idperson { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
+        public string gamertag { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbldeck> tbldecks { get; set; }
