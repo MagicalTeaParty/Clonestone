@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MusicPlayer : MonoBehaviour {
 	static MusicPlayer instance = null;
@@ -10,8 +11,11 @@ public class MusicPlayer : MonoBehaviour {
 		
 	private AudioSource music;
     float CurrentMusicTime;
-	
-	void Awake () {
+    bool value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
+
+
+
+    void Awake () {
 		if (instance != null && instance != this) {
 			Destroy (gameObject);
 			print ("Duplicate music player self-destructing!");
@@ -48,11 +52,15 @@ public class MusicPlayer : MonoBehaviour {
         
         if(level == 7) //wenn es das gameboard ist
         {
+            AudioListener.volume = value ? 1 : 0;
+            music.volume = PlayerPrefs.GetFloat("SliderValue");
             music.time = CurrentMusicTime;
             music.clip = gameClip;
         }
         else //alle anderen scenen
         {
+            AudioListener.volume = value ? 1 : 0;
+            music.volume = PlayerPrefs.GetFloat("SliderValue");
             music.time = CurrentMusicTime;
             music.clip = menueClip;
         }

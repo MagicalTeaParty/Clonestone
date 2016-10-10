@@ -21,7 +21,7 @@ public class RPB : MonoBehaviour {
         if (currentAmount < 100)
         {
             currentAmount += speed * Time.deltaTime;
-            TextIndicator.GetComponent<Text>().text = ((int)currentAmount).ToString() + "%";
+            TextIndicator.GetComponent<Text>().text = ((int)currentAmount).ToString();
             TextLoading.gameObject.SetActive(true);
         }
         else
