@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{A11F56D7-D7A1-FE3D-B391-5DF2A7C360DE}") = "ClonestoneMultiplayerNetworking", "Assembly-CSharp.csproj", "{946D884A-2A1C-A280-97D8-8E2F9B134B34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{946D884A-2A1C-A280-97D8-8E2F9B134B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{946D884A-2A1C-A280-97D8-8E2F9B134B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{946D884A-2A1C-A280-97D8-8E2F9B134B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{946D884A-2A1C-A280-97D8-8E2F9B134B34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
