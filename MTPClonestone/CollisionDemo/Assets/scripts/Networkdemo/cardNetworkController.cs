@@ -180,7 +180,7 @@ public class cardNetworkController : NetworkBehaviour
             cardNetworkController cnc = other.gameObject.GetComponent<cardNetworkController>();
 
             //eigener Karte die Angriffspunkte der Fremden Karte (abziehen lassen)
-            this.Health -= cnc.Health;
+            this.Health -= cnc.Attack;
 
             //Eigene Health über Server abgleichen
             TransmitHealthSync();            

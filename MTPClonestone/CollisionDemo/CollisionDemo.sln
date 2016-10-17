@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{4F8054BF-246C-02C3-08D5-602F1B450301}") = "CollisionDemo", "Assembly-CSharp.csproj", "{FC2D10E9-7A54-A4D7-4F38-C503FA47C268}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionDemo.CSharp", "CollisionDemo.CSharp.csproj", "{1E6AAC33-8572-D0C3-7404-09840D522895}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC2D10E9-7A54-A4D7-4F38-C503FA47C268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC2D10E9-7A54-A4D7-4F38-C503FA47C268}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC2D10E9-7A54-A4D7-4F38-C503FA47C268}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC2D10E9-7A54-A4D7-4F38-C503FA47C268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6AAC33-8572-D0C3-7404-09840D522895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6AAC33-8572-D0C3-7404-09840D522895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6AAC33-8572-D0C3-7404-09840D522895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6AAC33-8572-D0C3-7404-09840D522895}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

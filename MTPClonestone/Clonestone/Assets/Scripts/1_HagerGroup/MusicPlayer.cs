@@ -13,14 +13,18 @@ public class MusicPlayer : MonoBehaviour {
     float CurrentMusicTime;
     bool value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
 
-
+    void Start()
+    {
+        
+    }
 
     void Awake () {
 		if (instance != null && instance != this) {
 			Destroy (gameObject);
 			print ("Duplicate music player self-destructing!");
 		} else {
-			instance = this;
+            
+            instance = this;
 			GameObject.DontDestroyOnLoad(gameObject);
 			music = GetComponent<AudioSource>();
 			music.clip = menueClip;

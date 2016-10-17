@@ -257,6 +257,7 @@ ModelManifest.xml
 # =============== #
 Temp/
 Library/
+Collision_Data/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
