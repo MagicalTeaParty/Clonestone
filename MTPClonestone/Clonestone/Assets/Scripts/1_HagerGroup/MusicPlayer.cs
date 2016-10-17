@@ -11,7 +11,7 @@ public class MusicPlayer : MonoBehaviour {
 		
 	private AudioSource music;
     float CurrentMusicTime;
-    bool value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
+   
 
     void Start()
     {
@@ -49,21 +49,22 @@ public class MusicPlayer : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        bool value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
+        AudioListener.volume = value ? 1 : 0;
+
         int level = scene.buildIndex;
 
         Debug.Log("MusicPlayer: loaded level " + level);
         music.Stop();
         
         if(level == 7) //wenn es das gameboard ist
-        {
-            AudioListener.volume = value ? 1 : 0;
+        {            
             music.volume = PlayerPrefs.GetFloat("SliderValue");
             music.time = CurrentMusicTime;
             music.clip = gameClip;
         }
         else //alle anderen scenen
-        {
-            AudioListener.volume = value ? 1 : 0;
+        {            
             music.volume = PlayerPrefs.GetFloat("SliderValue");
             music.time = CurrentMusicTime;
             music.clip = menueClip;
