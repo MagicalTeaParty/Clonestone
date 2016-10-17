@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace ClonestoneMVC.Controllers
 {
-    public class UserController : Controller
+    public class TutorialController : Controller
     {
-        // GET: User
-        public ActionResult Profil()
-        {
-            return View();
-        }
-
-        public ActionResult Deckbuilder()
+        // GET: Tutorial
+        public ActionResult Index()
         {
             return View();
         }

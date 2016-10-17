@@ -117,7 +117,7 @@ public class Login : MonoBehaviour {
 
 
         //WICHTIG! Controller wird mit dem Controllernamen ohne *Controller angesprochen! 
-        string saveUrl = "http://localhost:53861/Administration/verifyLogin";
+        string saveUrl = "http://localhost:53861/Login/verifyLogin";
         WWWForm form = new WWWForm();
         //WICHTIG! Formfelder müssen ident zu den Übergabewerten der verifyLogin() Methode sein!
         form.AddField("email", email);

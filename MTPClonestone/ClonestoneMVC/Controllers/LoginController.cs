@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace ClonestoneMVC.Controllers
 {
-    public class AdministrationController : Controller
+    public class LoginController : Controller
     {
         [HttpGet]
         public string verifyLogin()

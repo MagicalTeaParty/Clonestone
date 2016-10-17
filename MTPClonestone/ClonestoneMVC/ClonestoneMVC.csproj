@@ -158,12 +158,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\AdministrationController.cs" />
-    <Compile Include="Controllers\EditorController.cs" />
-    <Compile Include="Controllers\GuestController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\PasswordForgottenController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\TutorialController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -278,16 +278,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Guest\Home.cshtml" />
-    <Content Include="Views\Guest\Gallery.cshtml" />
-    <Content Include="Views\Guest\News.cshtml" />
-    <Content Include="Views\Guest\Tutorial.cshtml" />
-    <Content Include="Views\User\Profil.cshtml" />
-    <Content Include="Views\User\Deckbuilder.cshtml" />
-    <Content Include="Views\Editor\EditNews.cshtml" />
-    <Content Include="Views\Editor\EditTutorial.cshtml" />
-    <Content Include="Views\Editor\EditGallery.cshtml" />
-    <Content Include="Views\Admin\AdminProfil.cshtml" />
+    <Content Include="Views\PasswordForgotten\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Registration\Index.cshtml" />
+    <Content Include="Views\Tutorial\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace ClonestoneMVC.Controllers
 {
-    public class AdminController : Controller
+    public class RegistrationController : Controller
     {
-        // GET: Admin
-        public ActionResult AdminProfil()
+        // GET: Registration
+        public ActionResult Index()
         {
             return View();
         }
