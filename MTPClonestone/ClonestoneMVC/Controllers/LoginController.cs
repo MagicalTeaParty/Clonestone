@@ -54,7 +54,8 @@ namespace ClonestoneMVC.Controllers
             return null;
         }
 
-        // GET: PasswordForgotten
+
+
         public ActionResult Login()
         {
             return View();
@@ -69,14 +70,19 @@ namespace ClonestoneMVC.Controllers
             {
                 using (ClonestoneEntities cont = new ClonestoneEntities())
                 {
+                    var login = (from t in cont.tbllogins
+                                 where email == t.email && hashpass == t.passcode
+                                 select t).FirstOrDefault();
 
-                    var gt = (from t in cont.tblpersons
-                              join s in cont.tbllogins
-                              on t.idperson equals s.idlogin
-                              where s.email == email && s.passcode == hashpass
-                              select new { Id = t.idperson, Gamertag = t.gamertag }).FirstOrDefault();
+                    int userRole = login.tblperson.tblroles.ToList()[0].idrole;
+                    int userId = login.tblperson.idperson;
+                    string gamertag = login.tblperson.gamertag;
 
-                    if (gt != null)
+                    System.Web.HttpContext.Current.Session["sessionUserrole"] = userRole;
+                    System.Web.HttpContext.Current.Session["sessionUserid"] = userId;
+                    System.Web.HttpContext.Current.Session["sessionGamertag"] = gamertag;
+
+                    if (login != null)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -99,6 +105,11 @@ namespace ClonestoneMVC.Controllers
 
         }
 
+        /// <summary>
+        /// Hashmethode die auch im Clienten verwendet wird.
+        /// </summary>
+        /// <param name="pass"></param>
+        /// <returns></returns>
         public static string getHashSha512(string pass)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(pass);
