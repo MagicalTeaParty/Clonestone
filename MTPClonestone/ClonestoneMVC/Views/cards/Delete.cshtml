@@ -1,0 +1,96 @@
+﻿@model ClonestoneMVC.Models.tblcard
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>tblcard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cardname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cardname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mana)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mana)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.life)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.life)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.attack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.attack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.flavor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.flavor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblability.ability)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblability.ability)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblclass.class)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblclass.class)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbltype.typename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbltype.typename)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
