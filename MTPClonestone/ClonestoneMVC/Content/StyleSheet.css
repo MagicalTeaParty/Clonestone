@@ -1,0 +1,151 @@
+﻿@font-face {
+    font-family: 'Xena';
+    src: url('../fonts/Xena.ttf') format('truetype');
+}
+* {
+    font-family: Xena;
+
+}
+
+body {
+    font-size: 100%;
+    margin: 0em;
+    padding: 0em;
+    /*em ist eine  relative Angabe bezogen, an dieser Stelle müssen
+        wir später nur die Schriftgrösse anpassen (100%--16px)MERKEN
+        STELLSCHRAUBE für alles!!!!*/
+    background-image: url('../img/background_1920.png');
+    background-repeat:no-repeat;
+    background-position:top;
+    background-attachment:fixed;
+}
+         #Deckel {
+        z-index: 8;
+        background-image: url('../img/foo2.png');
+        background-position: center;
+        height: 5.5em;
+}
+        #Rundherum {
+            z-index:1;    
+        }
+        #cardhand {
+            margin: 0 auto;
+            width:48em;    
+        }
+.embed-responsive {
+        float: left;
+        background-image: url('../img/th.png');
+        width: 16em;
+        height: 20em;
+        position: relative;
+}
+.embed-responsive:hover {
+        z-index:3;
+        box-shadow: white 0.3em 0.3em inset;
+        border-radius: 8px;
+        }
+#rechts #rechts2 #links #links2 {
+        transform-origin:50% 50%;
+        -moz-transform-origin: 50% 50%;
+        -ms-transform-origin: 50% 50%;
+        -o-transform-origin: 50% 50%;
+         -webkit-transform-origin: 50% 50%;
+         transform-origin: 50% 50%;
+         overflow:hidden;
+        }
+#links2 {
+        margin-top: 3.6em;
+        margin-right:-8em;
+        -moz-transform:rotate(-30deg);
+        -webkit-transform:rotate(-30deg);
+        -o-transform:rotate(-30deg);
+        -ms-transform:rotate(-30deg);
+        transform:rotate(-30deg);
+        }
+#links {
+        margin-top: 0.8em;
+        margin-right:-8em;
+        -moz-transform:rotate(-15deg);
+        -webkit-transform:rotate(-15deg);
+        -o-transform:rotate(-15deg);
+        -ms-transform:rotate(-15deg);
+        transform:rotate(-15deg);
+        }
+#rechts{
+        margin-top: 0.8em;
+        margin-left:-8em;
+        -moz-transform:rotate(15deg);
+        -webkit-transform:rotate(15deg);
+        -o-transform:rotate(15deg);
+        -ms-transform:rotate(15deg);
+        transform:rotate(15deg);
+        }
+#rechts2 {
+        margin-top: 3.6em;
+        margin-left:-8em;
+        -moz-transform:rotate(60deg);
+        -webkit-transform:rotate(60deg);
+        -o-transform:rotate(60deg);
+        -ms-transform:rotate(60deg);
+         transform:rotate(30deg);
+        }
+/*#Kostenlos:hover {
+        border:grey groove;
+        }*/
+/*#Mitte {
+        padding-top:14em;
+        padding-bottom:2em;*/
+}
+.container-fluid {
+    background-color:mediumturquoise;
+}
+.navbar {
+    background-image: url('../img/Head.png');
+}
+#logo {
+    padding-top: 200px;
+}
+
+.cardhand_text {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 2em;
+    text-shadow:  1px  1px 2px black,
+                  1px -1px 2px black,
+                 -1px  1px 2px black,
+                 -1px -1px 2px black;
+}
+a, a:hover {
+    color: white;
+    text-decoration:none;    
+}
+
+.navbar-brand {
+    font-size: 25px;
+    margin-top: 15px;
+}
+
+li {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.footer-nav {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.jumbotext {
+    
+}
+
+.jumbotron {
+    margin-top: 60px;
+    background-image: url('../../img/paper background.png')
+}
+
+
+
+
+

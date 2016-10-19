@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Clonestone</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" />
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,27 +22,97 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Clonestone", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav" style="float:right">
+
+                    <li>@Html.ActionLink("Login", "Login", "Login")</li>
+                    <li>@Html.ActionLink("Gallery", "Gallery", "Gallery")</li>
+                    <li>@Html.ActionLink("Registration", "Registration", "Registration")</li>
+                    <li>@Html.ActionLink("News", "News", "News")</li>
+                    <li>@Html.ActionLink("Tutorial", "Tutorial", "Tutorial")</li>
+
+                    <!-- Abfrage userrole ob ADMIN! -->
+                    @if (Convert.ToString(Session["sessionUserrole"]) == "2")
+                    {
+                        <li>@Html.ActionLink("User-Administration", "Users", "Admin")</li>
+                    }
+
+                    <!--Abfrage userrole ob EDITOR!-->
+                    @if (Convert.ToString(Session["sessionUserrole"]) == "3")
+                    {
+                        <li>@Html.ActionLink("Insert News/Tutorial", "News-Tutorial", "Editor")</li>
+                    }
+
+                    <!--Anzeige Gamertag und Link auf Profile-->
+                    @if (Session["sessionGamertag"] != null)
+                    {
+                        <li>@Html.ActionLink(Convert.ToString(Session["sessionGamertag"]), "Profile", "User")</li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />*@
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <div class="navbar-fixed-bottom visible-lg visible-md visible-sm" id="Rundherum">
+                <div class="row" id="cardhand">
+
+
+                    <div class="embed-responsive" id="links2">
+                        <div class="cardhand_text">
+                            @Html.ActionLink("Gallery", "Image", "Home")
+                        </div>
+                    </div>
+                    <div class="embed-responsive" id="links">
+                        <div class="cardhand_text">
+                            @Html.ActionLink("News", "Image", "Home")
+                        </div>
+                    </div>
+                    <div class="embed-responsive" id="mitte">
+                        <div class="cardhand_text">
+                            @Html.ActionLink("Download", "Image", "Home")
+                        </div>
+                    </div>
+                    <div class="embed-responsive" id="rechts">
+                        <div class="cardhand_text">
+                            @Html.ActionLink("Tutorial", "Image", "Home")
+                        </div>
+                    </div>
+                    <div class="embed-responsive" id="rechts2">
+                        <div class="cardhand_text">
+                            <!-- Abfrage ob User Eingelogged ist, wenn nicht Umleitung zum Login!-->
+                            @if (Session["sessionGamertag"] != null)
+                            {
+                                @Html.ActionLink("Profile", "View", "Controller")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Profile", "Login", "Login")
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-fixed-bottom center visible-lg visible-md visible-sm" id="Deckel">
+                    <div class="navbar-collapse collapse">
+                        <div class="footer-nav">
+                            @Html.ActionLink("AGB", "View", "Controller") |
+                            @Html.ActionLink("Imprint", "View", "Controller")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>
