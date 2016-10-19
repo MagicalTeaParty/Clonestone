@@ -145,6 +145,16 @@ li {
     background-image: url('../../img/paper background.png')
 }
 
+.control-label {
+    font-family:Arial !important;
+    font-size: 18px;
+    line-height: 20px;
+}
+.btn {
+    font-family:Arial !important;
+    font-size: 18px;
+}
+
 
 
 
