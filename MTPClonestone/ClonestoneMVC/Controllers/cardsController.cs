@@ -17,7 +17,8 @@ namespace ClonestoneMVC.Controllers
         // GET: cards
         public ActionResult Index()
         {
-            var tblcards = db.tblcards.Include(t => t.tblability).Include(t => t.tblclass).Include(t => t.tbltype);
+            //.Include(t => t.tblability).Include(t => t.tblclass).Include(t => t.tbltype)
+            var tblcards = db.tblcards.Take(15);
             return View(tblcards.ToList());
         }
 

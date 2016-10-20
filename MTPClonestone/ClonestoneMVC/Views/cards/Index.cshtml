@@ -4,11 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<!--<div class="jumbotron">
-    <h2>Index</h2>
+<div id="gallery">  
 
-<table class="table">
-    <tr>
+
+    @*<tr>
         <th>
             @Html.DisplayNameFor(model => model.cardname)
         </th>
@@ -37,9 +36,9 @@
             @Html.DisplayNameFor(model => model.tbltype.typename)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
     
-
+    @*
     @for (int i = 0; i < 10; i++)
     {
         <tr>
@@ -58,18 +57,18 @@
             <td>
                 @Html.DisplayFor(modelItem => Model.ElementAt(i).flavor)
             </td>
-            
+
             <td>
-               @{ 
+               @{
                    string img64 = Convert.ToBase64String(Model.ElementAt(i).pic);
                    string img64url = string.Format("data:image;img64,{0}", img64);
                    <img src="@img64url" />
-                
-                   
+
+
                    }
-                
+
             </td>
-                        
+
             <td>
                 @Html.DisplayFor(modelItem => Model.ElementAt(i).pic)
             </td>
@@ -81,49 +80,104 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.ElementAt(i).tbltype.typename)
-            </td>            
+            </td>
         </tr>
-    }
+    }*@
 
-    @*
+    
     @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.cardname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.mana)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.life)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.attack)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.flavor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.pic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblability.ability)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tblclass.@class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tbltype.typename)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.idcard }) |
-                @Html.ActionLink("Details", "Details", new { id=item.idcard }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.idcard })
-            </td>
-        </tr>    
+       <div class="row col-md-4">
+           <div class="col-md-8 vcenter" style="margin-top:25px">
+               <div class="container">
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.cardname)
+                       @Html.DisplayFor(modelItem => item.cardname)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.mana)
+                       @Html.DisplayFor(modelItem => item.mana)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.life)
+                       @Html.DisplayFor(modelItem => item.life)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.attack)
+                       @Html.DisplayFor(modelItem => item.attack)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.flavor)
+                       @Html.DisplayFor(modelItem => item.flavor)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.tblability.ability)
+                       @Html.DisplayFor(modelItem => item.tblability.ability)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.tblclass.@class)
+                       @Html.DisplayFor(modelItem => item.tblclass.@class)
+                   </div>
+                   <div class="row">
+                       @Html.DisplayNameFor(model => model.tbltype.typename)
+                       @Html.DisplayFor(modelItem => item.tbltype.typename)
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4">
+               @{
+                   var base64 = Convert.ToBase64String(item.pic);
+                   var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+               }
+               <img src="@imgSrc" width="100" height="150" />
+           </div>
+       </div>
+
 }
-        *@
-</table>
-    </div> -->
+        
 
+    </div> 
 
+@*<tr>
+    <td>
+        @Html.DisplayNameFor(model => model.cardname)
+        @Html.DisplayFor(modelItem => item.cardname)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.mana)
+        @Html.DisplayFor(modelItem => item.mana)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.life)
+        @Html.DisplayFor(modelItem => item.life)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.attack)
+        @Html.DisplayFor(modelItem => item.attack)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.flavor)
+        @Html.DisplayFor(modelItem => item.flavor)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.tblability.ability)
+        @Html.DisplayFor(modelItem => item.tblability.ability)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.tblclass.@class)
+        @Html.DisplayFor(modelItem => item.tblclass.@class)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.tbltype.typename)
+        @Html.DisplayFor(modelItem => item.tbltype.typename)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.pic)
+        @{
+            var base64 = Convert.ToBase64String(item.pic);
+            var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+        }
+
+        <img src="@imgSrc" width="100" height="150" />
+    </td>
+</tr>*@
+    

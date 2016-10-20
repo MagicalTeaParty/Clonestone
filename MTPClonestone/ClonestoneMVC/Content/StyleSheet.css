@@ -26,7 +26,8 @@ body {
         height: 5.5em;
 }
         #Rundherum {
-            z-index:1;    
+            z-index:1;
+                
         }
         #cardhand {
             margin: 0 auto;
@@ -155,6 +156,18 @@ li {
     font-size: 18px;
 }
 
+#gallery{
+    margin-top: 100px !important;
+    color:white;   
+
+}
+
+.vcenter{
+    display: inline-block;
+    vertical-align:middle;
+    float:none;
+    margin-top:15px
+}
 
 
 
