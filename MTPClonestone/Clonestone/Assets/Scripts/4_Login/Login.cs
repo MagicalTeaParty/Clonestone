@@ -90,8 +90,9 @@ public class Login : MonoBehaviour {
             {
                 writer.WriteLine(email.text + " " + password.text);
             }
+
             // TEST TEST TEST
-            Debug.Log("StayIn : " + stayIn.isOn);
+            //Debug.Log("StayIn : " + stayIn.isOn);
         }
 
         /// TODO - BESCHREIBEN der StartCoroutine()
@@ -115,9 +116,10 @@ public class Login : MonoBehaviour {
         //Debug.Log("Email: " + email + "Passw: " + pass);
         //Debug.Log("Hash: " + hashpass);
 
+        //http://localhost:53861/Login/verifyLogin
 
         //WICHTIG! Controller wird mit dem Controllernamen ohne *Controller angesprochen! 
-        string saveUrl = "http://localhost:53861/Login/verifyLogin";
+        string saveUrl = "http://mtp.a-k-t.at/clonestone/Login/verifyLogin";
         WWWForm form = new WWWForm();
         //WICHTIG! Formfelder müssen ident zu den Übergabewerten der verifyLogin() Methode sein!
         form.AddField("email", email);
@@ -166,15 +168,6 @@ public class Login : MonoBehaviour {
 
         Verify(www);
 
-        
-
-
-    }
-
-    public void test()
-    {
-      
-
     }
 
     /// <summary>
@@ -183,8 +176,7 @@ public class Login : MonoBehaviour {
     /// </summary>
     /// <param name="www"></param>
     public void Verify(WWW www)
-    { 
-       
+    {      
         if (www.text != "")
         {
             SceneManager.LoadScene(4);

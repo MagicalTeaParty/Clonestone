@@ -183,6 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClonestoneModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserRegistration.cs" />
     <Compile Include="Models\spGetMana5_Result.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>
@@ -234,6 +235,17 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="img\background_1920.png" />
+    <Content Include="img\Button.png" />
+    <Content Include="img\Button_hp.png" />
+    <Content Include="img\CS_Logo - Kopie.png" />
+    <Content Include="img\CS_Logo.png" />
+    <Content Include="img\foo.png" />
+    <Content Include="img\foo2.png" />
+    <Content Include="img\footer3.png" />
+    <Content Include="img\Head.png" />
+    <Content Include="img\paper_background.png" />
+    <Content Include="img\th.png" />
     <Content Include="Models\ClonestoneModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ClonestoneModel.edmx</DependentUpon>

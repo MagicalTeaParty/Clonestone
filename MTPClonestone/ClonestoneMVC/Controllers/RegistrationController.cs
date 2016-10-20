@@ -41,7 +41,7 @@ namespace ClonestoneMVC.Controllers
         //    ViewBag.idperson = new SelectList(db.tbllogins, "idlogin", "email", tblperson.idperson);
         //    return View(tblperson);
         //}
-
+        
 
         public ActionResult Create()
         {
@@ -49,9 +49,9 @@ namespace ClonestoneMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string firstname, string lastname, string gamertag, string email, string passcode)
+        public ActionResult Create(UserRegistration user)
         {
-            string hashpass = getHashSha512(passcode);
+            string hashpass = getHashSha512(user.Password);
 
             try
             {
@@ -60,15 +60,21 @@ namespace ClonestoneMVC.Controllers
                     tblperson insert = new tblperson();
                     tbllogin ins = new tbllogin();
 
-                    insert.firstname = firstname;
-                    insert.lastname = lastname;
-                    insert.gamertag = gamertag;
-                    ins.email = email;
+                    insert.firstname = user.Firstname;
+                    insert.lastname = user.Lastname;
+                    insert.gamertag = user.Gamertag;
+                    ins.email = user.Email;
                     ins.passcode = hashpass;
 
                     cont.tblpersons.Add(insert);
                     cont.tbllogins.Add(ins);
                     cont.SaveChanges();
+
+                    var role = (from t in cont.tblpersons
+                                where t.gamertag == user.Gamertag
+                                select t.idperson).FirstOrDefault();
+
+                    
 
 
 
