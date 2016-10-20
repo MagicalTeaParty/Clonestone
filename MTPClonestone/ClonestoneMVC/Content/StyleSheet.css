@@ -141,8 +141,8 @@ li {
 }
 
 .jumbotron {
-    margin-top: 60px;
-    background-image: url('../../img/paper background.png')
+    margin-top: 100px !important;
+    background-image: url('../../img/paper_background.png')
 }
 
 .control-label {

@@ -288,10 +288,6 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Tutorial\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\cards\Create.cshtml" />
-    <Content Include="Views\cards\Delete.cshtml" />
-    <Content Include="Views\cards\Details.cshtml" />
-    <Content Include="Views\cards\Edit.cshtml" />
     <Content Include="Views\cards\Index.cshtml" />
     <Content Include="Views\Registration\Create.cshtml" />
   </ItemGroup>
