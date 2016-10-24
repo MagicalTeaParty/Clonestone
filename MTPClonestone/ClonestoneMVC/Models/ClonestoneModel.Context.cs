@@ -44,5 +44,30 @@ namespace ClonestoneMVC.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetMana5_Result>("spGetMana5");
         }
+    
+        public virtual int pInsertUser(string fname, string lname, string gtag, string email, string passcode)
+        {
+            var fnameParameter = fname != null ?
+                new ObjectParameter("fname", fname) :
+                new ObjectParameter("fname", typeof(string));
+    
+            var lnameParameter = lname != null ?
+                new ObjectParameter("lname", lname) :
+                new ObjectParameter("lname", typeof(string));
+    
+            var gtagParameter = gtag != null ?
+                new ObjectParameter("gtag", gtag) :
+                new ObjectParameter("gtag", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passcodeParameter = passcode != null ?
+                new ObjectParameter("passcode", passcode) :
+                new ObjectParameter("passcode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pInsertUser", fnameParameter, lnameParameter, gtagParameter, emailParameter, passcodeParameter);
+        }
     }
 }

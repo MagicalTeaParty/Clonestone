@@ -183,7 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClonestoneModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserRegistration.cs" />
+    <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\spGetMana5_Result.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
     </Compile>

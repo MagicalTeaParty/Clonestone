@@ -276,6 +276,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="pInsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fname" Type="varchar" Mode="In" />
+          <Parameter Name="lname" Type="varchar" Mode="In" />
+          <Parameter Name="gtag" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="passcode" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="itin21_ClonestoneFSModelStoreContainer">
           <EntitySet Name="tblability" EntityType="Self.tblability" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblcard" EntityType="Self.tblcard" Schema="dbo" store:Type="Tables" />
@@ -676,6 +683,13 @@
             <End Role="tblrole" EntitySet="tblroles" />
           </AssociationSet>
           <FunctionImport Name="spGetMana5" ReturnType="Collection(itin21_ClonestoneFSModel.spGetMana5_Result)" />
+          <FunctionImport Name="pInsertUser">
+            <Parameter Name="fname" Mode="In" Type="String" />
+            <Parameter Name="lname" Mode="In" Type="String" />
+            <Parameter Name="gtag" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="passcode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetMana5_Result">
           <Property Type="Int32" Name="idcard" Nullable="false" />
@@ -822,6 +836,7 @@
               <ScalarProperty Name="idrole" ColumnName="fkrole" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="pInsertUser" FunctionName="itin21_ClonestoneFSModel.Store.pInsertUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -836,7 +851,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

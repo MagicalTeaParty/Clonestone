@@ -24,7 +24,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.passcode, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-7">
-                    @Html.EditorFor(model => model.passcode, new { htmlAttributes = new { @class = "form-control" } })
+                    <input id="passcode" name="passcode" type="password" class="form-control">
                     @Html.ValidationMessageFor(model => model.passcode, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -38,6 +38,6 @@
     }
 
     <div>
-        @Html.ActionLink("Home", "Index", "Home")
+        <h4>@Html.ActionLink("Home", "Index", "Home")</h4>
     </div>
 </div>

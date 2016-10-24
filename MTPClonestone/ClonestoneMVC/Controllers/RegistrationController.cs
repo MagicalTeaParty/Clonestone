@@ -14,71 +14,52 @@ namespace ClonestoneMVC.Controllers
 {
     public class RegistrationController : Controller
     {
-        //private ClonestoneEntities db = new ClonestoneEntities();
-
-
-        //// GET: Registration/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.idperson = new SelectList(db.tbllogins, "idlogin", "email");
-        //    return View();
-        //}
-
-        //// POST: Registration/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "idperson,firstname,lastname,gamertag")] tblperson tblperson)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.tblpersons.Add(tblperson);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.idperson = new SelectList(db.tbllogins, "idlogin", "email", tblperson.idperson);
-        //    return View(tblperson);
-        //}
-        
-
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(UserRegistration user)
+        public ActionResult Create(UserData user)
         {
+
             string hashpass = getHashSha512(user.Password);
 
             try
             {
                 using (ClonestoneEntities cont = new ClonestoneEntities())
                 {
-                    tblperson insert = new tblperson();
-                    tbllogin ins = new tbllogin();
+                    // Variante via Stored Procedure
 
-                    insert.firstname = user.Firstname;
-                    insert.lastname = user.Lastname;
-                    insert.gamertag = user.Gamertag;
-                    ins.email = user.Email;
-                    ins.passcode = hashpass;
-
-                    cont.tblpersons.Add(insert);
-                    cont.tbllogins.Add(ins);
-                    cont.SaveChanges();
-
-                    var role = (from t in cont.tblpersons
-                                where t.gamertag == user.Gamertag
-                                select t.idperson).FirstOrDefault();
-
+                    int manipulierteDatensaetze = cont.pInsertUser(user.Firstname, user.Lastname, user.Gamertag, user.Email, hashpass);
                     
+                    // Variante entity Framework
 
+                    //tbllogin login = new tbllogin();
+                    //tblrole rolle;
+                    //tblperson person = new tblperson();
 
+                    //login.email = user.Email;
+                    //login.passcode = hashpass;
 
-                    if (true)
+                    //person.firstname = user.Firstname;
+                    //person.lastname = user.Lastname;
+                    //person.gamertag = user.Gamertag;
+
+                    //rolle = (from x in cont.tblroles
+                    //         where x.idrole == 1
+                    //         select x).FirstOrDefault();
+
+                    //person.tbllogin = login;
+
+                    //person.tblroles.Add(rolle);
+
+                    //cont.tblpersons.Add(person);
+                    //cont.tbllogins.Add(login);
+
+                    //cont.SaveChanges();
+
+                    if (manipulierteDatensaetze>0)
                     {
                         return RedirectToAction("Index", "Home");
                     }
@@ -97,6 +78,7 @@ namespace ClonestoneMVC.Controllers
 
             //Ergebnis zurückschicken
             //return "email or password WRONG!";
+            //FEHLER
             return null;
 
         }
