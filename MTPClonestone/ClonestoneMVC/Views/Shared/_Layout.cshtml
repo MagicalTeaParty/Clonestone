@@ -57,8 +57,13 @@
     <div class="container body-content">
         @RenderBody()
         @*<hr />*@
-        <footer >
-            <div class="navbar-fixed-bottom visible-lg visible-md visible-sm" id="Rundherum">
+        <footer>
+            @*Konditionelle Formatierung*@
+            @{
+                string style = @ViewBag.position == "Home" ? "height:22em" : null;
+            }
+            <div class="navbar-fixed-bottom visible-lg visible-md visible-sm" id="Rundherum" style="@style">
+
                 <div class="row" id="cardhand">
 
 
@@ -110,7 +115,7 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")   
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 

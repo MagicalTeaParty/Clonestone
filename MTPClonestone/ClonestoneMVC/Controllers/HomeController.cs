@@ -11,6 +11,7 @@ namespace ClonestoneMVC.Controllers
     {
         public ActionResult Index()
         {
+                ViewBag.position = "Home";
                 return View();
         }
 

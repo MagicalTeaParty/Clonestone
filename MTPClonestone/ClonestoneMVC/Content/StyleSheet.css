@@ -27,23 +27,30 @@ body {
 }
         #Rundherum {
             z-index:1;
+            height:14em;
                 
         }
+#Rundherum:hover {
+          height:22em;
+          transition: all 0.3s ease-in;
+         }
         #cardhand {
             margin: 0 auto;
-            width:48em;    
+            width:48em;
+            margin-bottom:-20em;    
         }
 .embed-responsive {
         float: left;
         background-image: url('../img/th.png');
         width: 16em;
-        height: 20em;
+        height: 18em;
         position: relative;
 }
 .embed-responsive:hover {
         z-index:3;
         box-shadow: white 0.3em 0.3em inset;
         border-radius: 8px;
+       
         }
 #rechts #rechts2 #links #links2 {
         transform-origin:50% 50%;
