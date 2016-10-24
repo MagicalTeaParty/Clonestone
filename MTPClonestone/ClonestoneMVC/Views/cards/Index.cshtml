@@ -4,180 +4,86 @@
     ViewBag.Title = "Index";
 }
 
-<div id="gallery">  
+<div id="gallery">
 
 
-    @*<tr>
-        <th>
-            @Html.DisplayNameFor(model => model.cardname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mana)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.life)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.attack)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.flavor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.pic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblability.ability)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tblclass.@class)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tbltype.typename)
-        </th>
-        <th></th>
-    </tr>*@
-    
-    @*
-    @for (int i = 0; i < 10; i++)
+
+    @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).cardname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).mana)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).life)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).attack)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).flavor)
-            </td>
+        <div class="row col-md-4">
+            <div class="col-md-8 vcenter" style="margin-top:25px">
+                <div class="container">
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.cardname)
+                        @Html.DisplayFor(modelItem => item.cardname)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.mana)
+                        @Html.DisplayFor(modelItem => item.mana)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.life)
+                        @Html.DisplayFor(modelItem => item.life)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.attack)
+                        @Html.DisplayFor(modelItem => item.attack)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.flavor)
+                        @Html.DisplayFor(modelItem => item.flavor)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.tblability.ability)
+                        @Html.DisplayFor(modelItem => item.tblability.ability)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.tblclass.@class)
+                        @Html.DisplayFor(modelItem => item.tblclass.@class)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(model => model.tbltype.typename)
+                        @Html.DisplayFor(modelItem => item.tbltype.typename)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                @{
+                    var base64 = Convert.ToBase64String(item.pic);
+                    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                }
+                <img src="@imgSrc" width="100" height="150" />
+            </div>
+        </div>
+                    }
+</div>
+@{
+    int startpositionB = ViewBag.start - 9;
+    int startpositionN = ViewBag.start + 9;
 
-            <td>
-               @{
-                   string img64 = Convert.ToBase64String(Model.ElementAt(i).pic);
-                   string img64url = string.Format("data:image;img64,{0}", img64);
-                   <img src="@img64url" />
+    if (ViewBag.start < 9)
+    {
+        <a href="~/cards/index/?start=@startpositionB" style="visibility:hidden">zurück</a>
+    }
+    else
+    {
+        <a href="~/cards/index/?start=@startpositionB">zurück</a>
+    }
 
+    if (ViewBag.start > ViewBag.len - 8)
+    {
+        <a href="~/cards/index/?start=@startpositionN" style="visibility:hidden" >vor</a>
 
-                   }
-
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).pic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).tblability.ability)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).tblclass.@class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.ElementAt(i).tbltype.typename)
-            </td>
-        </tr>
-    }*@
-
-    
-    @foreach (var item in Model) {
-       <div class="row col-md-4">
-           <div class="col-md-8 vcenter" style="margin-top:25px">
-               <div class="container">
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.cardname)
-                       @Html.DisplayFor(modelItem => item.cardname)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.mana)
-                       @Html.DisplayFor(modelItem => item.mana)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.life)
-                       @Html.DisplayFor(modelItem => item.life)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.attack)
-                       @Html.DisplayFor(modelItem => item.attack)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.flavor)
-                       @Html.DisplayFor(modelItem => item.flavor)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.tblability.ability)
-                       @Html.DisplayFor(modelItem => item.tblability.ability)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.tblclass.@class)
-                       @Html.DisplayFor(modelItem => item.tblclass.@class)
-                   </div>
-                   <div class="row">
-                       @Html.DisplayNameFor(model => model.tbltype.typename)
-                       @Html.DisplayFor(modelItem => item.tbltype.typename)
-                   </div>
-               </div>
-           </div>
-           <div class="col-md-4">
-               @{
-                   var base64 = Convert.ToBase64String(item.pic);
-                   var imgSrc = String.Format("data:image/png;base64,{0}", base64);
-               }
-               <img src="@imgSrc" width="100" height="150" />
-           </div>
-       </div>
+    }
+    else
+    {
+        <a href="~/cards/index/?start=@startpositionN" >vor</a>
+    }
 
 }
-        
 
-    </div> 
 
-@*<tr>
-    <td>
-        @Html.DisplayNameFor(model => model.cardname)
-        @Html.DisplayFor(modelItem => item.cardname)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.mana)
-        @Html.DisplayFor(modelItem => item.mana)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.life)
-        @Html.DisplayFor(modelItem => item.life)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.attack)
-        @Html.DisplayFor(modelItem => item.attack)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.flavor)
-        @Html.DisplayFor(modelItem => item.flavor)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.tblability.ability)
-        @Html.DisplayFor(modelItem => item.tblability.ability)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.tblclass.@class)
-        @Html.DisplayFor(modelItem => item.tblclass.@class)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.tbltype.typename)
-        @Html.DisplayFor(modelItem => item.tbltype.typename)
-    </td>
-    <td>
-        @Html.DisplayNameFor(model => model.pic)
-        @{
-            var base64 = Convert.ToBase64String(item.pic);
-            var imgSrc = String.Format("data:image/png;base64,{0}", base64);
-        }
 
-        <img src="@imgSrc" width="100" height="150" />
-    </td>
-</tr>*@
-    
+
+
+
