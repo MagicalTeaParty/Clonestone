@@ -11,38 +11,38 @@
     @foreach (var item in Model)
     {
         <div class="row col-md-4 col-sm-6" style="margin-top:37px">
-            <div class="col-md-8 vcenter" style="margin-top:25px">
-                <div class="container">
+            <div class="col-md-8 vcenter" style="margin-top:26px">
+                <div class="container" style="font-size:12px">
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.cardname)
+                        @*@Html.DisplayNameFor(model => model.cardname)*@
                         @Html.DisplayFor(modelItem => item.cardname)
                     </div>
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.mana)
+                        @Html.DisplayNameFor(model => model.mana):
                         @Html.DisplayFor(modelItem => item.mana)
                     </div>
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.life)
+                        @Html.DisplayNameFor(model => model.life):
                         @Html.DisplayFor(modelItem => item.life)
                     </div>
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.attack)
+                        @Html.DisplayNameFor(model => model.attack):
                         @Html.DisplayFor(modelItem => item.attack)
                     </div>
-                    <div class="row">
+                    @*<div class="row">
                         @Html.DisplayNameFor(model => model.flavor)
                         @Html.DisplayFor(modelItem => item.flavor)
                     </div>
                     <div class="row">
                         @Html.DisplayNameFor(model => model.tblability.ability)
                         @Html.DisplayFor(modelItem => item.tblability.ability)
-                    </div>
+                    </div>*@
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.tblclass.@class)
+                        @Html.DisplayNameFor(model => model.tblclass.@class):
                         @Html.DisplayFor(modelItem => item.tblclass.@class)
                     </div>
                     <div class="row">
-                        @Html.DisplayNameFor(model => model.tbltype.typename)
+                        @Html.DisplayNameFor(model => model.tbltype.typename):
                         @Html.DisplayFor(modelItem => item.tbltype.typename)
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     var base64 = Convert.ToBase64String(item.pic);
                     var imgSrc = String.Format("data:image/png;base64,{0}", base64);
                 }
-                <img class="galleryImg" src="@imgSrc" width="100" height="150"/>
+                <img class="galleryImg img-responsive" src="@imgSrc"/>
             </div>
         </div>
                     }
