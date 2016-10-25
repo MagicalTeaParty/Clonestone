@@ -1,7 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3_CameraDemo.CSharp", "3_CameraDemo.CSharp.csproj", "{2462404B-64DE-2EBC-75E6-137E6D4DE330}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{70DB3BEE-A337-E986-4163-2226B6094823}") = "3_CameraDemo", "Assembly-CSharp.csproj", "{5519D36F-7C50-42AE-5600-35FA40142B14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2462404B-64DE-2EBC-75E6-137E6D4DE330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2462404B-64DE-2EBC-75E6-137E6D4DE330}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2462404B-64DE-2EBC-75E6-137E6D4DE330}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2462404B-64DE-2EBC-75E6-137E6D4DE330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5519D36F-7C50-42AE-5600-35FA40142B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5519D36F-7C50-42AE-5600-35FA40142B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5519D36F-7C50-42AE-5600-35FA40142B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5519D36F-7C50-42AE-5600-35FA40142B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
