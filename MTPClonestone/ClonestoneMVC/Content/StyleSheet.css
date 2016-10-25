@@ -8,36 +8,35 @@
 }
 
 body {
-    font-size: 100%;
-    margin: 0em;
-    padding: 0em;
-    /*em ist eine  relative Angabe bezogen, an dieser Stelle müssen
-        wir später nur die Schriftgrösse anpassen (100%--16px)MERKEN
-        STELLSCHRAUBE für alles!!!!*/
-    background-image: url('../img/background_1920.png');
-    background-repeat:no-repeat;
-    background-position:top;
-    background-attachment:fixed;
+        font-size: 100%;
+        margin: 0em;
+        padding: 0em;
+        /*em ist eine  relative Angabe bezogen, an dieser Stelle müssen
+            wir später nur die Schriftgrösse anpassen (100%--16px)MERKEN
+            STELLSCHRAUBE für alles!!!!*/
+        background-image: url('../img/background_1920.png');
+        background-repeat:no-repeat;
+        background-position:top;
+        background-attachment:fixed;
 }
-         #Deckel {
+#Deckel {
         z-index: 8;
         background-image: url('../img/foo2.png');
         background-position: center;
         height: 5.5em;
-}
-        #Rundherum {
-            z-index:1;
-            height:14em;
-                
+        }
+#Rundherum {
+        z-index:1;
+        height:14em;   
         }
 #Rundherum:hover {
-          height:22em;
-          transition: all 0.3s ease-in;
-         }
-        #cardhand {
-            margin: 0 auto;
-            width:48em;
-            margin-bottom:-20em;    
+        height:22em;
+        transition: all 0.3s ease-in;
+        }
+#cardhand {
+        margin: 0 auto;
+        width:48em;
+        margin-bottom:-20em;    
         }
 .embed-responsive {
         float: left;
@@ -45,12 +44,15 @@ body {
         width: 16em;
         height: 18em;
         position: relative;
-}
-.embed-responsive:hover {
-        z-index:3;
+        }
+.embed-responsive:hover
+          {
+        z-index:7;
         box-shadow: white 0.3em 0.3em inset;
         border-radius: 8px;
-       
+        transform:scale(1.2);
+        transition: all 0.3s ease-in;
+
         }
 #rechts #rechts2 #links #links2 {
         transform-origin:50% 50%;
@@ -61,6 +63,7 @@ body {
          transform-origin: 50% 50%;
          overflow:hidden;
         }
+
 #links2 {
         margin-top: 3.6em;
         margin-right:-8em;
@@ -70,7 +73,7 @@ body {
         -ms-transform:rotate(-30deg);
         transform:rotate(-30deg);
         }
-#links {
+#links  {
         margin-top: 0.8em;
         margin-right:-8em;
         -moz-transform:rotate(-15deg);
