@@ -185,5 +185,17 @@ li {
 }
 
 
+.galleryImg{
+    position:relative;
+    width:100px;
+    height:150px
+}
+
+.galleryImg:hover{
+    position:relative;
+    transform: scale(2);
+    z-index:400
+}
+
 
 
