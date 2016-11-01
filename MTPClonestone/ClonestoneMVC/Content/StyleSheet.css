@@ -1,11 +1,11 @@
 ﻿@font-face {
-    font-family: 'Xena';
-    src: url('../fonts/Xena.ttf') format('truetype');
-}
+         font-family: 'Xena';
+         src: url('../fonts/Xena.ttf') format('truetype');
+        }
 * {
-    font-family: Xena;
-    }   
-body {
+         font-family: Xena;
+        }   
+body    {
         font-size: 100%;
         margin: 0em;
         padding: 0em;
@@ -97,33 +97,34 @@ body {
          transform:rotate(30deg);
         }
 .container-fluid {
-    background-color:mediumturquoise;
-}
+        background-color:mediumturquoise;
+        }
 .navbar {
-    background-image: url('../img/Head.png');
-}
+        background-image: url('../img/Head.png');
+        }
 #logo {
-    padding-top: 200px;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-}
+        padding-top: 200px;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        }
 #logo:hover {
-    -webkit-transform: scale(1.01);
-    transform: scale(1.01);
-    transition:ease-in-out all 0.7s;
-}
+        -webkit-transform: scale(1.01);
+        transform: scale(1.01);
+         transition:ease-in-out all 0.7s;
+        }
 .cardhand_text {
-    text-align: center;
-    padding-top: 40px;
-    font-size: 2em;
-    text-shadow:  1px  1px 2px black,
+        text-align: center;
+        padding-top: 2em;
+        font-size: 2em;
+        text-shadow:  1px  1px 2px black,
                   1px -1px 2px black,
                  -1px  1px 2px black,
                  -1px -1px 2px black;
 }
 a, a:hover {
-    color: white;
-    text-decoration:none;    
+        color: white;
+        text-decoration:none; 
+       
 }
 .navbar-brand {
     font-size: 25px;
@@ -144,7 +145,6 @@ li {
     margin-top: 100px !important;
     background-image: url('../../img/paper_background.png')
 }
-
 .control-label {
     font-family:Arial !important;
     font-size: 18px;
@@ -153,10 +153,6 @@ li {
 .btn {
     font-family:Arial !important;
     font-size: 18px;
-}
-#gallery{
-    margin-top: 100px !important;
-    color:white;   
 }
 .vcenter{
     display: inline-block;
@@ -167,6 +163,10 @@ li {
 .text-danger {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size:14px;
+}
+#gallery{
+    margin-top: 100px !important;
+    color:white;   
 }
 .galleryImg{
     position:relative;
