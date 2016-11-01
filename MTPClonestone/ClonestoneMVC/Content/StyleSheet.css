@@ -4,9 +4,7 @@
 }
 * {
     font-family: Xena;
-
-}
-
+    }   
 body {
         font-size: 100%;
         margin: 0em;
@@ -18,7 +16,7 @@ body {
         background-repeat:no-repeat;
         background-position:top;
         background-attachment:fixed;
-}
+        }
 #Deckel {
         z-index: 8;
         background-image: url('../img/foo2.png');
@@ -46,13 +44,12 @@ body {
         position: relative;
         }
 .embed-responsive:hover
-          {
+        {
         z-index:7;
         box-shadow: white 0.3em 0.3em inset;
         border-radius: 8px;
         transform:scale(1.2);
         transition: all 0.3s ease-in;
-
         }
 #rechts #rechts2 #links #links2 {
         transform-origin:50% 50%;
@@ -63,7 +60,6 @@ body {
          transform-origin: 50% 50%;
          overflow:hidden;
         }
-
 #links2 {
         margin-top: 3.6em;
         margin-right:-8em;
@@ -100,13 +96,6 @@ body {
         -ms-transform:rotate(60deg);
          transform:rotate(30deg);
         }
-/*#Kostenlos:hover {
-        border:grey groove;
-        }*/
-/*#Mitte {
-        padding-top:14em;
-        padding-bottom:2em;*/
-}
 .container-fluid {
     background-color:mediumturquoise;
 }
@@ -115,8 +104,14 @@ body {
 }
 #logo {
     padding-top: 200px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
 }
-
+#logo:hover {
+    -webkit-transform: scale(1.01);
+    transform: scale(1.01);
+    transition:ease-in-out all 0.7s;
+}
 .cardhand_text {
     text-align: center;
     padding-top: 40px;
@@ -130,27 +125,21 @@ a, a:hover {
     color: white;
     text-decoration:none;    
 }
-
 .navbar-brand {
     font-size: 25px;
     margin-top: 15px;
 }
-
 li {
     font-size: 12px;
     margin-top: 10px;
 }
-
 .footer-nav {
     text-align: center;
     margin-top: 20px;
     font-size: 20px;
 }
-
 .jumbotext {
-    
 }
-
 .jumbotron {
     margin-top: 100px !important;
     background-image: url('../../img/paper_background.png')
@@ -165,37 +154,30 @@ li {
     font-family:Arial !important;
     font-size: 18px;
 }
-
 #gallery{
     margin-top: 100px !important;
     color:white;   
-
 }
-
 .vcenter{
     display: inline-block;
     vertical-align:middle;
     float:none;
     margin-top:15px
 }
-
 .text-danger {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size:14px;
 }
-
-
 .galleryImg{
     position:relative;
     width:100px;
-    height:150px
-    
+    height:150px   
 }
-
 .galleryImg:hover{
     position:relative;
     transform: scale(2);
-    z-index:400
+    z-index:400;
+    transition:ease-in all 0.2s;
 }
 
 
