@@ -16,7 +16,7 @@ body    {
         background-repeat:no-repeat;
         background-position:top;
         background-attachment:fixed;
-        }
+        }   
 #Deckel {
         z-index: 8;
         background-image: url('../img/foo2.png');
@@ -128,11 +128,11 @@ a, a:hover {
 }
 .navbar-brand {
     font-size: 25px;
-    margin-top: 15px;
+    margin-top: 0.8em;
 }
 li {
-    font-size: 12px;
-    margin-top: 10px;
+    font-size: 1.5em;
+    margin-top: 1.0em;
 }
 .footer-nav {
     text-align: center;
@@ -179,5 +179,13 @@ li {
     transition:ease-in all 0.2s;
 }
 
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    text-shadow: 3px 3px 3px #000 !important;
+    color:#949FB6
+}
+
+.footer-nav {
+    text-shadow: 2px 2px 2px #000
+}
 
 
