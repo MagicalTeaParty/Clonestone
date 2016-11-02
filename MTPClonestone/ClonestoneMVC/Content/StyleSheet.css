@@ -170,8 +170,7 @@ li {
 }
 .galleryImg{
     position:relative;
-    width:100px;
-    height:150px   
+    
 }
 .galleryImg:hover{
     position:relative;
