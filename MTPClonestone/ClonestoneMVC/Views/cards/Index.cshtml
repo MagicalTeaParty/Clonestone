@@ -10,7 +10,7 @@
 
     @foreach (var item in Model)
     {
-        <div class="row col-md-4 col-sm-6" style="margin-top:37px">
+        <div class="row col-md-4 col-sm-6 col-xs-12" style="margin-top:37px">
             <div class="col-md-8 vcenter" style="margin-top:26px">
                 <div class="container" style="font-size:12px">
                     <div class="row">
@@ -63,21 +63,21 @@
 
     if (ViewBag.start < 9)
     {
-        <a href="~/cards/index/?start=@startpositionB" style="visibility:hidden">zurück</a>
+        <a href="~/cards/index/?start=@startpositionB" style="visibility:hidden" class="glyphicon glyphicon-chevron-left"></a>
     }
     else
     {
-        <a href="~/cards/index/?start=@startpositionB">zurück</a>
+        <a href="~/cards/index/?start=@startpositionB"class="glyphicon glyphicon-chevron-left"></a>
     }
 
     if (ViewBag.start > ViewBag.len - 8)
     {
-        <a href="~/cards/index/?start=@startpositionN" style="visibility:hidden" >vor</a>
+        <a href="~/cards/index/?start=@startpositionN" style="visibility:hidden" class="glyphicon glyphicon-chevron-right" >vor</a>
 
     }
     else
     {
-        <a href="~/cards/index/?start=@startpositionN" >vor</a>
+        <a href="~/cards/index/?start=@startpositionN" class="glyphicon glyphicon-chevron-right" ></a>
     }
 
 }
