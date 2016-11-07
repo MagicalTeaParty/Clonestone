@@ -1,7 +1,45 @@
-﻿
+﻿@model IEnumerable<ClonestoneMVC.Models.tbllogin>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Profile</h2>
+<h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.passcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblperson.firstname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.passcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblperson.firstname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idlogin }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idlogin }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idlogin })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,72 @@
+﻿@model ClonestoneMVC.Models.tbllogin
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@ViewBag.Firstname @ViewBag.Lastname @ViewBag.Gamertag
+
+<div class="jumbotron">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>tbllogin</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.idlogin)
+            @Html.HiddenFor(model => model.passcode)
+            @Html.HiddenFor(model => model.email)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.New, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Newemail1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Newemail1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="newemail1">new email</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="newemail1" name="newemail1" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="newemail2">reenter email</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="newemail2" name="newemail2" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="newpass1">new passcode</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="newpass1" name="newpass1" type="password" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="newpass2">reenter passcode</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="newpass2" name="newpass2" type="password" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

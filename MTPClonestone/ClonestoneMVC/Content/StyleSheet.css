@@ -16,6 +16,7 @@ body    {
         background-repeat:no-repeat;
         background-position:top;
         background-attachment:fixed;
+        background-size:cover;
         }   
 #Deckel {
         z-index: 8;
