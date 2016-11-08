@@ -9,9 +9,7 @@ using System.Web.Mvc;
 namespace ClonestoneMVC.Models
 {
     public class UserData
-    {
-        /// TODO - Funkt noch nicht -> RegularExpression
-        
+    {      
         [Required(ErrorMessage ="required!", AllowEmptyStrings = false)]
         [RegularExpression(@"^[a-zA-Z--]+$", ErrorMessage ="only upper and lowercase letters allowed")]
         public string Firstname { get; set; }
@@ -27,7 +25,6 @@ namespace ClonestoneMVC.Models
         [Required(ErrorMessage = "required!", AllowEmptyStrings = false)]
         [DataType(DataType.EmailAddress, ErrorMessage ="invalid ermailadress")] 
         [DisplayName("Email")]
-        //[Remote] ? JsonResult ?
         public string Email { get; set; }
 
         [Required(ErrorMessage = "required!", AllowEmptyStrings = false)]

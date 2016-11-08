@@ -183,6 +183,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClonestoneModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\spGetMana5_Result.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>
@@ -298,11 +300,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PasswordForgotten\Index.cshtml" />
-    <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Tutorial\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\cards\Index.cshtml" />
     <Content Include="Views\Registration\Create.cshtml" />
+    <Content Include="Views\Profile\Create.cshtml" />
+    <Content Include="Views\Profile\Delete.cshtml" />
+    <Content Include="Views\Profile\Details.cshtml" />
+    <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

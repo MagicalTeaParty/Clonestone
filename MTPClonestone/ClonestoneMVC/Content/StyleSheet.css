@@ -16,6 +16,7 @@ body    {
         background-repeat:no-repeat;
         background-position:top;
         background-attachment:fixed;
+        background-size:cover;
         }   
 #Deckel {
         z-index: 8;
@@ -49,7 +50,7 @@ body    {
         box-shadow: white 0.3em 0.3em inset;
         border-radius: 8px;
         transform:scale(1.2);
-        transition: all 0.3s ease-in;
+        transition: all 0.4s ease-in;
         }
 #rechts #rechts2 #links #links2 {
         transform-origin:50% 50%;
@@ -96,9 +97,6 @@ body    {
         -ms-transform:rotate(60deg);
          transform:rotate(30deg);
         }
-.container-fluid {
-        background-color:mediumturquoise;
-        }
 .navbar {
         background-image: url('../img/Head.png');
         }
@@ -139,6 +137,9 @@ li {
     margin-top: 20px;
     font-size: 20px;
 }
+.footer-nav:hover {
+   color:antiquewhite
+}
 .jumbotext {
 }
 .jumbotron {
@@ -174,9 +175,8 @@ li {
 }
 .galleryImg:hover{
     position:relative;
-    transform: scale(2);
-    z-index:400;
-    transition:ease-in all 0.2s;
+    transform: scale(3);
+    transition:ease-in all 0.3s;
 }
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
