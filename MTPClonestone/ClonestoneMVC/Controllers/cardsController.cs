@@ -10,7 +10,7 @@ using ClonestoneMVC.Models;
 
 namespace ClonestoneMVC.Controllers
 {
-    public class cardsController : Controller
+    public class CardsController : Controller
     {
         private ClonestoneEntities db = new ClonestoneEntities();
 
