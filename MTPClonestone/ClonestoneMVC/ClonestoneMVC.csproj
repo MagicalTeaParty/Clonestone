@@ -186,6 +186,9 @@
     </Compile>
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\pGetDeckTextOnly_Result.cs">
+      <DependentUpon>ClonestoneModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Models\spGetMana5_Result.cs">
       <DependentUpon>ClonestoneModel.tt</DependentUpon>

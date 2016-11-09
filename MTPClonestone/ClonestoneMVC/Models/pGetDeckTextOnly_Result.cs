@@ -10,20 +10,23 @@
 namespace ClonestoneMVC.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tbltype
+    public partial class pGetDeckTextOnly_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbltype()
-        {
-            this.tblcards = new HashSet<tblcard>();
-        }
-    
+        public int iddeck { get; set; }
+        public string deckname { get; set; }
+        public Nullable<int> idclass { get; set; }
+        public string @class { get; set; }
         public int idtype { get; set; }
         public string typename { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblcard> tblcards { get; set; }
+        public int idcard { get; set; }
+        public string cardname { get; set; }
+        public byte mana { get; set; }
+        public short life { get; set; }
+        public short attack { get; set; }
+        public string flavor { get; set; }
+        public int iddeckcard { get; set; }
+        public string Filename { get; set; }
+        public Nullable<System.Guid> zahl { get; set; }
     }
 }
