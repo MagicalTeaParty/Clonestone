@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ClonestoneMVC.Models;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace ClonestoneMVC.Controllers
 {
@@ -11,29 +13,24 @@ namespace ClonestoneMVC.Controllers
     {
                
         [HttpGet]
-        public List<tblcard> GetDeck()
+        public string GetDeck()
         {
             return null;
         }
 
         // GET: Deck
         [HttpPost]
-        public List<tblcard> GetDeck(int idDeck = 1)
+        public string GetDeck(int idDeck = 1)
         {
             using (ClonestoneEntities cont = new ClonestoneEntities())
-            {
-                var deck = (from c in cont.tblcards
-                            join dc in cont.tbldeckcards
-                            on c.idcard equals dc.fkcard
-                            where dc.fkdeck == idDeck
-                            select c).ToList();        
+            {               
+                var deck = cont.pGetDeckTextOnly(idDeck);
 
-
-                
+                string deckJson = string.Empty;
+                deckJson = JsonConvert.SerializeObject(deck);
+                return deckJson;
 
             }
-
-            return null;
         }
     }
 }
