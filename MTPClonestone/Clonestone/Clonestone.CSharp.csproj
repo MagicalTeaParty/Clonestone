@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\6_Options\Mute.cs" />
     <Compile Include="Assets\Scripts\6_Options\SliderSave.cs" />
     <Compile Include="Assets\Scripts\6_Options\VolumeChange.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\CardDataController.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />

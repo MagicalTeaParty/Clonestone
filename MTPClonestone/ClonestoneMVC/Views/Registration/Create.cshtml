@@ -12,6 +12,13 @@
         <div class="form-horizontal">
             <h1>Registration</h1>
 
+            <h2>
+                @if (TempData["confirmation"] != null)
+                {
+                    @TempData["confirmation"];
+                }
+            </h2>
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Firstname, htmlAttributes: new { @class = "control-label col-md-3" })
@@ -46,7 +53,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3" for="confirmEmail">Confirm email</label>
+                <label class="control-label col-md-3" for="confirmEmail">Confirm Email</label>
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.EmailValidation, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.EmailValidation, "", new { @class = "text-danger" })
@@ -62,7 +69,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.PasswordValidation, htmlAttributes: new { @class = "control-label col-md-3" })
+                <label class= "control-label col-md-3" for="confirmPassword">Confirm Password</label>
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.PasswordValidation, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.PasswordValidation, "", new { @class = "text-danger" })

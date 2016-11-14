@@ -61,7 +61,8 @@ namespace ClonestoneMVC.Controllers
 
                     if (manipulierteDatensaetze>0)
                     {
-                        return RedirectToAction("Index", "Home");
+                        TempData["confirmation"] = "Registration confirmed!";
+                        return RedirectToAction("create", "Registration");
                     }
                 }
             }
