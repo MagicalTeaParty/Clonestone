@@ -26,7 +26,7 @@ namespace ClonestoneMVC.Controllers
             {               
                 var deck = cont.pGetDeckTextOnly(idDeck);
 
-                string deckJson = string.Empty;
+                string deckJson;
                 deckJson = JsonConvert.SerializeObject(deck);
                 return deckJson;
 

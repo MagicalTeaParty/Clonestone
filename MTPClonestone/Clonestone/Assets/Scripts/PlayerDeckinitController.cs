@@ -13,11 +13,11 @@ public class PlayerDeckinitController : MonoBehaviour {
     public IEnumerator getDeck()
     {
 
-        string url = "http://mtp.a-k-t.at/clonestone/Deck/GetDeck";
+        string url = "http://localhost:53861/Deck/GetDeck";
         WWWForm form = new WWWForm();
         form.AddField("idDeck", 1);
 
-        WWW www = new WWW(url);
+        WWW www = new WWW(url, form);
         Debug.Log("hallo");
 
         yield return www;
