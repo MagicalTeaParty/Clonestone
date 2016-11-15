@@ -10,12 +10,12 @@ public class GameboardGameplayController : MonoBehaviour
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public static GameObject DrawCard(GameObject player)
+    public static GameObject DrawCard(PlayerDataController player)
     {
         GameObject cardDrawn = null;
 
         ///Die Schleife sucht in der Kartenliste des mitgegebenen Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
-        foreach (GameObject card in player.GetComponent<PlayerDataController>().CardList)
+        foreach (GameObject card in player.CardList)
         {
             if (card.GetComponent<CardDataController>().Data.CardStatus == CardDataController.CardStatus.inDeck )
             {
