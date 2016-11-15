@@ -4,7 +4,10 @@ using UnityEngine.Networking;
 public class CardDataController : NetworkBehaviour
 {
     public enum CardStatus { inDeck, inHand, onBoard, inDiscardPile }
-    
+
+    /// <summary>
+    /// Wird als Struktur implementiert, um das Attribut [SyncVar] erhalten zu können.
+    /// </summary>
     public struct CardData
     {
         public int IdDeck;
@@ -30,7 +33,7 @@ public class CardDataController : NetworkBehaviour
         public CardStatus CardStatus;
     }
 
-    //Field
+    //Fields
     [SyncVar]
     public CardData Data;
 }
