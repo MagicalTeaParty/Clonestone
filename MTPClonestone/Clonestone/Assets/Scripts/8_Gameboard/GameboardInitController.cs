@@ -8,7 +8,7 @@ public class GameboardInitController : MonoBehaviour {
     float native_width  = 1280;
     float native_height = 1024;
 
-    static GameObject[] players;
+    public static GameObject[] Players;
 
     //Methods
 
@@ -20,11 +20,21 @@ public class GameboardInitController : MonoBehaviour {
         GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity,new Vector3(rx, ry, 1));
     }
 
+    void Update()
+    {
+        if (DetermineIfGameIsReady())
+        {
+            //Sobald beide Spieler dem Spiel beigetreten sind,
+
+            ///TODO Hier gehört noch was erledigt
+        }
+    }
+
     public static bool DetermineIfGameIsReady()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
+        Players = GameObject.FindGameObjectsWithTag("Player");
 
-        if (players.Length > 1)
+        if (Players.Length > 1)
             return true;
         else return false;
     }

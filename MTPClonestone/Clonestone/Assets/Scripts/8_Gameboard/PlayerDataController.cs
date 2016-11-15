@@ -88,12 +88,30 @@ public class PlayerDataController : NetworkBehaviour
     /// Ruft die Methode "DrawCard" auf.
     /// Anzahl der Aufrufe hängt von der "startingHandSize" ab.
     /// </summary>
-    /// <param name="player">Das Spielerobjekt des Clients</param>
-    public void GetStartingHand(GameObject player)
+    public void GetStartingHand()
     {
-        for (int i = 0; i < player.GetComponent<PlayerDataController>().startingHandSize; i++)
+        for (int i = 0; i < this.startingHandSize; i++)
         {
-            GameboardGameplayController.DrawCard(player);
+            GameboardGameplayController.DrawCard(this);
         }
+    }
+
+
+    void Start()
+    {
+        ///TODO Alle Anfänglichen Initialisierunge
+
+
+        ///TODO Hole Deck
+
+
+        //Legt die Reihenfolge der Spieler fest
+        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+
+        //Legt die Anzahl der Startkarten fest
+        SetStartingHandSize();
+
+        //Hole Startkarten
+        GetStartingHand();
     }
 }
