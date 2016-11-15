@@ -1,12 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Networking;
 
-public class CardDataController : MonoBehaviour
+public class CardDataController : NetworkBehaviour
 {
     public enum CardStatus { inDeck, inHand, onBoard, inDiscardPile }
-
-
-    //Fields
+    
     public struct CardData
     {
         public int IdDeck;
@@ -31,4 +29,8 @@ public class CardDataController : MonoBehaviour
         public Transform Transform;
         public CardStatus CardStatus;
     }
+
+    //Field
+    [SyncVar]
+    public CardData Data;
 }

@@ -122,6 +122,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 224000010271942402}
+  - 114: {fileID: 114000011178585492}
+  - 114: {fileID: 114000011751684834}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -276,6 +278,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114000011178585492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011941570180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22405e6f2461f9d4e93ed7913c03b752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011531400926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,6 +316,38 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000011751684834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011941570180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 157
+    i1: 29
+    i2: 163
+    i3: 125
+    i4: 139
+    i5: 215
+    i6: 21
+    i7: 52
+    i8: 105
+    i9: 90
+    i10: 123
+    i11: 28
+    i12: 169
+    i13: 188
+    i14: 118
+    i15: 154
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114000013279913464
 MonoBehaviour:
   m_ObjectHideFlags: 1
