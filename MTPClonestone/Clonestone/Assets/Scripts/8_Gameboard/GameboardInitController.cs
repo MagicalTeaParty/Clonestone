@@ -13,14 +13,4 @@ public class GameboardInitController : MonoBehaviour {
         float ry = Screen.height / native_height;
         GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity,new Vector3(rx, ry, 1));
     }
-     
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
