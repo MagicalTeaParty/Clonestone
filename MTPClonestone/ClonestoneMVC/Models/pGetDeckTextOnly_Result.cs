@@ -13,20 +13,20 @@ namespace ClonestoneMVC.Models
     
     public partial class pGetDeckTextOnly_Result
     {
-        public int iddeck { get; set; }
-        public string deckname { get; set; }
-        public Nullable<int> idclass { get; set; }
-        public string @class { get; set; }
-        public int idtype { get; set; }
-        public string typename { get; set; }
-        public int idcard { get; set; }
-        public string cardname { get; set; }
-        public byte mana { get; set; }
-        public short life { get; set; }
-        public short attack { get; set; }
-        public string flavor { get; set; }
-        public int iddeckcard { get; set; }
-        public string Filename { get; set; }
+        public int IdDeck { get; set; }
+        public string DeckName { get; set; }
+        public Nullable<int> IdClass { get; set; }
+        public string Class { get; set; }
+        public int IdType { get; set; }
+        public string TypeName { get; set; }
+        public int IdCard { get; set; }
+        public string CardName { get; set; }
+        public byte Mana { get; set; }
+        public short Attack { get; set; }
+        public short health { get; set; }
+        public string Flavour { get; set; }
+        public int IdDeckCard { get; set; }
+        public string FileName { get; set; }
         public Nullable<System.Guid> zahl { get; set; }
     }
 }

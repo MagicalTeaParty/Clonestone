@@ -710,20 +710,20 @@
           <Property Type="Binary" Name="pic" Nullable="true" />
         </ComplexType>
         <ComplexType Name="pGetDeckTextOnly_Result">
-          <Property Type="Int32" Name="iddeck" Nullable="false" />
-          <Property Type="String" Name="deckname" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="idclass" Nullable="true" />
-          <Property Type="String" Name="class" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="idtype" Nullable="false" />
-          <Property Type="String" Name="typename" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="idcard" Nullable="false" />
-          <Property Type="String" Name="cardname" Nullable="false" MaxLength="50" />
-          <Property Type="Byte" Name="mana" Nullable="false" />
-          <Property Type="Int16" Name="life" Nullable="false" />
-          <Property Type="Int16" Name="attack" Nullable="false" />
-          <Property Type="String" Name="flavor" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="iddeckcard" Nullable="false" />
-          <Property Type="String" Name="Filename" Nullable="true" MaxLength="8" />
+          <Property Type="Int32" Name="IdDeck" Nullable="false" />
+          <Property Type="String" Name="DeckName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="IdClass" Nullable="true" />
+          <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdType" Nullable="false" />
+          <Property Type="String" Name="TypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdCard" Nullable="false" />
+          <Property Type="String" Name="CardName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="Mana" Nullable="false" />
+          <Property Type="Int16" Name="Attack" Nullable="false" />
+          <Property Type="Int16" Name="health" Nullable="false" />
+          <Property Type="String" Name="Flavour" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IdDeckCard" Nullable="false" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="8" />
           <Property Type="Guid" Name="zahl" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -863,20 +863,20 @@
           <FunctionImportMapping FunctionImportName="pGetDeckTextOnly" FunctionName="itin21_ClonestoneFSModel.Store.pGetDeckTextOnly">
             <ResultMapping>
               <ComplexTypeMapping TypeName="itin21_ClonestoneFSModel.pGetDeckTextOnly_Result">
-                <ScalarProperty Name="iddeck" ColumnName="iddeck" />
-                <ScalarProperty Name="deckname" ColumnName="deckname" />
-                <ScalarProperty Name="idclass" ColumnName="idclass" />
-                <ScalarProperty Name="class" ColumnName="class" />
-                <ScalarProperty Name="idtype" ColumnName="idtype" />
-                <ScalarProperty Name="typename" ColumnName="typename" />
-                <ScalarProperty Name="idcard" ColumnName="idcard" />
-                <ScalarProperty Name="cardname" ColumnName="cardname" />
-                <ScalarProperty Name="mana" ColumnName="mana" />
-                <ScalarProperty Name="life" ColumnName="life" />
-                <ScalarProperty Name="attack" ColumnName="attack" />
-                <ScalarProperty Name="flavor" ColumnName="flavor" />
-                <ScalarProperty Name="iddeckcard" ColumnName="iddeckcard" />
-                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="IdDeck" ColumnName="IdDeck" />
+                <ScalarProperty Name="DeckName" ColumnName="DeckName" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="Mana" ColumnName="Mana" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="health" ColumnName="health" />
+                <ScalarProperty Name="Flavour" ColumnName="Flavour" />
+                <ScalarProperty Name="IdDeckCard" ColumnName="IdDeckCard" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="zahl" ColumnName="zahl" />
               </ComplexTypeMapping>
             </ResultMapping>
