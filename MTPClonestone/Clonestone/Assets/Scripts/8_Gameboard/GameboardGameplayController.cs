@@ -32,8 +32,8 @@ public class GameboardGameplayController : MonoBehaviour
     /// --> Muss daher zweimal aufgerufen werden; einmal für jeden Spieler
     /// </summary>
     /// <param name="player"></param>
-    public static void PlayerChange(GameObject player)
+    public static void ChangeActivePlayer(GameObject player)
     { 
-        player.GetComponent<PlayerDataController>().PlayerChange();
+        player.GetComponent<PlayerDataController>().ChangeIsActivePlayer();
     }
 }

@@ -27,12 +27,16 @@ public class GameboardInitController : MonoBehaviour {
             //Sobald beide Spieler dem Spiel beigetreten sind,
 
             ///TODO Hier gehört noch was erledigt
+            
+            GameboardDataController.IsRunningGame = true;
         }
     }
 
     public static bool DetermineIfGameIsReady()
     {
         Players = GameObject.FindGameObjectsWithTag("Player");
+
+        ///TODO Achtung! Regeln noch bearbeiten, wann ein Spiel wirklich läuft
 
         if (Players.Length > 1)
             return true;
