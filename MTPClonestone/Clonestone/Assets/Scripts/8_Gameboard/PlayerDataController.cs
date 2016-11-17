@@ -29,6 +29,11 @@ public class PlayerDataController : NetworkBehaviour
         /// Aktuell verfügbares Mana
         /// </summary>
         public int CurrentActiveMana;
+
+        /// <summary>
+        /// Aktuelle Lebenspunkte des Spielers
+        /// </summary>
+        public int CurrentHealth;
     }
 
     //Fields
@@ -39,14 +44,18 @@ public class PlayerDataController : NetworkBehaviour
     /// </summary>
     public List<GameObject> CardList;
 
-    public const int MaxHandSize = 10;
-    public const int MaxMana = 10;
+    const int MaxHandSize = 10;
+    const int MaxMana = 10;
+    const int MaxHealth = 30;
 
     /// <summary>
     /// Die Anzahl der Karten, die der Spieler zu Beginn des Spiels auf die Hand bekommt.
     /// </summary>
     private int startingHandSize;
 
+    /// <summary>
+    /// Gibt an ob der Spieler beginnt oder nicht
+    /// </summary>
     private bool isFirstPlayer;
 
     [SyncVar]
