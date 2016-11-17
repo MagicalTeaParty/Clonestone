@@ -2,12 +2,14 @@
 
 public class GameboardDataController : MonoBehaviour
 {
+    public enum GameStatus { initializing, running, ending }
+
     //Fields
 
     /// <summary>
     /// Das aktuelle Spiel läuft oder nicht.
     /// </summary>
-    public bool IsRunningGame;
+    public static bool IsRunningGame = false;
 
     static System.Random rnd = new System.Random();
 

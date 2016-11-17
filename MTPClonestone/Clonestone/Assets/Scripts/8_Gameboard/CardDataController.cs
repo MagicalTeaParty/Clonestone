@@ -22,8 +22,12 @@ public class CardDataController : NetworkBehaviour
         public int IdCard;
         public string CardName;
         public int Mana;
+
         public int Attack;
+        public int MaxAttack;
         public int Health;
+        public int MaxHealth;
+
         public string Flavour;
 
         public int IdDeckCard;

@@ -66,7 +66,7 @@ public class PlayerDataController : NetworkBehaviour
     /// <summary>
     /// Ändert die Bool-Variable "IsActivePlayer" von "true" auf "false" oder vice versa.
     /// </summary>
-    public void PlayerChange()
+    public void ChangeIsActivePlayer()
     {
         Data.IsActivePLayer = !Data.IsActivePLayer;
     }
@@ -105,10 +105,12 @@ public class PlayerDataController : NetworkBehaviour
         }
     }
 
-
     void Start()
     {
-        ///TODO Alle Anfänglichen Initialisierunge
+        if (!GameboardDataController.IsRunningGame)
+            return;
+
+        ///TODO Alle Anfänglichen Initialisierungen
 
 
         ///TODO Hole Deck
