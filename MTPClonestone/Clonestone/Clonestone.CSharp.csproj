@@ -61,6 +61,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\1_HagerGroup\MusicPlayer.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardGameplayController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
