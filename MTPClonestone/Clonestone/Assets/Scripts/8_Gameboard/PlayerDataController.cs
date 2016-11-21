@@ -14,6 +14,8 @@ public class PlayerDataController : NetworkBehaviour
         /// False: Spieler ist nicht am Zug
         /// </summary>
         public bool IsActivePLayer;
+
+        public bool IsReadyPlayer; //true, wenn Spieler alle Daten initialisiert hat
        
         public string GamerTag;
 
@@ -101,28 +103,46 @@ public class PlayerDataController : NetworkBehaviour
     {
         for (int i = 0; i < this.startingHandSize; i++)
         {
-            GameboardGameplayController.DrawCard(this);
+            var card = GameboardGameplayController.DrawCard(this);
+            card.GetComponent<CardDataController>().Data.CardStatus = CardDataController.CardStatus.inHand;
         }
+    }
+
+    void Init()
+    {
+
+    }
+
+    void Update()
+    {
+        if(GameboardInitController.DetermineIfGameIsReady())
+        {            
+            ///TODO Hole Deck
+
+
+            
+            //Legt die Anzahl der Startkarten fest
+            this.SetStartingHandSize();
+            
+            //Hole Startkarten
+            GetStartingHand();
+
+            this.Data.IsReadyPlayer = true;
+            
+        }
+
+
+        
     }
 
     void Start()
     {
-        if (!GameboardDataController.IsRunningGame)
-            return;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        ///TODO Alle Anfänglichen Initialisierungen
-
-
-        ///TODO Hole Deck
-
-
-        //Legt die Reihenfolge der Spieler fest
-        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
-
-        //Legt die Anzahl der Startkarten fest
-        SetStartingHandSize();
-
-        //Hole Startkarten
-        GetStartingHand();
+        //könnte ein Problem sein, wenn beide gleiczeitig das Spiel starten
+        if(players.Length == 1)
+            this.isFirstPlayer = true;
+        else
+            this.isFirstPlayer = false;
     }
 }

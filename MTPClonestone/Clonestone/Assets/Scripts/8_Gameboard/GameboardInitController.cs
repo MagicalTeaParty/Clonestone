@@ -22,14 +22,28 @@ public class GameboardInitController : MonoBehaviour {
 
     void Update()
     {
-        if (DetermineIfGameIsReady())
+        if(GameboardInitController.DetermineIfGameIsRunning())
         {
-            //Sobald beide Spieler dem Spiel beigetreten sind,
-
-            ///TODO Hier gehört noch was erledigt
-            
             GameboardDataController.IsRunningGame = true;
+
+
+            ///TODO Networkmanager HUD ausblenden
         }
+    }
+
+    public static bool DetermineIfGameIsRunning()
+    {
+        if(Players == null)
+            Players = GameObject.FindGameObjectsWithTag("Player");
+
+        bool ok = true;
+
+        foreach(var p in Players)
+        {
+            ok = ok && p.GetComponent<PlayerDataController>().Data.IsReadyPlayer;
+        }
+
+        return ok;
     }
 
     public static bool DetermineIfGameIsReady()
