@@ -11,11 +11,16 @@ public class PlayerDeckinitController : NetworkBehaviour {
 
     public void onClick()
     {
-        StartCoroutine("getDeck");
+        getDeckBuilder(CardPrefab);
+        
     }
 
+    public void getDeckBuilder(GameObject player)
+    {
+        StartCoroutine("getDeck", player);
+    }
 
-    public IEnumerator getDeck()
+    private IEnumerator getDeck()
     {
         //Mittels JsonUtility.FromJson kann man ein JSON-Objekt auf ein C# Objekt mappen/umwandeln.        
         //CardDataController.CardData data = JsonUtility.FromJson<CardDataController.CardData>(jsonstring);
@@ -48,17 +53,23 @@ public class PlayerDeckinitController : NetworkBehaviour {
                 //Mittels FromJson wird nun der String der auf helper steht - dieser ist ein Json-Objekt - in ein Objekt vom Typ CardData umgewandelt
                 CardDataController.CardData cardData = JsonUtility.FromJson<CardDataController.CardData>(helper);
 
-                ///TODO If Herocard, dann
-                #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
+                //If Herocard, dann
+                if (cardData.TypeName == "Hero")
+                {
+                    #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
+                  
+                    ///TODO erstellen eines Heros  
 
-                #endregion
+                    #endregion
+                }
+                else //else,.... (wenn nicht hero)
+                {
+                    #region GameObjekt für die cardData erstellen und cardData zuweisen
 
-                ///TODO else,.... (wenn nicht hero)
-                #region GameObjekt für die cardData erstellen und cardData zuweisen
+                    CmdCardSpawnServer(cardData);
 
-                CmdCardSpawnServer(cardData);
-
-                #endregion
+                    #endregion
+                }
             }
         }
 
@@ -74,7 +85,8 @@ public class PlayerDeckinitController : NetworkBehaviour {
         //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
         GameObject card = (GameObject)Instantiate(CardPrefab, CardSpawnPosition.position, CardSpawnPosition.rotation);
 
-        ///TODO Übergabeparameter cardData auf die Instanz card speichern
+        //Übergabeparameter cardData auf die Instanz card speichern
+        card.GetComponent<>
 
         //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
         //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat

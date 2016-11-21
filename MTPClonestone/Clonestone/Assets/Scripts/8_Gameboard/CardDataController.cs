@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Networking;
 
-public class CardDataController : MonoBehaviour
+public class CardDataController : NetworkBehaviour
 {
     public enum CardStatus { inDeck, inHand, onBoard, inDiscardPile }
 
-
-    //Fields
+    /// <summary>
+    /// Wird als Struktur implementiert, um das Attribut [SyncVar] erhalten zu können.
+    /// </summary>
     public struct CardData
     {
         public int IdDeck;
@@ -21,8 +22,12 @@ public class CardDataController : MonoBehaviour
         public int IdCard;
         public string CardName;
         public int Mana;
+
         public int Attack;
+        public int MaxAttack;
         public int Health;
+        public int MaxHealth;
+
         public string Flavour;
 
         public int IdDeckCard;
@@ -31,4 +36,8 @@ public class CardDataController : MonoBehaviour
         public Transform Transform;
         public CardStatus CardStatus;
     }
+
+    //Fields
+    [SyncVar]
+    public CardData Data;
 }
