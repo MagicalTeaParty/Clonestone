@@ -2,14 +2,20 @@
 
 public class GameboardGameplayController : MonoBehaviour
 {
-    //Diese Methode zieht eine Karte vom Deck des mitgegebenen Spielers
-    //Soll mehr als eine Karte gezogen werden, muss die Methode dementsprechend oft aufgerufen werden
-    public static GameObject DrawCard(GameObject player)
+    //Methods
+
+    /// <summary>
+    /// Diese Methode zieht eine Karte vom Deck des mitgegebenen Spielers.
+    /// Soll mehr als eine Karte gezogen werden, muss die Methode dementsprechend oft aufgerufen werden
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public static GameObject DrawCard(PlayerDataController player)
     {
         GameObject cardDrawn = null;
 
-        //Die Schleife sucht in der Kartenliste des mitgegebenen Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
-        foreach (GameObject card in player.GetComponent<PlayerDataController>().CardList)
+        ///Die Schleife sucht in der Kartenliste des mitgegebenen Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
+        foreach (GameObject card in player.CardList)
         {
             if (card.GetComponent<CardDataController>().Data.CardStatus == CardDataController.CardStatus.inDeck )
             {
@@ -21,10 +27,13 @@ public class GameboardGameplayController : MonoBehaviour
         return cardDrawn;
     }
 
-    //Diese Methode wechselt den Zustand des Bools "IsActive" des mitgegebenen Spielers
-    //--> Muss daher zweimal aufgerufen werden; einmal für jeden Spieler
-    public static void PlayerChange(GameObject player)
+    /// <summary>
+    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" des mitgegebenen Spielers
+    /// --> Muss daher zweimal aufgerufen werden; einmal für jeden Spieler
+    /// </summary>
+    /// <param name="player"></param>
+    public static void ChangeActivePlayer(GameObject player)
     { 
-        player.GetComponent<PlayerDataController>().PlayerChange();
+        player.GetComponent<PlayerDataController>().ChangeIsActivePlayer();
     }
 }

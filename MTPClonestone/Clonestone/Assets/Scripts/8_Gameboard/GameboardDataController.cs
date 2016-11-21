@@ -2,10 +2,16 @@
 
 public class GameboardDataController : MonoBehaviour
 {
+    public enum GameStatus { initializing, running, ending }
+
+    //Fields
+
     /// <summary>
-    /// Das aktuelle Spiel läuft oder nicht.
+    /// Bestimmt den aktuellen Status des Spiels
     /// </summary>
-    bool isRunning;
+    public static GameStatus GameState = GameStatus.initializing;
+
+    //static System.Random rnd = new System.Random();
 
     //public GameObject EndTurnButton;
     //public GameObject ExitButton;
@@ -22,4 +28,16 @@ public class GameboardDataController : MonoBehaviour
     //public GameObject Player2Hero;
     //public GameObject Player1Life;
     //public GameObject Player2Life;
+
+    ///// <summary>
+    ///// Wird benutzt, um die Spielerreihenfolge zu bestimmen.
+    ///// Darf nur einmal aufgerufen werden --> nicht pro Spieler!!!
+    ///// </summary>
+    ///// <returns></returns>
+    //public static bool TossCoin()
+    //{
+    //    if (rnd.Next(0, 2) == 0)
+    //        return false;
+    //    else return true;
+    //}
 }
