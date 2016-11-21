@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Networking;
 
 public class GameboardInitController : MonoBehaviour {
 
@@ -22,12 +22,11 @@ public class GameboardInitController : MonoBehaviour {
 
     void Update()
     {
-        if(GameboardInitController.DetermineIfGameIsRunning())
+        if (GameboardInitController.DetermineIfGameIsRunning())
         {
-            GameboardDataController.IsRunningGame = true;
+            GameboardDataController.GameState = GameboardDataController.GameStatus.running;
 
-
-            ///TODO Networkmanager HUD ausblenden
+            FindObjectOfType<NetworkManagerHUD>().showGUI = false;
         }
     }
 
