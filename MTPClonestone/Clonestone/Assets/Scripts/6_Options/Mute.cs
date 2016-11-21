@@ -5,7 +5,7 @@ using System;
 
 public class Mute : MonoBehaviour {
 
-    bool isMute;
+    //bool isMute;
 
     [SerializeField]
     public Toggle muteToggle;
