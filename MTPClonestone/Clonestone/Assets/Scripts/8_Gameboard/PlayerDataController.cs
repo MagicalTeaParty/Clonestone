@@ -103,7 +103,8 @@ public class PlayerDataController : NetworkBehaviour
     {
         for (int i = 0; i < this.startingHandSize; i++)
         {
-            GameboardGameplayController.DrawCard(this);
+            var card = GameboardGameplayController.DrawCard(this);
+            card.GetComponent<CardDataController>().Data.CardStatus = CardDataController.CardStatus.inHand;
         }
     }
 
