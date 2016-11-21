@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardGameplayController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\PlayerDeckinitController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
@@ -85,7 +86,6 @@
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\OpenOptions.cs" />
     <Compile Include="Assets\Scripts\OpenURL.cs" />
-    <Compile Include="Assets\Scripts\PlayerDeckinitController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
