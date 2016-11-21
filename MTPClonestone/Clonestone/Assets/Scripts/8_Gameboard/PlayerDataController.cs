@@ -73,16 +73,16 @@ public class PlayerDataController : NetworkBehaviour
         Data.IsActivePLayer = !Data.IsActivePLayer;
     }
 
-    /// <summary>
-    /// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
-    /// </summary>
-    /// <param name="p1">Spieler 1</param>
-    /// <param name="p2">Spieler 2</param>
-    public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
-    {
-        p1.isFirstPlayer = GameboardDataController.TossCoin();
-        p2.isFirstPlayer = !p1.isFirstPlayer;
-    }
+    ///// <summary>
+    ///// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
+    ///// </summary>
+    ///// <param name="p1">Spieler 1</param>
+    ///// <param name="p2">Spieler 2</param>
+    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
+    //{
+    //    p1.isFirstPlayer = GameboardDataController.TossCoin();
+    //    p2.isFirstPlayer = !p1.isFirstPlayer;
+    //}
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
@@ -103,36 +103,26 @@ public class PlayerDataController : NetworkBehaviour
     {
         for (int i = 0; i < this.startingHandSize; i++)
         {
-            var card = GameboardGameplayController.DrawCard(this);
+            GameObject card = GameboardGameplayController.DrawCard(this);
             card.GetComponent<CardDataController>().Data.CardStatus = CardDataController.CardStatus.inHand;
         }
     }
 
-    void Init()
-    {
-
-    }
-
     void Update()
     {
-        if(GameboardInitController.DetermineIfGameIsReady())
+        if (GameboardInitController.DetermineIfGameIsReady())
         {            
             ///TODO Hole Deck
-
-
             
+
             //Legt die Anzahl der Startkarten fest
             this.SetStartingHandSize();
             
             //Hole Startkarten
             GetStartingHand();
 
-            this.Data.IsReadyPlayer = true;
-            
+            this.Data.IsReadyPlayer = true;   
         }
-
-
-        
     }
 
     void Start()
