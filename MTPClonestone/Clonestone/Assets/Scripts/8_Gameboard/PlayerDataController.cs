@@ -104,7 +104,8 @@ public class PlayerDataController : NetworkBehaviour
         for (int i = 0; i < this.startingHandSize; i++)
         {
             GameObject card = GameboardGameplayController.DrawCard(this);
-            card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
+            //Folgender Code auskommentiert, weil besser in der Methode "DrawCard" selbst bereits der CardState auf "inHand" geändert wird.
+            //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
         }
     }
 
