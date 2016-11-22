@@ -20,6 +20,7 @@ public class GameboardGameplayController : MonoBehaviour
             if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDeck )
             {
                 cardDrawn = card;
+                cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
                 return cardDrawn;
             }
         }
