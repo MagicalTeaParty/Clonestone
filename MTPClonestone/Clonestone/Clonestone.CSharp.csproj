@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\4_Login\Load.cs" />
     <Compile Include="Assets\Scripts\4_Login\Login.cs" />
     <Compile Include="Assets\Scripts\4_Login\Save.cs" />
+    <Compile Include="Assets\Scripts\5_MainMenue\LoadSceneGameboard.cs" />
     <Compile Include="Assets\Scripts\5_MainMenue\MainMenue.cs" />
     <Compile Include="Assets\Scripts\6_Options\BackToPreviousScene.cs" />
     <Compile Include="Assets\Scripts\6_Options\Mute.cs" />
@@ -79,13 +80,13 @@
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardGameplayController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\MoveCardController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
-    <Compile Include="Assets\Scripts\LoadSceneGameboard.cs" />
     <Compile Include="Assets\Scripts\OpenOptions.cs" />
     <Compile Include="Assets\Scripts\OpenURL.cs" />
   </ItemGroup>
