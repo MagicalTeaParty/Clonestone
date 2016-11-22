@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine.UI;
+using System.IO;
 
 public class PlayerDataController : NetworkBehaviour
 {
@@ -108,54 +109,68 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     void Start()
+    {   
+        
+    }    
+    
+    /// <summary>
+    /// Lädt ein PNG und liefert eine Texture2D
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns></returns>
+    public static Texture2D LoadPNG(string filePath)
     {
-        //if (!GameboardDataController.IsRunningGame)
-        //    return;
+        Texture2D tex = null;
+        byte[] fileData;
 
-        ///TODO Alle Anfänglichen Initialisierungen
+        if (File.Exists(filePath))
+        {
+            fileData = File.ReadAllBytes(filePath);
+            tex = new Texture2D(2, 2);
+            tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
+        }
 
+        return tex;
+    }    
+    
+    /// <summary>
+    /// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
+    /// </summary>
+    /// <returns></returns>
+    /// 
+    public static string GetApplicationPath()
+    {
+        //Application.dataPath: https://docs.unity3d.com/ScriptReference/Application-dataPath.html
+        string path = Application.dataPath;
 
-        ///TODO Hole Deck
-        getDeckBuilder(gameObject);
+        if (Application.platform == RuntimePlatform.OSXPlayer)
 
-        //Legt die Reihenfolge der Spieler fest
-        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+        {
+            path += "/../../";
+        }
 
-        //Legt die Anzahl der Startkarten fest
-        SetStartingHandSize();
+        else if (Application.platform == RuntimePlatform.WindowsPlayer)
 
-        //Hole Startkarten
-        GetStartingHand();
-    }
+        {
+            path += "/../";
+        }
+
+        return path;
+}
 
     public GameObject CardPrefab; //Platzhalter für das Karten-Prefab
     public Transform CardSpawnPosition; //Platzhalter für die Position des Spawnpunkts des aktuellen Spielers
 
-    public void getDeckBuilder(GameObject player)
+    public delegate void CreateCards(string text);
+
+    /// <summary>
+    /// Zerlegt anhand eines JSON-Arrays die Daten für die Gameobjects
+    /// </summary>
+    /// <param name="text"></param>
+    private void CreateCardsMethod(string text)
     {
-        StartCoroutine("getDeck", player);
-    }
-
-    private IEnumerator getDeck()
-    {
-        //Mittels JsonUtility.FromJson kann man ein JSON-Objekt auf ein C# Objekt mappen/umwandeln.        
-        //CardDataController.CardData data = JsonUtility.FromJson<CardDataController.CardData>(jsonstring);
-
-        //Beispiel für ein Json-Objekt
-        //{\"IdDeck\":1,\"DeckName\":\"default 1\",	\"IdClass\":7,	\"Class\":\"Paladin\",	\"IdType\":2,	\"TypeName\":\"Hero\",	\"IdCard\":705,	\"CardName\":\"Paladin\",	\"Mana\":0, \"Attack\":0,	\"Health\":30,		\"Flavour\":null, \"IdDeckCard\":31,	\"FileName\":\"705.png\",	\"zahl\":\"00000000-0000-0000-0000-000000000000\" }
-
-        string url = "http://localhost:53861/Deck/GetDeck";
-        WWWForm form = new WWWForm();
-        form.AddField("idDeck", 1);
-
-        WWW returnJson = new WWW(url, form);
-        Debug.Log("hallo");
-
-        yield return returnJson.text;
-
-
         //Da JsonUtility.FromJson nur mit Json-Objekten aber nicht mit Json-Arrays umgehen kann wird zuerst gesplittet um die einzelnen Objekte zu erhalten.
-        string[] jsonArray = returnJson.text.Split(new char[] { '{', '}' });
+        string[] jsonArray = text.Split(new char[] { '{', '}' });
         string helper;
 
         foreach (var item in jsonArray)
@@ -190,16 +205,61 @@ public class PlayerDataController : NetworkBehaviour
         }
 
         Debug.Log("hallo");
+    }
 
+    /// <summary>
+    /// Holt ein Deck und erstelle die Gameobjects. !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
+    /// </summary>
+    public void getDeckBuilder()
+    {
+        CreateCards _CreateCardsReceiver = CreateCardsMethod;
+
+        StartCoroutine("getDeck", _CreateCardsReceiver);
+    }
+
+    private IEnumerator getDeck(CreateCards _CreateCardsReceiver)
+    {
+        //Mittels JsonUtility.FromJson kann man ein JSON-Objekt auf ein C# Objekt mappen/umwandeln.        
+        //CardDataController.CardData data = JsonUtility.FromJson<CardDataController.CardData>(jsonstring);
+
+        //Beispiel für ein Json-Objekt
+        //{\"IdDeck\":1,\"DeckName\":\"default 1\",	\"IdClass\":7,	\"Class\":\"Paladin\",	\"IdType\":2,	\"TypeName\":\"Hero\",	\"IdCard\":705,	\"CardName\":\"Paladin\",	\"Mana\":0, \"Attack\":0,	\"Health\":30,		\"Flavour\":null, \"IdDeckCard\":31,	\"FileName\":\"705.png\",	\"zahl\":\"00000000-0000-0000-0000-000000000000\" }
+
+        string url = "http://localhost:53861/Deck/GetDeck";
+        WWWForm form = new WWWForm();
+        form.AddField("idDeck", 1);
+
+        WWW returnJson = new WWW(url, form);
+        Debug.Log("hallo");
+
+        yield return returnJson;
+
+        _CreateCardsReceiver(returnJson.text);
+        
     }
 
     //Alle serverseitigen Methoden benötigen das Command-Attribut
     //Gerade die Servervariablen senden nur ihre Änderungen an die Clients weiter falls dies in einer Servermethode geschieht.
+    /// <summary>
+    /// Erzeugt am Server das Gameobject für eine Karte
+    /// </summary>
+    /// <param name="cardData"></param>
     [Command]
     void CmdCardSpawnServer(CardDataController.CardData cardData)
     {
+        //Anhand der Spielernummer die Spawnposition bestimmen
+        GameObject pos;
+        if(this.isFirstPlayer)
+        {
+            pos = GameObject.Find("/Board/Deck1Position");
+        }
+        else
+        {
+            pos = GameObject.Find("/Board/Deck2Position");
+        }
+            
         //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
-        GameObject card = (GameObject)Instantiate(CardPrefab, CardSpawnPosition.position, CardSpawnPosition.rotation);
+        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, CardSpawnPosition.rotation);
 
         //Übergabeparameter cardData auf die Instanz card speichern
         CardDataController cdc = card.GetComponent<CardDataController>();
@@ -220,25 +280,42 @@ public class PlayerDataController : NetworkBehaviour
 
 
         // Get all components of type Image that are children of this GameObject.
-        var images = card.GetComponentsInChildren<Image>();
+        var image = card.GetComponentsInChildren<Image>()[1];
 
+        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
 
-        // Loop through each image and set it's Sprite to the other Sprite.
-        foreach (Image image in images)
-        {   
-            ///TODO richter Befehl für Sprite
-            
-            //image.sprite = Sprite.Create(Resources.Load<Texture2D>(@"Assets/Images/Cards/" + cardData.FileName), image.sprite.rect, image.sprite.pivot);
-        }
+                
+        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+        
+        #region Testladen eines Bildes
+        
+        //Image im = GetComponentsInChildren<Image>()[1];        //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
+        
+
+        #endregion
+
 
     }
 
     void Update()
     {
-        //foreach(var c in this.CardList)
-        //{
-        //    Debug.Log(c.GetComponent<CardDataController>().Data.CardName);
-        //}
+        if (!GameboardInitController.DetermineIfGameIsReady())
+            return;
+
+        if (CardList != null && CardList.Count != 0)
+            return;
+
+        //Legt die Reihenfolge der Spieler fest
+        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+
+        //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
+        getDeckBuilder();
+
+        //Legt die Anzahl der Startkarten fest
+        SetStartingHandSize();
+
+        //Hole Startkarten
+        GetStartingHand();
     }
 
 }

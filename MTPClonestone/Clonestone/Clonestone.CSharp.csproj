@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
+    <Compile Include="Assets\Scripts\LoadSceneGameboard.cs" />
     <Compile Include="Assets\Scripts\OpenOptions.cs" />
     <Compile Include="Assets\Scripts\OpenURL.cs" />
   </ItemGroup>
