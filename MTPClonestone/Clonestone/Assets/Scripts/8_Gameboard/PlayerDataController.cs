@@ -125,8 +125,8 @@ public class PlayerDataController : NetworkBehaviour
             MoveCard(card, pos);
     
         }
-    }
-        
+   }
+
     /// <summary>
     /// Lädt ein PNG und liefert eine Texture2D
     /// </summary>
@@ -319,7 +319,8 @@ public class PlayerDataController : NetworkBehaviour
         if (CardList != null && CardList.Count != 0)
             return;
 
-        //Legt die Reihenfolge der Spieler fest
+        //Legt die Reihenfolge der Spieler fest   
+             
         //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
 
         //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
