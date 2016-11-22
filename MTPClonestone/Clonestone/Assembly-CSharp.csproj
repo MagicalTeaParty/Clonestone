@@ -61,11 +61,13 @@
      <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
      <Compile Include="Assets\Scripts\8_Gameboard\MoveCardController.cs" />
      <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
+     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDeckinitController.cs" />
      <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
      <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
      <Compile Include="Assets\Scripts\ExitButton.cs" />
      <Compile Include="Assets\Scripts\Helper.cs" />
      <Compile Include="Assets\Scripts\LoadScene.cs" />
+     <Compile Include="Assets\Scripts\LoadSceneGameboard.cs" />
      <Compile Include="Assets\Scripts\OpenOptions.cs" />
      <Compile Include="Assets\Scripts\OpenURL.cs" />
  <Reference Include="UnityEngine.UI">

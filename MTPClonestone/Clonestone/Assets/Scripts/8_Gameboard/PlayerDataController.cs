@@ -111,12 +111,7 @@ public class PlayerDataController : NetworkBehaviour
             //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
         }
     }
-
-    void Update()
-    {   
         
-    }    
-    
     /// <summary>
     /// Lädt ein PNG und liefert eine Texture2D
     /// </summary>
