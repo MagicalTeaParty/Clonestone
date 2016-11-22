@@ -34,7 +34,7 @@ public class CardDataController : NetworkBehaviour
         public string FileName;
         
         public Transform Transform;
-        public CardStatus CardStatus;
+        public CardStatus CardState;
     }
 
     //Fields
