@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Networking;
 
 public class GameboardInitController : MonoBehaviour {
 
@@ -22,14 +22,27 @@ public class GameboardInitController : MonoBehaviour {
 
     void Update()
     {
-        if (DetermineIfGameIsReady())
+        if (GameboardInitController.DetermineIfGameIsRunning())
         {
-            //Sobald beide Spieler dem Spiel beigetreten sind,
+            GameboardDataController.GameState = GameboardDataController.GameStatus.running;
 
-            ///TODO Hier gehört noch was erledigt
-            
-            GameboardDataController.IsRunningGame = true;
+            FindObjectOfType<NetworkManagerHUD>().showGUI = false;
         }
+    }
+
+    public static bool DetermineIfGameIsRunning()
+    {
+        if(Players == null)
+            Players = GameObject.FindGameObjectsWithTag("Player");
+
+        bool ok = true;
+
+        foreach(var p in Players)
+        {
+            ok = ok && p.GetComponent<PlayerDataController>().Data.IsReadyPlayer;
+        }
+
+        return ok;
     }
 
     public static bool DetermineIfGameIsReady()

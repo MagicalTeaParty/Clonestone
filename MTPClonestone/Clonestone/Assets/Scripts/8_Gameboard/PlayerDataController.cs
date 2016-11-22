@@ -17,6 +17,8 @@ public class PlayerDataController : NetworkBehaviour
         /// False: Spieler ist nicht am Zug
         /// </summary>
         public bool IsActivePLayer;
+
+        public bool IsReadyPlayer; //true, wenn Spieler alle Daten initialisiert hat
        
         public string GamerTag;
 
@@ -74,16 +76,16 @@ public class PlayerDataController : NetworkBehaviour
         Data.IsActivePLayer = !Data.IsActivePLayer;
     }
 
-    /// <summary>
-    /// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
-    /// </summary>
-    /// <param name="p1">Spieler 1</param>
-    /// <param name="p2">Spieler 2</param>
-    public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
-    {
-        p1.isFirstPlayer = GameboardDataController.TossCoin();
-        p2.isFirstPlayer = !p1.isFirstPlayer;
-    }
+    ///// <summary>
+    ///// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
+    ///// </summary>
+    ///// <param name="p1">Spieler 1</param>
+    ///// <param name="p2">Spieler 2</param>
+    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
+    //{
+    //    p1.isFirstPlayer = GameboardDataController.TossCoin();
+    //    p2.isFirstPlayer = !p1.isFirstPlayer;
+    //}
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
@@ -104,11 +106,13 @@ public class PlayerDataController : NetworkBehaviour
     {
         for (int i = 0; i < this.startingHandSize; i++)
         {
-            GameboardGameplayController.DrawCard(this);
+            GameObject card = GameboardGameplayController.DrawCard(this);
+            //Folgender Code auskommentiert, weil besser in der Methode "DrawCard" selbst bereits der CardState auf "inHand" geändert wird.
+            //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
         }
     }
 
-    void Start()
+    void Update()
     {   
         
     }    
