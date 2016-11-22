@@ -109,6 +109,21 @@ public class PlayerDataController : NetworkBehaviour
             GameObject card = GameboardGameplayController.DrawCard(this);
             //Folgender Code auskommentiert, weil besser in der Methode "DrawCard" selbst bereits der CardState auf "inHand" geändert wird.
             //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
+
+            GameObject pos;
+            if (this.isFirstPlayer)
+            {
+                pos = GameObject.Find("/Board/Player1HandPosition");
+               
+            }
+            else
+            {
+                pos = GameObject.Find("/Board/Player2HandPosition");
+                
+            }
+
+            MoveCard(card, pos);
+    
         }
     }
         
@@ -305,7 +320,7 @@ public class PlayerDataController : NetworkBehaviour
             return;
 
         //Legt die Reihenfolge der Spieler fest
-        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+        //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
 
         //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
         getDeckBuilder();
@@ -315,6 +330,25 @@ public class PlayerDataController : NetworkBehaviour
 
         //Hole Startkarten
         GetStartingHand();
+    }
+
+
+    /// <summary>
+    /// Bewegt Card Objekte zwischen "Parent-Elementen"
+    /// </summary>
+    /// <param name="card">Kartenobjekt</param>
+    /// <param name="placeToDrop">Zone in der die Karte abgelegt wird</param>
+    public void MoveCard(GameObject card, GameObject placeToDrop)
+    {
+        //heroPosition = Dropbereich der Hero-Karte
+        //if (placeToDrop == heroPosition)
+        //{
+        //    card.GetComponent<LayoutElement>().enabled = false;
+        //}
+
+        card.transform.parent = placeToDrop.transform;
+        card.SetActive(true);
+
     }
 
 }
