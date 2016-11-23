@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -68,6 +70,7 @@
     <Compile Include="Assets\Scripts\4_Login\Load.cs" />
     <Compile Include="Assets\Scripts\4_Login\Login.cs" />
     <Compile Include="Assets\Scripts\4_Login\Save.cs" />
+    <Compile Include="Assets\Scripts\5_MainMenue\LoadSceneGameboard.cs" />
     <Compile Include="Assets\Scripts\5_MainMenue\MainMenue.cs" />
     <Compile Include="Assets\Scripts\6_Options\BackToPreviousScene.cs" />
     <Compile Include="Assets\Scripts\6_Options\Mute.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardGameplayController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardInitController.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\MoveCardController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
