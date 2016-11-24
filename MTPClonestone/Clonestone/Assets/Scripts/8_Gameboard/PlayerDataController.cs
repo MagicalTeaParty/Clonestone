@@ -111,20 +111,26 @@ public class PlayerDataController : NetworkBehaviour
             //Folgender Code auskommentiert, weil besser in der Methode "DrawCard" selbst bereits der CardState auf "inHand" geändert wird.
             //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
 
-            GameObject pos;
-            if (this.isFirstPlayer)
+            if (card != null)
             {
-                pos = GameObject.Find("/Board/Player1HandPosition");
-               
+                GameObject pos;
+                if (this.isFirstPlayer)
+                {
+                    pos = GameObject.Find("/Board/Player1HandPosition");
+
+                }
+                else
+                {
+                    pos = GameObject.Find("/Board/Player2HandPosition");
+
+                }
+
+                MoveCard(card, pos);
             }
             else
             {
-                pos = GameObject.Find("/Board/Player2HandPosition");
-                
+                Debug.Log("Keine Karten in Kartenliste - Return von DrawCard");
             }
-
-            MoveCard(card, pos);
-    
         }
    }
 
@@ -191,7 +197,7 @@ public class PlayerDataController : NetworkBehaviour
         foreach (var item in jsonArray)
         {
             //Nach dem Split gibt es auch unnötige Zeichen die wir nicht für das Json-Objekt benötigen. Json-Objekte erkenne wir daran, dass diese mit " beginnen.
-            if (item[0] == '"')
+            if (item != null && item.Length > 0 && item[0] == '"')
             {
                 //Da nach dem Split die {} des Json-Objekts fehlen, werden diese wieder hinzugefügt
                 helper = "{" + item + "}";
@@ -219,6 +225,12 @@ public class PlayerDataController : NetworkBehaviour
             }
         }
 
+        //Legt die Anzahl der Startkarten fest
+        SetStartingHandSize();
+
+        //Hole Startkarten
+        GetStartingHand();
+
         Debug.Log("hallo");
     }
 
@@ -226,7 +238,7 @@ public class PlayerDataController : NetworkBehaviour
     /// Holt ein Deck und erstelle die Gameobjects. !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
     /// </summary>
     public void getDeckBuilder()
-    {
+    { 
         CreateCards _CreateCardsReceiver = CreateCardsMethod;
 
         StartCoroutine("getDeck", _CreateCardsReceiver);
@@ -321,17 +333,34 @@ public class PlayerDataController : NetworkBehaviour
             return;
 
         //Legt die Reihenfolge der Spieler fest   
-             
-        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+
+        ///TODO Playerreihenfolge falsch   
+        //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+
+        if (!this.isServer)
+            return;
+
+
+        //Wenn ich kein lokaler Spieler bin
+        if (this.isServer && this.isLocalPlayer)
+        {
+            isFirstPlayer = true;
+        }
+        else
+        {
+            isFirstPlayer = false;
+        }
+        
+        //lokaler Spieler, wenn ready
+        if (this.Data.IsReadyPlayer)
+            return;
+        
+        //lokaler Spieler, noch nicht bereit
+        this.Data.IsReadyPlayer = true;
 
         //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
         getDeckBuilder();
-
-        //Legt die Anzahl der Startkarten fest
-        SetStartingHandSize();
-
-        //Hole Startkarten
-        GetStartingHand();
+                        
     }
 
 
