@@ -76,16 +76,17 @@ public class PlayerDataController : NetworkBehaviour
         Data.IsActivePLayer = !Data.IsActivePLayer;
     }
 
-    ///// <summary>
-    ///// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
-    ///// </summary>
-    ///// <param name="p1">Spieler 1</param>
-    ///// <param name="p2">Spieler 2</param>
-    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
-    //{
-    //    p1.isFirstPlayer = GameboardDataController.TossCoin();
-    //    p2.isFirstPlayer = !p1.isFirstPlayer;
-    //}
+    /// <summary>
+    /// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
+    /// </summary>
+    /// <param name="p1">Spieler 1</param>
+    /// <param name="p2">Spieler 2</param>
+    public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
+    {
+        //p1.isFirstPlayer = GameboardDataController.TossCoin();
+        p1.isFirstPlayer = true;
+        p2.isFirstPlayer = !p1.isFirstPlayer;
+    }
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
@@ -321,7 +322,7 @@ public class PlayerDataController : NetworkBehaviour
 
         //Legt die Reihenfolge der Spieler fest   
              
-        //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+        SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
 
         //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
         getDeckBuilder();
