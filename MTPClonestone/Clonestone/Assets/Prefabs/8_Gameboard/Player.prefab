@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000010407838250}
   - 114: {fileID: 114000013810883606}
   - 114: {fileID: 114000012642428640}
+  - 114: {fileID: 114000012396301998}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -41,6 +42,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000012396301998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010244159526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f8317ad8f0e0347acb850e58c61f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012642428640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,3 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardList: []
+  CardPrefab: {fileID: 1000011941570180, guid: 9d1da37d8bd71534695a7b1ca9bc769a, type: 2}
+  CardSpawnPosition: {fileID: 4000010407838250}

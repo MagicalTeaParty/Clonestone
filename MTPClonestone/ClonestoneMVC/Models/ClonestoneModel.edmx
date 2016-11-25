@@ -276,6 +276,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="pGetDeckTextOnly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="iddeck" Type="int" Mode="In" />
+        </Function>
         <Function Name="pInsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="fname" Type="varchar" Mode="In" />
           <Parameter Name="lname" Type="varchar" Mode="In" />
@@ -690,6 +693,9 @@
             <Parameter Name="email" Mode="In" Type="String" />
             <Parameter Name="passcode" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="pGetDeckTextOnly" ReturnType="Collection(itin21_ClonestoneFSModel.pGetDeckTextOnly_Result)">
+            <Parameter Name="iddeck" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetMana5_Result">
           <Property Type="Int32" Name="idcard" Nullable="false" />
@@ -702,6 +708,23 @@
           <Property Type="Int32" Name="fkclass" Nullable="true" />
           <Property Type="Int32" Name="fkability" Nullable="true" />
           <Property Type="Binary" Name="pic" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="pGetDeckTextOnly_Result">
+          <Property Type="Int32" Name="IdDeck" Nullable="false" />
+          <Property Type="String" Name="DeckName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="IdClass" Nullable="true" />
+          <Property Type="String" Name="Class" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdType" Nullable="false" />
+          <Property Type="String" Name="TypeName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="IdCard" Nullable="false" />
+          <Property Type="String" Name="CardName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="Mana" Nullable="false" />
+          <Property Type="Int16" Name="Attack" Nullable="false" />
+          <Property Type="Int16" Name="health" Nullable="false" />
+          <Property Type="String" Name="Flavour" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IdDeckCard" Nullable="false" />
+          <Property Type="String" Name="FileName" Nullable="true" MaxLength="8" />
+          <Property Type="Guid" Name="zahl" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -837,6 +860,27 @@
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="pInsertUser" FunctionName="itin21_ClonestoneFSModel.Store.pInsertUser" />
+          <FunctionImportMapping FunctionImportName="pGetDeckTextOnly" FunctionName="itin21_ClonestoneFSModel.Store.pGetDeckTextOnly">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="itin21_ClonestoneFSModel.pGetDeckTextOnly_Result">
+                <ScalarProperty Name="IdDeck" ColumnName="IdDeck" />
+                <ScalarProperty Name="DeckName" ColumnName="DeckName" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="IdCard" ColumnName="IdCard" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="Mana" ColumnName="Mana" />
+                <ScalarProperty Name="Attack" ColumnName="Attack" />
+                <ScalarProperty Name="health" ColumnName="health" />
+                <ScalarProperty Name="Flavour" ColumnName="Flavour" />
+                <ScalarProperty Name="IdDeckCard" ColumnName="IdDeckCard" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="zahl" ColumnName="zahl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
