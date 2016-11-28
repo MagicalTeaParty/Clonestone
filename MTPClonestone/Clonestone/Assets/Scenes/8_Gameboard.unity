@@ -2188,5 +2188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893e9e8d44ad67647b09485754afdd9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1000010244159526, guid: 37d34276383870b4e9595ceb6faa9388, type: 2}
   Board: {fileID: 321585834}
   EndTurnButton: {fileID: 2012044945}

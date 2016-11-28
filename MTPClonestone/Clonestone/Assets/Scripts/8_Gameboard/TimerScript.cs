@@ -25,19 +25,17 @@ public class TimerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-
         //Debug.Log(TimeLeft);
 
+        CountDownText.enabled = false;
+        
         if (TimeLeft <= 10)
         {
             CountDownText.enabled = true;
             CountDownText.text = (TimeLeft).ToString();
 
             if (TimeLeft <= 1)
-            {
-                CountDownText.enabled = false;
-
-                //Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
+            {//Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
                 TurnEnder.EndTurn();
             }
         }
