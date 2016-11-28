@@ -49,7 +49,7 @@ public class PlayerDataController : NetworkBehaviour
     /// </summary>
     public List<GameObject> CardList;
 
-    const int MaxHandSize = 10;
+    public const int MaxHandSize = 10;
     const int MaxMana = 10;
     const int MaxHealth = 30;
 
@@ -118,6 +118,8 @@ public class PlayerDataController : NetworkBehaviour
                 {
                     pos = GameObject.Find("/Board/Player1HandPosition");
 
+                    TimerScript timer = GameObject.Find("/Board").GetComponent<GameboardGameplayController>().timer;
+                    timer.StartCoroutine("CountDown");
                 }
                 else
                 {
@@ -408,7 +410,6 @@ public class PlayerDataController : NetworkBehaviour
                         
     }
 
-
     /// <summary>
     /// Bewegt Card Objekte zwischen "Parent-Elementen"
     /// </summary>
@@ -422,9 +423,12 @@ public class PlayerDataController : NetworkBehaviour
         //    card.GetComponent<LayoutElement>().enabled = false;
         //}
 
+        if (card.GetComponent<CardDataController>().CardData.CardState == CardDataController.CardStatus.inDiscardPile)
+        {
+            DestroyObject(card);
+        }
+
         card.transform.parent = placeToDrop.transform;
         card.SetActive(true);
-
     }
-
 }

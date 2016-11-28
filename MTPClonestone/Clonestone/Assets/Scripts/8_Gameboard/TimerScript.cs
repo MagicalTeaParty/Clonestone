@@ -10,6 +10,14 @@ public class TimerScript : MonoBehaviour
     public Text CountDownText;
     public GameboardGameplayController TurnEnder;
 
+    void Start()
+    {
+        if (CountDownText == null)
+        {
+            CountDownText = GameObject.Find("/Board/EndTurn/CountDownText").GetComponent<Text>();
+        }
+    }
+
     /// <summary>
     /// Führt den Countdown aus. Soll wenn timeLeft kleiner ist als
     /// 10 Sekunden, den Text erscheinen lassen und den Countdown mit
@@ -17,9 +25,12 @@ public class TimerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        CountDownText.enabled = true;
+
+        //Debug.Log(TimeLeft);
+
         if (TimeLeft <= 10)
         {
+            CountDownText.enabled = true;
             CountDownText.text = (TimeLeft).ToString();
 
             if (TimeLeft <= 1)
