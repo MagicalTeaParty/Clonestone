@@ -36,6 +36,9 @@ public class GameboardInitController : MonoBehaviour
         if(Players == null)
             Players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (Players == null || Players.Length == 0)
+            return false;
+
         bool ok = true;
 
         foreach(var p in Players)

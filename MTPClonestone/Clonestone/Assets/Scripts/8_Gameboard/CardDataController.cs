@@ -101,8 +101,4 @@ public class CardDataController : NetworkBehaviour
                 break;
         }
     }
-
-
-
-
 }
