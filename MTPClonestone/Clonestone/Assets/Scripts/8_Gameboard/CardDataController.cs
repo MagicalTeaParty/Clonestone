@@ -40,4 +40,65 @@ public class CardDataController : NetworkBehaviour
     //Fields
     [SyncVar]
     public CardData Data;
+
+
+    private void Update()
+    {
+        setCardVisibility();
+
+
+    }
+
+
+    private void setCardVisibility()
+    {
+        var cardBackGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
+        //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
+
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        
+        GameObject owner=null;
+
+        var cards = players[0].GetComponent<PlayerDataController>().CardList;
+        foreach (var card in cards)
+        {
+            if(card == this.gameObject)
+            {
+                owner = players[0];
+            }
+        }
+
+        cards = players[1].GetComponent<PlayerDataController>().CardList;
+        foreach (var card in cards)
+        {
+            if (card == this.gameObject)
+            {
+                owner = players[1];
+            }
+        }
+
+        switch (this.Data.CardState)
+        {
+            case CardStatus.inDeck:
+                cardBackGameObjekt.SetActive(true);
+                break;
+            case CardStatus.inHand:
+                if (owner.GetComponent<NetworkIdentity>().isLocalPlayer)
+                {
+                    cardBackGameObjekt.SetActive(false);
+                }
+                else
+                {
+                    cardBackGameObjekt.SetActive(true);
+                }
+
+                break;
+            case CardStatus.onBoard:
+                break;
+            case CardStatus.inDiscardPile:
+                break;
+            default:
+                break;
+        }
+    }
 }

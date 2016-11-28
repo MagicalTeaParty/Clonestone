@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameboardInitController : MonoBehaviour {
+public class GameboardInitController : MonoBehaviour
+{
 
     //Fields
 
@@ -34,6 +35,9 @@ public class GameboardInitController : MonoBehaviour {
     {
         if(Players == null)
             Players = GameObject.FindGameObjectsWithTag("Player");
+
+        if (Players == null || Players.Length == 0)
+            return false;
 
         bool ok = true;
 
