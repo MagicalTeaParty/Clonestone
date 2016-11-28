@@ -15,6 +15,11 @@ public class GameboardGameplayController : MonoBehaviour
     /// <returns></returns>
     public static GameObject DrawCard(PlayerDataController player)
     {
+        if (player.CardList.Count < 1)
+        {
+            return null;
+        }
+
         GameObject cardDrawn = null;
         int cardsInHandCount = 0;
 
@@ -32,13 +37,11 @@ public class GameboardGameplayController : MonoBehaviour
                 if (cardsInHandCount < PlayerDataController.MaxHandSize)
                 {
                     cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
-                    
                 }
                 //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
                 else
                 {
                     cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
-                    
                 }
                 return cardDrawn;
             }

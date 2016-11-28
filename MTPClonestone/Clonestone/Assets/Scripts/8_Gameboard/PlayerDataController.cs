@@ -423,9 +423,13 @@ public class PlayerDataController : NetworkBehaviour
         //    card.GetComponent<LayoutElement>().enabled = false;
         //}
 
-        if (card.GetComponent<CardDataController>().CardData.CardState == CardDataController.CardStatus.inDiscardPile)
+        if (card == null)
+            return;
+
+        if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
         {
             DestroyObject(card);
+            return;
         }
 
         card.transform.parent = placeToDrop.transform;
