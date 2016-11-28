@@ -251,10 +251,11 @@ public class PlayerDataController : NetworkBehaviour
 
         #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
 
-        GameObject card = (GameObject)Instantiate(CardPrefab, placeHeroCard.transform.position, CardSpawnPosition.rotation);
+        GameObject card = (GameObject)Instantiate(CardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
 
         CardDataController cdc = card.GetComponent<CardDataController>();
         cdc.Data = cardData;
+        cdc.Data.CardState = CardDataController.CardStatus.onBoard;
 
         #endregion
 
@@ -328,7 +329,7 @@ public class PlayerDataController : NetworkBehaviour
                 
         
         //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
-        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, CardSpawnPosition.rotation);
+        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, pos.transform.rotation);
 
         //Übergabeparameter cardData auf die Instanz card speichern
         CardDataController cdc = card.GetComponent<CardDataController>();
