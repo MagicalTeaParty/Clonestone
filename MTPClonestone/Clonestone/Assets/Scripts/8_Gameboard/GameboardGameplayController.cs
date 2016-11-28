@@ -52,6 +52,9 @@ public class GameboardGameplayController : MonoBehaviour
         //Finde beide Spieler und speichere sie in ein Array
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (players.Length < 2)
+            return;
+
         //Wechsle den aktiven Spieler
         ChangeActivePlayer(players[0], players[1]);
         
