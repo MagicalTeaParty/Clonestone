@@ -204,14 +204,16 @@ public class PlayerDataController : NetworkBehaviour
 
                 //Mittels FromJson wird nun der String der auf helper steht - dieser ist ein Json-Objekt - in ein Objekt vom Typ CardData umgewandelt
                 CardDataController.CardData cardData = JsonUtility.FromJson<CardDataController.CardData>(helper);
-
+                                     
+                                
                 //If Herocard, dann
                 if (cardData.TypeName == "Hero")
                 {
                     #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
 
                     ///TODO erstellen eines Heros  
-
+                    CardDataController.CardData HeroCard = cardData;
+                    CmdCardSpawnServer(HeroCard);
                     #endregion
                 }
                 else //else,.... (wenn nicht hero)
@@ -278,13 +280,17 @@ public class PlayerDataController : NetworkBehaviour
         GameObject pos;
         if(this.isFirstPlayer)
         {
+         
             pos = GameObject.Find("/Board/Deck1Position");
+           
         }
         else
         {
             pos = GameObject.Find("/Board/Deck2Position");
+         
         }
-            
+                
+        
         //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
         GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, CardSpawnPosition.rotation);
 
@@ -304,6 +310,7 @@ public class PlayerDataController : NetworkBehaviour
             this.CardList = new List<GameObject>();
 
         this.CardList.Add(card);
+        
 
 
         // Get all components of type Image that are children of this GameObject.
@@ -323,6 +330,8 @@ public class PlayerDataController : NetworkBehaviour
 
 
     }
+
+    
 
     void Update()
     {
