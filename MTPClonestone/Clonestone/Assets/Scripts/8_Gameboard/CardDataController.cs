@@ -55,7 +55,27 @@ public class CardDataController : NetworkBehaviour
         var cardBackGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
         //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
 
-        ///TODO BLA
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        
+        GameObject owner=null;
+
+        var cards = players[0].GetComponent<PlayerDataController>().CardList;
+        foreach (var card in cards)
+        {
+            if(card == this.gameObject)
+            {
+                owner = players[0];
+            }
+        }
+
+        cards = players[1].GetComponent<PlayerDataController>().CardList;
+        foreach (var card in cards)
+        {
+            if (card == this.gameObject)
+            {
+                owner = players[1];
+            }
+        }
 
         switch (this.Data.CardState)
         {
@@ -63,7 +83,7 @@ public class CardDataController : NetworkBehaviour
                 cardBackGameObjekt.SetActive(true);
                 break;
             case CardStatus.inHand:
-                if (isLocalPlayer)
+                if (owner.GetComponent<NetworkIdentity>().isLocalPlayer)
                 {
                     cardBackGameObjekt.SetActive(false);
                 }
