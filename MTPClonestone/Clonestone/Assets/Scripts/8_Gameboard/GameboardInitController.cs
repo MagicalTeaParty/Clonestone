@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameboardInitController : MonoBehaviour {
+public class GameboardInitController : MonoBehaviour
+{
 
     //Fields
 
