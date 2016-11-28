@@ -6,15 +6,9 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    public int timeLeft = 90;
-    public Text countDownText;
-    public Button Endbutton;
-
-
-    void Start()
-    {
-        StartCoroutine("CountDown");
-    }
+    public int TimeLeft = 75;
+    public Text CountDownText;
+    public GameboardGameplayController TurnEnder;
 
     /// <summary>
     /// Führt den Countdown aus. Soll wenn timeLeft kleiner ist als
@@ -23,34 +17,27 @@ public class TimerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //TODO: benötigt noch die Anbindung an GameINITController
-        //if (GameboardDataController.IsRunningGame == true)
-        //{
-
-
-        countDownText.enabled = true;
-        if (timeLeft <= 10)
+        CountDownText.enabled = true;
+        if (TimeLeft <= 10)
         {
-            countDownText.text = (timeLeft).ToString();
+            CountDownText.text = (TimeLeft).ToString();
 
-            if (timeLeft <= 0)
+            if (TimeLeft <= 1)
             {
-                countDownText.enabled = false;
-                //TODO: Spielerwechsel initialisieren,Button aktivieren für Spielerwechsel (isActivPlayer??)
-                StopCoroutine("CountDown");
+                CountDownText.enabled = false;
+
+                //Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
+                TurnEnder.EndTurn();
             }
         }
-        //}
     }
-
 
     IEnumerator CountDown()
     {
         while (true)
         {
             yield return new WaitForSeconds(1);
-            timeLeft--;
+            TimeLeft--;
         }
     }
 }
-
