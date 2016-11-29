@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    public int TimeLeft = 75;
+    const int time4Round = 10;
+
+    public int TimeLeft = time4Round;
     public Text CountDownText;
     public GameboardGameplayController TurnEnder;
 
@@ -36,6 +38,7 @@ public class TimerScript : MonoBehaviour
 
             if (TimeLeft <= 1)
             {//Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
+                TimeLeft = time4Round;
                 TurnEnder.EndTurn();
             }
         }
