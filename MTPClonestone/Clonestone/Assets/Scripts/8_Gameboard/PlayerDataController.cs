@@ -118,9 +118,6 @@ public class PlayerDataController : NetworkBehaviour
                 if (this.isFirstPlayer)
                 {
                     pos = GameObject.Find("/Board/Player1HandPosition");
-
-                    TimerScript timer = GameObject.Find("/Board").GetComponent<GameboardGameplayController>().timer;
-                    timer.StartCoroutine("CountDown");
                 }
                 else
                 {

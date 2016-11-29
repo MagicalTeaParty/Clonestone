@@ -3,9 +3,14 @@
 public class GameboardGameplayController : MonoBehaviour
 {
     //Fields
-    public TimerScript timer;
+    TimerScript timer;
 
     //Methods
+
+    void Start()
+    {
+        timer = GameObject.Find("/Board/EndTurn/EndTurnButton").GetComponent<TimerScript>();
+    }
 
     /// <summary>
     /// Diese Methode zieht eine Karte vom Deck des mitgegebenen Spielers.
@@ -65,8 +70,11 @@ public class GameboardGameplayController : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
-        //Beende den Timer
+        Debug.Log("Time left:" + timer.TimeLeft);
+
+        //Beende den Timer und Setze die Zeit zurück
         timer.StopCoroutine("CountDown");
+        timer.TimeLeft = TimerScript.time4Round;
 
         //Finde beide Spieler und speichere sie in ein Array
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -100,13 +108,13 @@ public class GameboardGameplayController : MonoBehaviour
             //Fülle ihr Mana auf
             RefillMana(players[1]);
             //Ziehe eine Karte für sie
-            DrawCard(players[1].GetComponent<PlayerDataController>());
+            card = DrawCard(players[1].GetComponent<PlayerDataController>());
 
             placeToDrop = GameObject.Find("/Board/Player2HandPosition");
             players[1].GetComponent<PlayerDataController>().MoveCard(card, placeToDrop);
         }
 
-        //Starte den Timer (75 Sek.)
+        //Starte den Timer
         timer.StartCoroutine("CountDown");
     }
 
