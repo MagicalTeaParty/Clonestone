@@ -49,7 +49,7 @@ public class PlayerDataController : NetworkBehaviour
     /// </summary>
     public List<GameObject> CardList;
 
-    const int MaxHandSize = 10;
+    public const int MaxHandSize = 10;
     const int MaxMana = 10;
     const int MaxHealth = 30;
 
@@ -118,6 +118,8 @@ public class PlayerDataController : NetworkBehaviour
                 {
                     pos = GameObject.Find("/Board/Player1HandPosition");
 
+                    TimerScript timer = GameObject.Find("/Board").GetComponent<GameboardGameplayController>().timer;
+                    timer.StartCoroutine("CountDown");
                 }
                 else
                 {
@@ -133,6 +135,8 @@ public class PlayerDataController : NetworkBehaviour
             }
         }
    }
+
+   
 
     /// <summary>
     /// Lädt ein PNG und liefert eine Texture2D
@@ -209,12 +213,8 @@ public class PlayerDataController : NetworkBehaviour
                 //If Herocard, dann
                 if (cardData.TypeName == "Hero")
                 {
-                    #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
+                    CmdHeroSpawnServer(cardData);
 
-                    ///TODO erstellen eines Heros  
-                    CardDataController.CardData HeroCard = cardData;
-                    CmdCardSpawnServer(HeroCard);
-                    #endregion
                 }
                 else //else,.... (wenn nicht hero)
                 {
@@ -226,7 +226,7 @@ public class PlayerDataController : NetworkBehaviour
                 }
             }
         }
-
+        
         //Legt die Anzahl der Startkarten fest
         SetStartingHandSize();
 
@@ -235,6 +235,45 @@ public class PlayerDataController : NetworkBehaviour
 
         Debug.Log("hallo");
     }
+
+    [Command]
+    void CmdHeroSpawnServer(CardDataController.CardData cardData)
+    {
+        GameObject placeHeroCard;
+                
+        if (this.isFirstPlayer)
+        {
+            placeHeroCard = GameObject.Find("/Board/HeroP1Position");
+
+        }
+        else
+        {
+            placeHeroCard = GameObject.Find("/Board/HeroP2Position");
+        }
+
+        #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
+
+        GameObject card = (GameObject)Instantiate(CardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
+
+        CardDataController cdc = card.GetComponent<CardDataController>();
+        cdc.Data = cardData;
+        cdc.Data.CardState = CardDataController.CardStatus.onBoard;
+
+        #endregion
+
+        //Bild setzen
+        var image = card.GetComponentsInChildren<Image>()[1];
+
+        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+        
+        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+
+        card.transform.parent = placeHeroCard.transform;
+
+
+        NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
+    }
+
 
     /// <summary>
     /// Holt ein Deck und erstelle die Gameobjects. !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
@@ -292,7 +331,7 @@ public class PlayerDataController : NetworkBehaviour
                 
         
         //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
-        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, CardSpawnPosition.rotation);
+        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, pos.transform.rotation);
 
         //Übergabeparameter cardData auf die Instanz card speichern
         CardDataController cdc = card.GetComponent<CardDataController>();
@@ -300,11 +339,6 @@ public class PlayerDataController : NetworkBehaviour
         //cdc.Data.CardName = cardData.CardName;
 
         cdc.Data = cardData;
-        
-
-        //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
-        //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
-        NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
 
         if (this.CardList == null)
             this.CardList = new List<GameObject>();
@@ -320,14 +354,18 @@ public class PlayerDataController : NetworkBehaviour
 
                 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
-        
+
+
         #region Testladen eines Bildes
-        
+
         //Image im = GetComponentsInChildren<Image>()[1];        //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
-        
+
 
         #endregion
 
+        //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
+        //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
+        NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
 
     }
 
@@ -372,7 +410,6 @@ public class PlayerDataController : NetworkBehaviour
                         
     }
 
-
     /// <summary>
     /// Bewegt Card Objekte zwischen "Parent-Elementen"
     /// </summary>
@@ -386,9 +423,16 @@ public class PlayerDataController : NetworkBehaviour
         //    card.GetComponent<LayoutElement>().enabled = false;
         //}
 
+        if (card == null)
+            return;
+
+        if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
+        {
+            DestroyObject(card);
+            return;
+        }
+
         card.transform.parent = placeToDrop.transform;
         card.SetActive(true);
-
     }
-
 }
