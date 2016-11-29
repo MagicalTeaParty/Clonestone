@@ -74,6 +74,9 @@ public class GameboardGameplayController : MonoBehaviour
         if (players.Length < 2)
             return;
 
+        Debug.Log("Player 1 \"isActive\"" + players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer);
+        Debug.Log("Player 2 \"isActive\"" + players[1].GetComponent<PlayerDataController>().Data.IsActivePLayer);
+
         //Wechsle den aktiven Spieler
         ChangeActivePlayer(players[0], players[1]);
 
