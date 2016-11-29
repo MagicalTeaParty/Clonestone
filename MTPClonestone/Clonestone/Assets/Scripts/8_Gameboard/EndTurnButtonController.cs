@@ -34,7 +34,6 @@ public class EndTurnButtonController : MonoBehaviour
 
     public void ExecuteEndTurnButton()
     {
-        Debug.Log("ExecuteEndTurnButton()");
         board.EndTurn();
     }
 }

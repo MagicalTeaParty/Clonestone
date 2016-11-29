@@ -23,7 +23,7 @@ public class GameboardInitController : MonoBehaviour
 
     void Update()
     {
-        if (GameboardInitController.DetermineIfGameIsRunning())
+        if (DetermineIfGameIsRunning())
         {
             GameboardDataController.GameState = GameboardDataController.GameStatus.running;
 

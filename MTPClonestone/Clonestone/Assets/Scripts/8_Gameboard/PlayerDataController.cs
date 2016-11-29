@@ -39,6 +39,11 @@ public class PlayerDataController : NetworkBehaviour
         /// Aktuelle Lebenspunkte des Spielers
         /// </summary>
         public int CurrentHealth;
+
+        /// <summary>
+        /// Schaden, den der Spieler bekommt, wenn er versucht aus einem leeren Deck eine Karte zu ziehen
+        /// </summary>
+        public int Fatigue;
     }
 
     //Fields
@@ -67,6 +72,13 @@ public class PlayerDataController : NetworkBehaviour
     public PlayerData Data;
 
     //Methods
+    
+    void Start()
+    {
+        Data.Fatigue = 0;
+        Data.CurrentMaxMana = MaxMana;
+        Data.CurrentHealth = MaxHealth;
+    }
 
     /// <summary>
     /// Ändert die Bool-Variable "IsActivePlayer" von "true" auf "false" oder vice versa.
@@ -229,8 +241,6 @@ public class PlayerDataController : NetworkBehaviour
 
         //Hole Startkarten
         GetStartingHand();
-
-        Debug.Log("hallo");
     }
 
     [Command]
@@ -264,7 +274,9 @@ public class PlayerDataController : NetworkBehaviour
         
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
-        card.transform.parent = placeHeroCard.transform;
+        //Warnung von Unity: Ausgebessert LP&TF
+        //card.transform.parent = placeHeroCard.transform;
+        card.transform.SetParent(placeHeroCard.transform);
 
 
         NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
@@ -294,7 +306,6 @@ public class PlayerDataController : NetworkBehaviour
         form.AddField("idDeck", 1);
 
         WWW returnJson = new WWW(url, form);
-        Debug.Log("hallo");
 
         yield return returnJson;
 
@@ -410,16 +421,25 @@ public class PlayerDataController : NetworkBehaviour
         //    card.GetComponent<LayoutElement>().enabled = false;
         //}
 
+        //Wenn keine Karte zurückgeliefert wird, muss das Deck leer sein, ...
         if (card == null)
-            return;
-
-        if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
         {
-            DestroyObject(card);
+            //...daher erhöht sich die Fatigue.
+            Data.Fatigue++;
             return;
         }
 
-        card.transform.parent = placeToDrop.transform;
+        if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
+        {
+            if(GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer)
+                placeToDrop = GameObject.Find("/Board/DiscardPile1");
+            else
+                placeToDrop = GameObject.Find("/Board/DiscardPile2");
+        }
+
+        //Warnung von Unity: Ausgebessert LP&TF
+        //card.transform.parent = placeToDrop.transform;
+        card.transform.SetParent(placeToDrop.transform);
         card.SetActive(true);
     }
 }
