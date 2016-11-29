@@ -7,13 +7,13 @@ public class EndTurnButtonController : MonoBehaviour
     public GameboardGameplayController Board;
     public Button EndTurnButton;
 
-	// Use this for initialization
-	public void ExecuteEndTurn()
+    void Update()
     {
-        if (player.GetComponent<PlayerDataController>().Data.IsActivePLayer)
-        {
-            Button btn = EndTurnButton.GetComponent<Button>();
-            btn.onClick.AddListener(Board.EndTurn);
-        }
-	}
+        this.EndTurnButton.GetComponent<Button>().enabled = player.GetComponent<PlayerDataController>().Data.IsActivePLayer;
+    }
+
+    public void ExecuteEndTurnButton()
+    {
+        Board.EndTurn();
+    }
 }
