@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GameboardGameplayController : MonoBehaviour
 {
@@ -6,6 +8,7 @@ public class GameboardGameplayController : MonoBehaviour
     TimerScript timer;
 
     bool gameOver = false;
+    private InfoTextController inf;
 
     //Methods
 
@@ -32,6 +35,7 @@ public class GameboardGameplayController : MonoBehaviour
 
                 ///TODO Do something when game is won
                 Debug.Log("GAME OVER!" + "Player " + winHelper + " has won");
+                inf.showInfoText("GAME OVER!" + "Player"+ winHelper +"has won",2);
                 gameOver = true;
             }
         }
@@ -98,7 +102,7 @@ public class GameboardGameplayController : MonoBehaviour
         //Beende den Timer und Setze die Zeit zurück
         timer.StopCoroutine("CountDown");
         timer.TimeLeft = TimerScript.time4Round;
-
+        
         //Finde beide Spieler und speichere sie in ein Array
         GameObject[] players = GameboardInitController.Players;
 
@@ -142,6 +146,7 @@ public class GameboardGameplayController : MonoBehaviour
 
         //Starte den Timer
         timer.StartCoroutine("CountDown");
+        inf.showInfoText("Next Player",1);
     }
 
     void RefillMana(GameObject player)
