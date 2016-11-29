@@ -26,8 +26,12 @@ public class GameboardGameplayController : MonoBehaviour
 
             if (GameboardInitController.Players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0 && gameOver == false)
             {
+                int winHelper;
+                if (i == 0) winHelper = 1;
+                else winHelper = 0;
+
                 ///TODO Do something when game is won
-                Debug.Log("GAME OVER!" + "Player " + i + " has won");
+                Debug.Log("GAME OVER!" + "Player " + winHelper + " has won");
                 gameOver = true;
             }
         }
