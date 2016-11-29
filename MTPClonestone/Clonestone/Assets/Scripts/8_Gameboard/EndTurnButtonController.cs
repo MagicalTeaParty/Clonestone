@@ -1,19 +1,40 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class EndTurnButtonController : MonoBehaviour
 {
-    public GameObject player;
-    public GameboardGameplayController Board;
-    public Button EndTurnButton;
+    GameboardGameplayController board;
+    Button endTurnButton;
+
+    void Start()
+    {
+        board = GameObject.Find("/Board").GetComponent<GameboardGameplayController>();
+        endTurnButton = GameObject.Find("/Board/EndTurn/EndTurnButton").GetComponent<Button>();
+    }
 
     void Update()
     {
-        this.EndTurnButton.GetComponent<Button>().enabled = player.GetComponent<PlayerDataController>().Data.IsActivePLayer;
+        if (GameboardInitController.DetermineIfGameIsRunning() == false)
+            return;
+
+        //1. Hole die Spieler
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //2. Hole den lokalen Spieler
+        if (players[0].GetComponent<NetworkIdentity>().isLocalPlayer)
+        {
+            //3. hole den Zustand IsActive und gibs dem Button
+            endTurnButton.GetComponent<Button>().enabled = players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer;
+        }
+        else
+        {
+            endTurnButton.GetComponent<Button>().enabled = players[1].GetComponent<PlayerDataController>().Data.IsActivePLayer;
+        }
     }
 
     public void ExecuteEndTurnButton()
     {
-        Board.EndTurn();
+        Debug.Log("ExecuteEndTurnButton()");
+        board.EndTurn();
     }
 }

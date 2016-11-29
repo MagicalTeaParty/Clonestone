@@ -6,18 +6,26 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    const int time4Round = 10;
+    internal const int time4Round = 10;
+    internal int TimeLeft = time4Round;
 
-    public int TimeLeft = time4Round;
-    public Text CountDownText;
-    public GameboardGameplayController TurnEnder;
+    GameboardGameplayController board;
+    Text countDownText;
+
+    bool isFirstCountDown;
 
     void Start()
     {
-        if (CountDownText == null)
+        countDownText = GameObject.Find("/Board/EndTurn/CountDownText").GetComponent<Text>();
+        board = GameObject.Find("/Board").GetComponent<GameboardGameplayController>();
+
+        countDownText.enabled = false;
+
+        if (countDownText == null)
         {
-            CountDownText = GameObject.Find("/Board/EndTurn/CountDownText").GetComponent<Text>();
+            countDownText = countDownText.GetComponent<Text>();
         }
+        isFirstCountDown = true;
     }
 
     /// <summary>
@@ -27,20 +35,26 @@ public class TimerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //Debug.Log(TimeLeft);
+        if (!GameboardInitController.DetermineIfGameIsRunning())
+            return;
 
-        CountDownText.enabled = false;
+        if (isFirstCountDown)
+        {
+            StartCoroutine("CountDown");
+            isFirstCountDown = false;
+        }
+
+        countDownText.enabled = false;
         
         if (TimeLeft <= 10)
         {
-            CountDownText.enabled = true;
-            CountDownText.text = (TimeLeft).ToString();
+            countDownText.enabled = true;
+            countDownText.text = (TimeLeft).ToString();
 
-            if (TimeLeft <= 1)
+            if (TimeLeft < 1)
             {
                 //Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
-                TimeLeft = time4Round;
-                TurnEnder.EndTurn();
+                board.EndTurn();
             }
         }
     }
