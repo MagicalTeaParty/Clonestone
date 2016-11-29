@@ -77,7 +77,7 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     /// <summary>
-    /// Setzt die Variable "isFirstPlayer" für beide Spieler entsprechend der Rückgabe von Methode "TossCoin()"
+    /// Setzt die Variable "isFirstPlayer" für beide Spieler
     /// </summary>
     /// <param name="p1">Spieler 1</param>
     /// <param name="p2">Spieler 2</param>
@@ -95,7 +95,8 @@ public class PlayerDataController : NetworkBehaviour
     public void SetStartingHandSize()
     {
         if (isFirstPlayer)
-            startingHandSize = 3;
+            //+1 damit der beginnende Spieler auch eine Karte beim ersten Zug "zieht"
+            startingHandSize = 3 + 1;
         else startingHandSize = 4;
     }
 
@@ -124,7 +125,6 @@ public class PlayerDataController : NetworkBehaviour
                 else
                 {
                     pos = GameObject.Find("/Board/Player2HandPosition");
-
                 }
 
                 MoveCard(card, pos);
@@ -244,7 +244,6 @@ public class PlayerDataController : NetworkBehaviour
         if (this.isFirstPlayer)
         {
             placeHeroCard = GameObject.Find("/Board/HeroP1Position");
-
         }
         else
         {
@@ -303,7 +302,6 @@ public class PlayerDataController : NetworkBehaviour
         yield return returnJson;
 
         _CreateCardsReceiver(returnJson.text);
-        
     }
 
     //Alle serverseitigen Methoden benötigen das Command-Attribut
@@ -319,14 +317,11 @@ public class PlayerDataController : NetworkBehaviour
         GameObject pos;
         if(this.isFirstPlayer)
         {
-         
             pos = GameObject.Find("/Board/Deck1Position");
-           
         }
         else
         {
             pos = GameObject.Find("/Board/Deck2Position");
-         
         }
                 
         
@@ -355,7 +350,6 @@ public class PlayerDataController : NetworkBehaviour
                 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
-
         #region Testladen eines Bildes
 
         //Image im = GetComponentsInChildren<Image>()[1];        //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
@@ -366,10 +360,7 @@ public class PlayerDataController : NetworkBehaviour
         //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
         //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
         NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
-
     }
-
-    
 
     void Update()
     {
@@ -379,19 +370,18 @@ public class PlayerDataController : NetworkBehaviour
         if (CardList != null && CardList.Count != 0)
             return;
 
-        //Legt die Reihenfolge der Spieler fest   
-
-        ///TODO Playerreihenfolge falsch   
-        //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
-
         if (!this.isServer)
             return;
-
 
         //Wenn ich kein lokaler Spieler bin
         if (this.isServer && this.isLocalPlayer)
         {
             isFirstPlayer = true;
+
+            //Legt die Reihenfolge der Spieler fest   
+            ///TODO Playerreihenfolge falsch   
+            //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+            Data.IsActivePLayer = true;
         }
         else
         {

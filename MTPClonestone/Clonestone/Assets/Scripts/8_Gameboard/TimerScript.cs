@@ -37,7 +37,8 @@ public class TimerScript : MonoBehaviour
             CountDownText.text = (TimeLeft).ToString();
 
             if (TimeLeft <= 1)
-            {//Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
+            {
+                //Wenn die Zeit abgelaufen ist, muss "CountDown" beendet werden.
                 TimeLeft = time4Round;
                 TurnEnder.EndTurn();
             }
