@@ -5,11 +5,32 @@ public class GameboardGameplayController : MonoBehaviour
     //Fields
     TimerScript timer;
 
+    bool gameOver = false;
+
     //Methods
 
     void Start()
     {
         timer = GameObject.Find("/Board/EndTurn/EndTurnButton").GetComponent<TimerScript>();
+    }
+
+    void Update()
+    {
+        if (!GameboardInitController.DetermineIfGameIsRunning())
+            return;
+
+        ///TODO Check if game is won
+        for (int i = 0; i < GameboardInitController.Players.Length; i++)
+        {
+            Debug.Log("Player " + i + ": " + GameboardInitController.Players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
+
+            if (GameboardInitController.Players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0 && gameOver == false)
+            {
+                ///TODO Do something when game is won
+                Debug.Log("GAME OVER!" + "Player " + i + " has won");
+                gameOver = true;
+            }
+        }
     }
 
     /// <summary>
@@ -70,20 +91,15 @@ public class GameboardGameplayController : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
-        Debug.Log("Time left:" + timer.TimeLeft);
-
         //Beende den Timer und Setze die Zeit zurück
         timer.StopCoroutine("CountDown");
         timer.TimeLeft = TimerScript.time4Round;
 
         //Finde beide Spieler und speichere sie in ein Array
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject[] players = GameboardInitController.Players;
 
         if (players.Length < 2)
             return;
-
-        Debug.Log("Player 1 \"isActive\"" + players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer);
-        Debug.Log("Player 2 \"isActive\"" + players[1].GetComponent<PlayerDataController>().Data.IsActivePLayer);
 
         //Wechsle den aktiven Spieler
         ChangeActivePlayer(players[0], players[1]);
@@ -101,6 +117,9 @@ public class GameboardGameplayController : MonoBehaviour
 
             placeToDrop = GameObject.Find("/Board/Player1HandPosition");
             players[0].GetComponent<PlayerDataController>().MoveCard(card, placeToDrop);
+            
+            //Deal Fatigue
+            players[0].GetComponent<PlayerDataController>().Data.CurrentHealth -= players[0].GetComponent<PlayerDataController>().Data.Fatigue;
         }
         //Wenn players[1] aktiv ist
         else
@@ -112,6 +131,9 @@ public class GameboardGameplayController : MonoBehaviour
 
             placeToDrop = GameObject.Find("/Board/Player2HandPosition");
             players[1].GetComponent<PlayerDataController>().MoveCard(card, placeToDrop);
+
+            //Deal Fatigue
+            players[1].GetComponent<PlayerDataController>().Data.CurrentHealth -= players[1].GetComponent<PlayerDataController>().Data.Fatigue;
         }
 
         //Starte den Timer

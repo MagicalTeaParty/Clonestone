@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
 {
-    internal const int time4Round = 10;
+    internal const int time4Round = 1;
     internal int TimeLeft = time4Round;
 
     GameboardGameplayController board;
@@ -21,10 +21,6 @@ public class TimerScript : MonoBehaviour
 
         countDownText.enabled = false;
 
-        if (countDownText == null)
-        {
-            countDownText = countDownText.GetComponent<Text>();
-        }
         isFirstCountDown = true;
     }
 
