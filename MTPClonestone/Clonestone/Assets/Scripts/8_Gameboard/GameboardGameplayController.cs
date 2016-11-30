@@ -3,6 +3,7 @@
 public class GameboardGameplayController : MonoBehaviour
 {
     //Fields
+    GameObject info;
     TimerScript timer;
 
     bool gameOver = false;
@@ -11,6 +12,7 @@ public class GameboardGameplayController : MonoBehaviour
 
     void Start()
     {
+        info = GameObject.Find("/Board/Info");
         timer = GameObject.Find("/Board/EndTurn/EndTurnButton").GetComponent<TimerScript>();
     }
 
@@ -31,10 +33,12 @@ public class GameboardGameplayController : MonoBehaviour
                 else winHelper = 0;
 
                 ///TODO Do something when game is won
-                Debug.Log("GAME OVER!" + "Player " + winHelper + " has won");
+                Debug.Log("GAME OVER!" + "\nPlayer " + winHelper + " has won");
                 GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
-                InfoTextController info = new InfoTextController();
-                info.showInfoText("GAME OVER!" + "Player " + winHelper + " has won", 1);
+
+                info.SetActive(true);
+                StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(("GAME OVER!" + "\nPlayer " + winHelper + " has won"), 10));
+
                 gameOver = true;
             }
         }
@@ -106,7 +110,7 @@ public class GameboardGameplayController : MonoBehaviour
     /// - bewegt die Karte
     /// - startet den Countdown
     /// </summary>
-    public void EndTurn()
+    internal void EndTurn()
     {
         //Beende den Timer und Setze die Zeit zurück
         timer.StopCoroutine("CountDown");
