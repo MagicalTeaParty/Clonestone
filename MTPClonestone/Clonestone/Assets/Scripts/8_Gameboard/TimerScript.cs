@@ -30,7 +30,7 @@ public class TimerScript : MonoBehaviour
 
         isFirstCountDown = true;
     }
-    
+
     void Update()
     {
         if (!GameboardInitController.DetermineIfGameIsRunning())
@@ -45,7 +45,7 @@ public class TimerScript : MonoBehaviour
             StartCoroutine("CountDown");
             isFirstCountDown = false;
         }
-        
+
         if (TimeLeft <= 10)
         {
             //Jetzt wird der Countdown angezeigt
@@ -67,7 +67,7 @@ public class TimerScript : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSecondsRealtime(1);
             TimeLeft--;
         }
     }

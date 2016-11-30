@@ -7,39 +7,21 @@ using System.Threading;
 public class InfoTextController : MonoBehaviour
 {
 
-    public GameObject Info;
-    public Text InfoText;
-    private float seconds = 2;
+    GameObject info;
+    Text infoText;
     
     // Use this for initialization
-	void Start () {
-	Info.SetActive(false);
+	void Start ()
+    {
+        info = GameObject.Find("/Board/Info");
+        infoText = GameObject.Find("/Board/Info/InfoText").GetComponent<Text>();
+        info.SetActive(false);
 	}
-    /// <summary>
-    /// Zeigt einen mitgegebenen InfoText für eine
-    /// gewisse Zeitspanne. Eine Coroutine zählt herunter
-    /// und inzwischen bleibt das Textfeld aktiv
-    /// </summary>
-    /// <param name="tex"></param>
-    /// <param name="sec"></param>
-    internal void showInfoText(string tex,float sec)
+    
+    internal IEnumerator ShowInfoText(string txt, float delay)
     {
-        this.seconds = sec;
-        StartCoroutine("WaitForAMoment");
-        if (seconds>=0)
-        {
-         Info.SetActive(true);
-         InfoText.text = tex;
-        }
-        StopCoroutine("WaitForAMoment");
-        Info.SetActive(false);
-    }
-    IEnumerator WaitforAMoment()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            seconds--;
-        }
+        infoText.text = txt;
+        yield return new WaitForSecondsRealtime(delay);
+        info.SetActive(false);
     }
 }
