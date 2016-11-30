@@ -18,12 +18,12 @@ public class PlayerDataController : NetworkBehaviour
         /// </summary>
         public bool IsActivePLayer;
 
-        public bool IsReadyPlayer; //true, wenn Spieler alle Daten initialisiert hat
+        /// <summary>
+        /// true, wenn Spieler alle Daten initialisiert hat
+        /// </summary>
+        public bool IsReadyPlayer;
        
         public string GamerTag;
-
-        //public string LoginName;
-        //public int HandSize;
 
         /// <summary>
         /// Momentan maximaler Manavorrat
@@ -46,7 +46,7 @@ public class PlayerDataController : NetworkBehaviour
         public int Fatigue;
     }
 
-    //Fields
+    //FIELDS
 
     /// <summary>
     /// Liste aller Karten des Spielers unabhängig von deren Aufenthaltsort,
@@ -54,9 +54,9 @@ public class PlayerDataController : NetworkBehaviour
     /// </summary>
     public List<GameObject> CardList;
 
-    public const int MaxHandSize = 10;
-    const int MaxMana = 10;
-    const int MaxHealth = 30;
+    internal const int MaxHandSize = 10;
+    internal const int MaxMana = 10;
+    internal int MaxHealth = 30;
 
     /// <summary>
     /// Die Anzahl der Karten, die der Spieler zu Beginn des Spiels auf die Hand bekommt.
@@ -71,13 +71,54 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
-    //Methods
+    //METHODS
     
     void Start()
     {
-        Data.Fatigue = 0;
+        //Hier werden die Werte initialisiert
         Data.CurrentMaxMana = MaxMana;
+        Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
+        Data.Fatigue = 0;
+    }
+
+    void Update()
+    {
+        if (!GameboardInitController.DetermineIfGameIsReady())
+            return;
+
+        if (CardList != null && CardList.Count != 0)
+            return;
+
+        if (!this.isServer)
+            return;
+
+        //Wenn ich der lokale Spieler bin und den Server hoste
+        if (this.isServer && this.isLocalPlayer)
+        {
+            //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+            //Spielerreihenfolge wird stattdessen hardgecodet
+
+            //Legt die Reihenfolge der Spieler fest
+            isFirstPlayer = true;
+            Data.IsActivePLayer = true;
+        }
+        else
+        {
+            isFirstPlayer = false;
+            Data.IsActivePLayer = false;
+        }
+
+        //lokaler Spieler, wenn ready
+        if (this.Data.IsReadyPlayer)
+            return;
+
+        //lokaler Spieler, noch nicht bereit
+        this.Data.IsReadyPlayer = true;
+
+        //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
+        getDeckBuilder();
+
     }
 
     /// <summary>
@@ -86,18 +127,6 @@ public class PlayerDataController : NetworkBehaviour
     public void ChangeIsActivePlayer()
     {
         Data.IsActivePLayer = !Data.IsActivePLayer;
-    }
-
-    /// <summary>
-    /// Setzt die Variable "isFirstPlayer" für beide Spieler
-    /// </summary>
-    /// <param name="p1">Spieler 1</param>
-    /// <param name="p2">Spieler 2</param>
-    public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
-    {
-        //p1.isFirstPlayer = GameboardDataController.TossCoin();
-        p1.isFirstPlayer = true;
-        p2.isFirstPlayer = !p1.isFirstPlayer;
     }
 
     /// <summary>
@@ -121,26 +150,16 @@ public class PlayerDataController : NetworkBehaviour
         for (int i = 0; i < this.startingHandSize; i++)
         {
             GameObject card = GameboardGameplayController.DrawCard(this);
-            //Folgender Code auskommentiert, weil besser in der Methode "DrawCard" selbst bereits der CardState auf "inHand" geändert wird.
-            //card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
 
             if (card != null)
             {
                 GameObject pos;
                 if (this.isFirstPlayer)
-                {
                     pos = GameObject.Find("/Board/Player1HandPosition");
-                }
                 else
-                {
                     pos = GameObject.Find("/Board/Player2HandPosition");
-                }
 
                 MoveCard(card, pos);
-            }
-            else
-            {
-                Debug.Log("Keine Karten in Kartenliste - Return von DrawCard");
             }
         }
    }
@@ -148,9 +167,9 @@ public class PlayerDataController : NetworkBehaviour
    
 
     /// <summary>
-    /// Lädt ein PNG und liefert eine Texture2D
+    /// Lädt eine PNG und liefert eine Texture2D
     /// </summary>
-    /// <param name="filePath"></param>
+    /// <param name="filePath">Pfadangabe zur PNG</param>
     /// <returns></returns>
     public static Texture2D LoadPNG(string filePath)
     {
@@ -178,22 +197,17 @@ public class PlayerDataController : NetworkBehaviour
         string path = Application.dataPath;
 
         if (Application.platform == RuntimePlatform.OSXPlayer)
-
-        {
             path += "/../../";
-        }
-
         else if (Application.platform == RuntimePlatform.WindowsPlayer)
-
-        {
             path += "/../";
-        }
 
         return path;
 }
 
-    public GameObject CardPrefab; //Platzhalter für das Karten-Prefab
-    public Transform CardSpawnPosition; //Platzhalter für die Position des Spawnpunkts des aktuellen Spielers
+    //Platzhalter für das Karten-Prefab
+    public GameObject CardPrefab;
+    //Platzhalter für die Position des Spawnpunkts des aktuellen Spielers
+    public Transform CardSpawnPosition;
 
     public delegate void CreateCards(string text);
 
@@ -207,7 +221,7 @@ public class PlayerDataController : NetworkBehaviour
         string[] jsonArray = text.Split(new char[] { '{', '}' });
         string helper;
 
-        foreach (var item in jsonArray)
+        foreach (string item in jsonArray)
         {
             //Nach dem Split gibt es auch unnötige Zeichen die wir nicht für das Json-Objekt benötigen. Json-Objekte erkenne wir daran, dass diese mit " beginnen.
             if (item != null && item.Length > 0 && item[0] == '"')
@@ -219,19 +233,18 @@ public class PlayerDataController : NetworkBehaviour
                 CardDataController.CardData cardData = JsonUtility.FromJson<CardDataController.CardData>(helper);
                                      
                                 
-                //If Herocard, dann
+                //Wenn es sich um eine Hero-Karte handelt...
                 if (cardData.TypeName == "Hero")
                 {
+                    //...wird der HeroSpawnServer aufgerufen,
                     CmdHeroSpawnServer(cardData);
 
                 }
-                else //else,.... (wenn nicht hero)
+                //...sonst...
+                else
                 {
-                    #region GameObjekt für die cardData erstellen und cardData zuweisen
-
+                    //wird der CardSpawnServer aktiviert.
                     CmdCardSpawnServer(cardData);
-
-                    #endregion
                 }
             }
         }
@@ -243,6 +256,10 @@ public class PlayerDataController : NetworkBehaviour
         GetStartingHand();
     }
 
+    /// <summary>
+    /// Platziert die Hero-Karten der Spieler auf das Gameboard
+    /// </summary>
+    /// <param name="cardData">Die Werte der Karte, die synchronisiert werden</param>
     [Command]
     void CmdHeroSpawnServer(CardDataController.CardData cardData)
     {
@@ -274,7 +291,7 @@ public class PlayerDataController : NetworkBehaviour
         
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
-        //Warnung von Unity: Ausgebessert LP&TF
+        //Warnung von Unity: Ausgebessert von LP & TF
         //card.transform.parent = placeHeroCard.transform;
         card.transform.SetParent(placeHeroCard.transform);
 
@@ -282,9 +299,58 @@ public class PlayerDataController : NetworkBehaviour
         NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
     }
 
+    //Alle serverseitigen Methoden benötigen das Command-Attribut
+    //Gerade die Servervariablen senden nur ihre Änderungen an die Clients weiter falls dies in einer Servermethode geschieht.
+    /// <summary>
+    /// Erzeugt am Server das Gameobject für eine Karte
+    /// </summary>
+    /// <param name="cardData">Die Werte der Karte, die synchronisiert werden</param>
+    [Command]
+    void CmdCardSpawnServer(CardDataController.CardData cardData)
+    {
+        //Anhand der Spielerreihenfolge die Spawnposition bestimmen
+        GameObject pos;
+        if (this.isFirstPlayer)
+            pos = GameObject.Find("/Board/Deck1Position");
+        else
+            pos = GameObject.Find("/Board/Deck2Position");
+
+
+        //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
+        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, pos.transform.rotation);
+
+        //Übergabeparameter cardData auf die Instanz card speichern
+        CardDataController cdc = card.GetComponent<CardDataController>();
+
+        cdc.Data = cardData;
+
+        if (this.CardList == null)
+            this.CardList = new List<GameObject>();
+
+        this.CardList.Add(card);
+
+        // Get all components of type Image that are children of this GameObject.
+        Image image = card.GetComponentsInChildren<Image>()[1];
+
+        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+
+        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+
+        #region Testladen eines Bildes
+
+        //Image im = GetComponentsInChildren<Image>()[1];
+        //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
+
+        #endregion
+
+        //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
+        //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
+        NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
+    }
 
     /// <summary>
-    /// Holt ein Deck und erstelle die Gameobjects. !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
+    /// Holt ein Deck und erstelle die Gameobjects.
+    /// !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
     /// </summary>
     public void getDeckBuilder()
     { 
@@ -312,107 +378,11 @@ public class PlayerDataController : NetworkBehaviour
         _CreateCardsReceiver(returnJson.text);
     }
 
-    //Alle serverseitigen Methoden benötigen das Command-Attribut
-    //Gerade die Servervariablen senden nur ihre Änderungen an die Clients weiter falls dies in einer Servermethode geschieht.
     /// <summary>
-    /// Erzeugt am Server das Gameobject für eine Karte
+    /// Bewegt eine Karte zwischen Parent-Elementen in der Unity-Hierarchy
     /// </summary>
-    /// <param name="cardData"></param>
-    [Command]
-    void CmdCardSpawnServer(CardDataController.CardData cardData)
-    {
-        //Anhand der Spielernummer die Spawnposition bestimmen
-        GameObject pos;
-        if(this.isFirstPlayer)
-        {
-            pos = GameObject.Find("/Board/Deck1Position");
-        }
-        else
-        {
-            pos = GameObject.Find("/Board/Deck2Position");
-        }
-                
-        
-        //Mittels Instantiate kann man ein neues GameObject erstellen, in diesem Fall wird das CardPrefab als Vorlage für das GameObject verwendet und an der Position und Ausrichtung von CardSpawnPosition erstellt.        
-        GameObject card = (GameObject)Instantiate(CardPrefab, pos.transform.position, pos.transform.rotation);
-
-        //Übergabeparameter cardData auf die Instanz card speichern
-        CardDataController cdc = card.GetComponent<CardDataController>();
-
-        //cdc.Data.CardName = cardData.CardName;
-
-        cdc.Data = cardData;
-
-        if (this.CardList == null)
-            this.CardList = new List<GameObject>();
-
-        this.CardList.Add(card);
-        
-
-
-        // Get all components of type Image that are children of this GameObject.
-        var image = card.GetComponentsInChildren<Image>()[1];
-
-        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
-
-                
-        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
-
-        #region Testladen eines Bildes
-
-        //Image im = GetComponentsInChildren<Image>()[1];        //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
-
-
-        #endregion
-
-        //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
-        //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
-        NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
-    }
-
-    void Update()
-    {
-        if (!GameboardInitController.DetermineIfGameIsReady())
-            return;
-
-        if (CardList != null && CardList.Count != 0)
-            return;
-
-        if (!this.isServer)
-            return;
-
-        //Wenn ich kein lokaler Spieler bin
-        if (this.isServer && this.isLocalPlayer)
-        {
-            isFirstPlayer = true;
-
-            //Legt die Reihenfolge der Spieler fest   
-            ///TODO Playerreihenfolge falsch   
-            //SetPlayerOrder(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
-            Data.IsActivePLayer = true;
-        }
-        else
-        {
-            isFirstPlayer = false;
-        }
-        
-        //lokaler Spieler, wenn ready
-        if (this.Data.IsReadyPlayer)
-            return;
-        
-        //lokaler Spieler, noch nicht bereit
-        this.Data.IsReadyPlayer = true;
-
-        //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
-        getDeckBuilder();
-                        
-    }
-
-    /// <summary>
-    /// Bewegt Card Objekte zwischen "Parent-Elementen"
-    /// </summary>
-    /// <param name="card">Kartenobjekt</param>
-    /// <param name="placeToDrop">Zone in der die Karte abgelegt wird</param>
+    /// <param name="card">Die Karte, die bewegt wird</param>
+    /// <param name="placeToDrop">Die Zone, in der die Karte abgelegt wird</param>
     public void MoveCard(GameObject card, GameObject placeToDrop)
     {
         //heroPosition = Dropbereich der Hero-Karte
@@ -437,9 +407,21 @@ public class PlayerDataController : NetworkBehaviour
                 placeToDrop = GameObject.Find("/Board/DiscardPile2");
         }
 
-        //Warnung von Unity: Ausgebessert LP&TF
+        //Warnung von Unity: Ausgebessert von LP & TF
         //card.transform.parent = placeToDrop.transform;
         card.transform.SetParent(placeToDrop.transform);
         card.SetActive(true);
     }
+
+    ///// <summary>
+    ///// Setzt die Variable "isFirstPlayer" für beide Spieler
+    ///// </summary>
+    ///// <param name="p1">Spieler 1</param>
+    ///// <param name="p2">Spieler 2</param>
+    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
+    //{
+    //    //p1.isFirstPlayer = GameboardDataController.TossCoin();
+    //    p1.isFirstPlayer = true;
+    //    p2.isFirstPlayer = !p1.isFirstPlayer;
+    //}
 }
