@@ -25,12 +25,18 @@ public class GameboardInitController : MonoBehaviour
     {
         if (DetermineIfGameIsRunning())
         {
+            //Spielstatus wird auf "running" gesetzt
             GameboardDataController.GameState = GameboardDataController.GameStatus.running;
-
+            //Wenn das Spiel läuft wird der NetworkManagerHUD unsichtbar
             FindObjectOfType<NetworkManagerHUD>().showGUI = false;
         }
     }
 
+    /// <summary>
+    /// Bestimmt, ob das Spiel läuft
+    /// Es müssen beide Spieler als "IsReadyPlayer" markiert sein
+    /// </summary>
+    /// <returns></returns>
     public static bool DetermineIfGameIsRunning()
     {
         if(Players == null)
@@ -41,7 +47,7 @@ public class GameboardInitController : MonoBehaviour
 
         bool ok = true;
 
-        foreach(var p in Players)
+        foreach(GameObject p in Players)
         {
             ok = ok && p.GetComponent<PlayerDataController>().Data.IsReadyPlayer;
         }
@@ -49,6 +55,10 @@ public class GameboardInitController : MonoBehaviour
         return ok;
     }
 
+    /// <summary>
+    /// Bestimmt, ob das Spiel bereit ist
+    /// </summary>
+    /// <returns></returns>
     public static bool DetermineIfGameIsReady()
     {
         Players = GameObject.FindGameObjectsWithTag("Player");

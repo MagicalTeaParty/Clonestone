@@ -6,6 +6,7 @@ public class EndTurnButtonController : MonoBehaviour
 {
     GameboardGameplayController board;
     Button endTurnButton;
+    GameObject[] players;
 
     void Start()
     {
@@ -19,11 +20,11 @@ public class EndTurnButtonController : MonoBehaviour
             return;
 
         //1. Hole die Spieler
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        players = GameboardInitController.Players;
         //2. Hole den lokalen Spieler
         if (players[0].GetComponent<NetworkIdentity>().isLocalPlayer)
         {
-            //3. hole den Zustand IsActive und gibs dem Button
+            //3. hole den Zustand IsActive und gib's dem Button
             endTurnButton.GetComponent<Button>().enabled = players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer;
         }
         else
