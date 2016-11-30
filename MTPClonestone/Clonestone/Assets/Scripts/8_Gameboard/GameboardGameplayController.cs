@@ -32,6 +32,8 @@ public class GameboardGameplayController : MonoBehaviour
 
                 ///TODO Do something when game is won
                 Debug.Log("GAME OVER!" + "Player " + winHelper + " has won");
+                InfoTextController info = new InfoTextController();
+                info.showInfoText("GAME OVER!" + "Player " + winHelper + " has won", 1);
                 gameOver = true;
             }
         }
