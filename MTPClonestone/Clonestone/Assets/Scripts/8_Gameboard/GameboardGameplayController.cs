@@ -2,25 +2,63 @@
 
 public class GameboardGameplayController : MonoBehaviour
 {
+    //Fields
+    GameObject info;
+    TimerScript timer;
+
     //Methods
+
+    void Start()
+    {
+        info = GameObject.Find("/Board/Info");
+        timer = GameObject.Find("/Board/EndTurn/EndTurnButton").GetComponent<TimerScript>();
+    }
+
+    void Update()
+    {
+        if (GameboardDataController.GameState != GameboardDataController.GameStatus.running)
+            return;
+
+        //Hier wird überprüft, ob das Spiel gewonnen wurde
+        CheckWinCondition(GameboardInitController.Players);
+    }
 
     /// <summary>
     /// Diese Methode zieht eine Karte vom Deck des mitgegebenen Spielers.
     /// Soll mehr als eine Karte gezogen werden, muss die Methode dementsprechend oft aufgerufen werden
     /// </summary>
-    /// <param name="player"></param>
-    /// <returns></returns>
-    public static GameObject DrawCard(PlayerDataController player)
+    /// <param name="p">Der Spieler, der die Karte bekommt</param>
+    /// <returns>Die gezogene Karte</returns>
+    public static GameObject DrawCard(PlayerDataController p)
     {
+        if (p.CardList.Count < 1)
+            return null;
+
         GameObject cardDrawn = null;
 
+        ///Wird benötigt, um die Anzahl der Karten in der Hand zu bestimmen.
+        int cardsInHandCount = 0;
+
         ///Die Schleife sucht in der Kartenliste des mitgegebenen Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
-        foreach (GameObject card in player.CardList)
+        foreach (GameObject card in p.CardList)
         {
-            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDeck )
+            //Zählt die Anzahl der Karten in der Hand
+            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+                cardsInHandCount += 1;
+
+            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDeck)
             {
                 cardDrawn = card;
-                cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
+
+                if (cardsInHandCount < PlayerDataController.MaxHandSize)
+                {
+                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
+                }
+                //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
+                else
+                {
+                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
+                }
                 return cardDrawn;
             }
         }
@@ -29,12 +67,107 @@ public class GameboardGameplayController : MonoBehaviour
     }
 
     /// <summary>
-    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" des mitgegebenen Spielers
-    /// --> Muss daher zweimal aufgerufen werden; einmal für jeden Spieler
+    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" der mitgegebenen Spieler
     /// </summary>
-    /// <param name="player"></param>
-    public static void ChangeActivePlayer(GameObject player)
-    { 
-        player.GetComponent<PlayerDataController>().ChangeIsActivePlayer();
+    /// <param name="p1">Spieler 1</param>
+    /// <param name="p2">Spieler 2</param>
+    public static void ChangeActivePlayer(PlayerDataController p1, PlayerDataController p2)
+    {
+        p1.ChangeIsActivePlayer();
+        p2.ChangeIsActivePlayer();
+    }
+
+    /// <summary>
+    /// Beendet den Zug:
+    /// - beendet den Countdown
+    /// - wechselt den aktiven Spieler
+    /// - erhöht und füllt das Mana
+    /// - zieht eine Karte
+    /// - rechnet Fatigue ab
+    /// - bewegt die Karte
+    /// - startet den Countdown
+    /// </summary>
+    internal void EndTurn()
+    {
+        //Beende den Timer und Setze die Zeit zurück
+        timer.StopCoroutine("CountDown");
+        timer.TimeLeft = TimerScript.time4Round;
+
+        //Hole beide Spieler aus der Initialisierung und speichere sie in ein Array
+        GameObject[] players = GameboardInitController.Players;
+        if (players.Length < 2)
+            return;
+        PlayerDataController p1 = players[0].GetComponent<PlayerDataController>();
+        PlayerDataController p2 = players[1].GetComponent<PlayerDataController>();
+
+        //Wechsle den aktiven Spieler
+        ChangeActivePlayer(p1, p2);
+
+        GameObject card = null;
+        GameObject placeToDrop = null;
+
+        //Wenn players[0] aktiv ist
+        if (p1.Data.IsActivePLayer)
+        {
+            //Fülle sein Mana auf
+            RefillMana(p1);
+            //Ziehe eine Karte für ihn
+            card = DrawCard(p1);
+            if (card == null)
+                DealFatigue(p1);
+
+            placeToDrop = GameObject.Find("/Board/Player1HandPosition");
+            p1.MoveCard(card, placeToDrop);
+        }
+        //Wenn players[1] aktiv ist
+        else
+        {
+            //Fülle ihr Mana auf
+            RefillMana(p2);
+            //Ziehe eine Karte für sie
+            card = DrawCard(p2);
+            if (card == null)
+                DealFatigue(p2);
+
+            placeToDrop = GameObject.Find("/Board/Player2HandPosition");
+            p2.MoveCard(card, placeToDrop);
+        }
+
+        //Starte den Timer
+        timer.StartCoroutine("CountDown");
+    }
+
+    void RefillMana(PlayerDataController p)
+    {
+        if (p.Data.CurrentMaxMana < PlayerDataController.MaxMana)
+            p.Data.CurrentMaxMana += 1;
+
+        p.Data.CurrentActiveMana = p.Data.CurrentMaxMana;
+    }
+
+    void DealFatigue(PlayerDataController p)
+    {
+        p.Data.CurrentHealth -= p.Data.Fatigue;
+    }
+
+    void CheckWinCondition(GameObject[] players)
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            Debug.Log("Player " + i + ": " + players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
+
+            if (players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0)
+            {
+                int winHelper;
+                if (i == 0) winHelper = 1;
+                else winHelper = 0;
+
+                //Infotext "Game Over..." anzeigen
+                info.SetActive(true);
+                StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(("GAME OVER!" + "\nPlayer " + winHelper + " has won"), 10));
+
+                GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
+            }
+        }
     }
 }

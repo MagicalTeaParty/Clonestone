@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameboardInitController : MonoBehaviour {
+public class GameboardInitController : MonoBehaviour
+{
 
     //Fields
 
@@ -9,6 +10,8 @@ public class GameboardInitController : MonoBehaviour {
     float native_height = 1024;
 
     public static GameObject[] Players;
+
+    bool isInitComplete = false;
 
     //Methods
 
@@ -22,22 +25,32 @@ public class GameboardInitController : MonoBehaviour {
 
     void Update()
     {
-        if (GameboardInitController.DetermineIfGameIsRunning())
+        if (DetermineIfGameIsRunning() && isInitComplete == false)
         {
+            //Spielstatus wird auf "running" gesetzt
             GameboardDataController.GameState = GameboardDataController.GameStatus.running;
-
+            //Wenn das Spiel läuft wird der NetworkManagerHUD unsichtbar
             FindObjectOfType<NetworkManagerHUD>().showGUI = false;
+            isInitComplete = true;
         }
     }
 
+    /// <summary>
+    /// Bestimmt, ob das Spiel läuft
+    /// Es müssen beide Spieler als "IsReadyPlayer" markiert sein
+    /// </summary>
+    /// <returns></returns>
     public static bool DetermineIfGameIsRunning()
     {
         if(Players == null)
             Players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (Players == null || Players.Length == 0)
+            return false;
+
         bool ok = true;
 
-        foreach(var p in Players)
+        foreach(GameObject p in Players)
         {
             ok = ok && p.GetComponent<PlayerDataController>().Data.IsReadyPlayer;
         }
@@ -45,6 +58,10 @@ public class GameboardInitController : MonoBehaviour {
         return ok;
     }
 
+    /// <summary>
+    /// Bestimmt, ob das Spiel bereit ist
+    /// </summary>
+    /// <returns></returns>
     public static bool DetermineIfGameIsReady()
     {
         Players = GameObject.FindGameObjectsWithTag("Player");

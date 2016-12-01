@@ -21,7 +21,6 @@ GameObject:
   - 224: {fileID: 224000012852111098}
   - 222: {fileID: 222000010865435706}
   - 114: {fileID: 114000011458269778}
-  - 114: {fileID: 114000013577987390}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -163,20 +162,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000013577987390
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010165279138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ed63af57cf0f148b265c2bb74b6a79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeLeft: 20
-  countDownText: {fileID: 114000011458269778}
-  Endbutton: {fileID: 114000014000960512}
 --- !u!114 &114000014000960512
 MonoBehaviour:
   m_ObjectHideFlags: 1
