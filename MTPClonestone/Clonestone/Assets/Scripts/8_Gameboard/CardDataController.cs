@@ -45,14 +45,13 @@ public class CardDataController : NetworkBehaviour
     private void Update()
     {
         setCardVisibility();
-
-
     }
 
 
     private void setCardVisibility()
     {
         var cardBackGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
+        var cardLifeGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
 
         var players = GameObject.FindGameObjectsWithTag("Player");
@@ -81,11 +80,14 @@ public class CardDataController : NetworkBehaviour
         {
             case CardStatus.inDeck:
                 cardBackGameObjekt.SetActive(true);
+                cardLifeGameObjekt.SetActive(false);
                 break;
             case CardStatus.inHand:
                 if (owner.GetComponent<NetworkIdentity>().isLocalPlayer)
                 {
                     cardBackGameObjekt.SetActive(false);
+                    cardLifeGameObjekt.SetActive(true);
+
                 }
                 else
                 {
@@ -94,6 +96,7 @@ public class CardDataController : NetworkBehaviour
 
                 break;
             case CardStatus.onBoard:
+                cardLifeGameObjekt.SetActive(true);
                 break;
             case CardStatus.inDiscardPile:
                 break;
