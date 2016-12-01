@@ -11,6 +11,8 @@ public class GameboardInitController : MonoBehaviour
 
     public static GameObject[] Players;
 
+    bool isInitComplete = false;
+
     //Methods
 
     void OnGUI()
@@ -23,12 +25,13 @@ public class GameboardInitController : MonoBehaviour
 
     void Update()
     {
-        if (DetermineIfGameIsRunning())
+        if (DetermineIfGameIsRunning() && isInitComplete == false)
         {
             //Spielstatus wird auf "running" gesetzt
             GameboardDataController.GameState = GameboardDataController.GameStatus.running;
             //Wenn das Spiel läuft wird der NetworkManagerHUD unsichtbar
             FindObjectOfType<NetworkManagerHUD>().showGUI = false;
+            isInitComplete = true;
         }
     }
 

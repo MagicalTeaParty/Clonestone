@@ -6,8 +6,6 @@ public class GameboardGameplayController : MonoBehaviour
     GameObject info;
     TimerScript timer;
 
-    bool gameOver = false;
-
     //Methods
 
     void Start()
@@ -18,31 +16,11 @@ public class GameboardGameplayController : MonoBehaviour
 
     void Update()
     {
-        if (!GameboardInitController.DetermineIfGameIsRunning())
+        if (GameboardDataController.GameState != GameboardDataController.GameStatus.running)
             return;
 
-        ///TODO Check if game is won
-        for (int i = 0; i < GameboardInitController.Players.Length; i++)
-        {
-            Debug.Log("Player " + i + ": " + GameboardInitController.Players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
-
-            if (GameboardInitController.Players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0 && gameOver == false)
-            {
-                int winHelper;
-                if (i == 0) winHelper = 1;
-                else winHelper = 0;
-
-                ///TODO Do something when game is won
-                Debug.Log("GAME OVER!" + "\nPlayer " + winHelper + " has won");
-
-                //Infotext "Game Over..." anzeigen
-                info.SetActive(true);
-                StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(("GAME OVER!" + "\nPlayer " + winHelper + " has won"), 10));
-
-                GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
-                gameOver = true;
-            }
-        }
+        //Hier wird überprüft, ob das Spiel gewonnen wurde
+        CheckWinCondition(GameboardInitController.Players);
     }
 
     /// <summary>
@@ -115,7 +93,7 @@ public class GameboardGameplayController : MonoBehaviour
         timer.StopCoroutine("CountDown");
         timer.TimeLeft = TimerScript.time4Round;
 
-        //Finde beide Spieler und speichere sie in ein Array
+        //Hole beide Spieler aus der Initialisierung und speichere sie in ein Array
         GameObject[] players = GameboardInitController.Players;
         if (players.Length < 2)
             return;
@@ -170,5 +148,26 @@ public class GameboardGameplayController : MonoBehaviour
     void DealFatigue(PlayerDataController p)
     {
         p.Data.CurrentHealth -= p.Data.Fatigue;
+    }
+
+    void CheckWinCondition(GameObject[] players)
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            Debug.Log("Player " + i + ": " + players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
+
+            if (players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0)
+            {
+                int winHelper;
+                if (i == 0) winHelper = 1;
+                else winHelper = 0;
+
+                //Infotext "Game Over..." anzeigen
+                info.SetActive(true);
+                StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(("GAME OVER!" + "\nPlayer " + winHelper + " has won"), 10));
+
+                GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
+            }
+        }
     }
 }

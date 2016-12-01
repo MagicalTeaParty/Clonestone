@@ -22,7 +22,7 @@ public class PlayerDataController : NetworkBehaviour
         /// true, wenn Spieler alle Daten initialisiert hat
         /// </summary>
         public bool IsReadyPlayer;
-       
+
         public string GamerTag;
 
         /// <summary>
@@ -72,7 +72,7 @@ public class PlayerDataController : NetworkBehaviour
     public PlayerData Data;
 
     //METHODS
-    
+
     void Start()
     {
         //Hier werden die Werte initialisiert
@@ -84,7 +84,7 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
-        if (!GameboardInitController.DetermineIfGameIsReady())
+        if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
 
         if (CardList != null && CardList.Count != 0)
@@ -115,6 +115,8 @@ public class PlayerDataController : NetworkBehaviour
 
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
+
+            ///TODO Leider wird der Spieler beim ersten Start, lange bevor die Coroutine "GetDeck" fertig ist,  auf "IsReadyPlayer" gesetzt. Den Spieler am Ende der Coroutine auf "IsReadyPlayer" zu setzen, führt zu einem Crash.
         }
     }
 
@@ -159,9 +161,7 @@ public class PlayerDataController : NetworkBehaviour
                 MoveCard(card, pos);
             }
         }
-   }
-
-   
+    }
 
     /// <summary>
     /// Lädt eine PNG und liefert eine Texture2D
@@ -181,8 +181,8 @@ public class PlayerDataController : NetworkBehaviour
         }
 
         return tex;
-    }    
-    
+    }
+
     /// <summary>
     /// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
     /// </summary>
@@ -199,7 +199,7 @@ public class PlayerDataController : NetworkBehaviour
             path += "/../";
 
         return path;
-}
+    }
 
     //Platzhalter für das Karten-Prefab
     public GameObject CardPrefab;
@@ -230,8 +230,8 @@ public class PlayerDataController : NetworkBehaviour
 
                 //Mittels FromJson wird nun der String der auf helper steht - dieser ist ein Json-Objekt - in ein Objekt vom Typ CardData umgewandelt
                 CardDataController.CardData cardData = JsonUtility.FromJson<CardDataController.CardData>(helper);
-                                     
-                                
+
+
                 //Wenn es sich um eine Hero-Karte handelt...
                 if (cardData.TypeName == "Hero")
                 {
@@ -247,7 +247,7 @@ public class PlayerDataController : NetworkBehaviour
                 }
             }
         }
-        
+
         //Legt die Anzahl der Startkarten fest
         SetStartingHandSize();
 
@@ -263,7 +263,7 @@ public class PlayerDataController : NetworkBehaviour
     void CmdHeroSpawnServer(CardDataController.CardData cardData)
     {
         GameObject placeHeroCard;
-                
+
         if (this.isFirstPlayer)
         {
             placeHeroCard = GameObject.Find("/Board/HeroP1Position");
@@ -287,7 +287,7 @@ public class PlayerDataController : NetworkBehaviour
         var image = card.GetComponentsInChildren<Image>()[1];
 
         Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
-        
+
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
         //Warnung von Unity: Ausgebessert von LP & TF
@@ -354,7 +354,7 @@ public class PlayerDataController : NetworkBehaviour
     /// !Wichtig die Methode erst nach Festlegen der Spielerreihenfolge aufrufen!
     /// </summary>
     public void getDeckBuilder()
-    { 
+    {
         CreateCards _CreateCardsReceiver = CreateCardsMethod;
 
         StartCoroutine("getDeck", _CreateCardsReceiver);
@@ -408,7 +408,7 @@ public class PlayerDataController : NetworkBehaviour
         //Hier werden die Karten auf den DiscardPile gelegt
         if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
         {
-            if(GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer)
+            if (GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer)
                 placeToDrop = GameObject.Find("/Board/DiscardPile1");
             else
                 placeToDrop = GameObject.Find("/Board/DiscardPile2");
