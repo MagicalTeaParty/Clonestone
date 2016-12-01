@@ -118,7 +118,6 @@ public class PlayerDataController : NetworkBehaviour
 
         //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
         getDeckBuilder();
-
     }
 
     /// <summary>
@@ -359,6 +358,11 @@ public class PlayerDataController : NetworkBehaviour
         StartCoroutine("getDeck", _CreateCardsReceiver);
     }
 
+    /// <summary>
+    /// Holt das Deck aus der Datenbank.
+    /// </summary>
+    /// <param name="_CreateCardsReceiver"></param>
+    /// <returns></returns>
     private IEnumerator getDeck(CreateCards _CreateCardsReceiver)
     {
         //Mittels JsonUtility.FromJson kann man ein JSON-Objekt auf ein C# Objekt mappen/umwandeln.        
@@ -399,6 +403,7 @@ public class PlayerDataController : NetworkBehaviour
             return;
         }
 
+        //Hier werden die Karten auf den DiscardPile gelegt
         if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDiscardPile)
         {
             if(GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer)
