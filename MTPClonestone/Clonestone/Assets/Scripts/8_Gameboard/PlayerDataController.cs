@@ -90,9 +90,6 @@ public class PlayerDataController : NetworkBehaviour
         if (CardList != null && CardList.Count != 0)
             return;
 
-        if (!this.isServer)
-            return;
-
         //Wenn ich der lokale Spieler bin und den Server hoste
         if (this.isServer && this.isLocalPlayer)
         {
@@ -109,15 +106,16 @@ public class PlayerDataController : NetworkBehaviour
             Data.IsActivePLayer = false;
         }
 
-        //lokaler Spieler, wenn ready
-        if (this.Data.IsReadyPlayer)
-            return;
+        //wenn der Spieler noch nicht als "IsReadyPlayer" gesetzt ist:
+        if (isServer && !Data.IsReadyPlayer)
+        {
+            //Hole das Deck und erstelle die Gameobjects
+            //!Wichtig, erst nach der Spielerreihenfolge aufrufen!
+            getDeckBuilder();
 
-        //lokaler Spieler, noch nicht bereit
-        this.Data.IsReadyPlayer = true;
-
-        //Hole das Deck und erstelle die Gameobjects - wichtig, erst nach der Spielerreihenfolge aufrufen
-        getDeckBuilder();
+            //Markiere den Spieler als "IsReadyPlayer"
+            this.Data.IsReadyPlayer = true;
+        }
     }
 
     /// <summary>

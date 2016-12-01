@@ -16,7 +16,7 @@ public class EndTurnButtonController : MonoBehaviour
 
     void Update()
     {
-        if (GameboardInitController.DetermineIfGameIsRunning() == false)
+        if (!GameboardInitController.DetermineIfGameIsRunning())
             return;
 
         //1. Hole die Spieler
