@@ -108,3 +108,5 @@ MonoBehaviour:
   CardList: []
   CardPrefab: {fileID: 1000011941570180, guid: 9d1da37d8bd71534695a7b1ca9bc769a, type: 2}
   CardSpawnPosition: {fileID: 4000010407838250}
+  HeroCardPrefab: {fileID: 1000013436468458, guid: 014aaa0ebc204d54f831fe254faf3ef9,
+    type: 2}

@@ -275,7 +275,7 @@ public class PlayerDataController : NetworkBehaviour
 
         #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
 
-        GameObject card = (GameObject)Instantiate(CardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
+        GameObject card = (GameObject)Instantiate(HeroCardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
 
         CardDataController cdc = card.GetComponent<CardDataController>();
         cdc.Data = cardData;
