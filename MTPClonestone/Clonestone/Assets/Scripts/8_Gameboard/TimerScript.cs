@@ -32,7 +32,7 @@ public class TimerScript : MonoBehaviour
 
     void Update()
     {
-        if (!GameboardInitController.DetermineIfGameIsRunning())
+        if (GameboardDataController.GameState != GameboardDataController.GameStatus.running)
             return;
 
         //Der Countdown soll noch nicht angezeigt werden
