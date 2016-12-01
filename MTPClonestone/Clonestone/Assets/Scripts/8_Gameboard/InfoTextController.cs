@@ -6,11 +6,9 @@ using System.Threading;
 
 public class InfoTextController : MonoBehaviour
 {
-
     GameObject info;
     Text infoText;
-    
-    // Use this for initialization
+
 	void Start ()
     {
         info = GameObject.Find("/Board/Info");
@@ -18,6 +16,12 @@ public class InfoTextController : MonoBehaviour
         info.SetActive(false);
 	}
     
+    /// <summary>
+    /// Zeigt einen Infotext an.
+    /// </summary>
+    /// <param name="txt">Der anzuzeigende Text</param>
+    /// <param name="delay">So lange wird der Text angezeigt</param>
+    /// <returns></returns>
     internal IEnumerator ShowInfoText(string txt, float delay)
     {
         infoText.text = txt;

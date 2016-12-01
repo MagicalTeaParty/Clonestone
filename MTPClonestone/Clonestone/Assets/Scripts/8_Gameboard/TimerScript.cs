@@ -1,7 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
-using System.Timers;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TimerScript : MonoBehaviour
@@ -57,10 +56,11 @@ public class TimerScript : MonoBehaviour
                 board.EndTurn();
         }
     }
-
+    
     /// <summary>
-    /// Eine Endlosschleife, die nur "TimeLeft" jede Sekunde um 1 verringert
-    /// Wird als Coroutine gestartet, bzw. beendet
+    /// Eine Endlosschleife, die nur "TimeLeft" jede Sekunde um 1 verringert.
+    /// Das ist notwendig, um den Countdown (= TimeLeft) im Spiel anzuzeigen.
+    /// Wird als Coroutine gestartet, bzw. beendet.
     /// </summary>
     /// <returns></returns>
     IEnumerator CountDown()

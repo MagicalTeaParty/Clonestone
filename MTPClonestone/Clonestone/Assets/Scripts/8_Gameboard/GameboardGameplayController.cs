@@ -34,11 +34,12 @@ public class GameboardGameplayController : MonoBehaviour
 
                 ///TODO Do something when game is won
                 Debug.Log("GAME OVER!" + "\nPlayer " + winHelper + " has won");
-                GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
 
+                //Infotext "Game Over..." anzeigen
                 info.SetActive(true);
                 StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(("GAME OVER!" + "\nPlayer " + winHelper + " has won"), 10));
 
+                GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
                 gameOver = true;
             }
         }
@@ -53,9 +54,7 @@ public class GameboardGameplayController : MonoBehaviour
     public static GameObject DrawCard(PlayerDataController p)
     {
         if (p.CardList.Count < 1)
-        {
             return null;
-        }
 
         GameObject cardDrawn = null;
 
