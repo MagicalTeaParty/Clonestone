@@ -19,12 +19,12 @@ public class InfoTextController : MonoBehaviour
     /// <summary>
     /// Zeigt einen Infotext an.
     /// </summary>
-    /// <param name="txt">Der anzuzeigende Text</param>
+    /// <param name="infoText">Der anzuzeigende Text</param>
     /// <param name="delay">So lange wird der Text angezeigt</param>
     /// <returns></returns>
-    internal IEnumerator ShowInfoText(string txt, float delay)
+    internal IEnumerator ShowInfoText(string infoText, float delay)
     {
-        infoText.text = txt;
+        this.infoText.text = infoText;
         yield return new WaitForSecondsRealtime(delay);
         info.SetActive(false);
     }
