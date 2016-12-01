@@ -205,6 +205,8 @@ public class PlayerDataController : NetworkBehaviour
     public GameObject CardPrefab;
     //Platzhalter für die Position des Spawnpunkts des aktuellen Spielers
     public Transform CardSpawnPosition;
+    //Platzhalter für das HeroCard Prefab
+    public GameObject HeroCardPrefab;
 
     public delegate void CreateCards(string text);
 
@@ -273,7 +275,7 @@ public class PlayerDataController : NetworkBehaviour
 
         #region GameObjekt für die cardData erstellen und cardData dem Hero zuweisen
 
-        GameObject card = (GameObject)Instantiate(CardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
+        GameObject card = (GameObject)Instantiate(HeroCardPrefab, placeHeroCard.transform.position, placeHeroCard.transform.rotation);
 
         CardDataController cdc = card.GetComponent<CardDataController>();
         cdc.Data = cardData;
@@ -339,6 +341,8 @@ public class PlayerDataController : NetworkBehaviour
         //Texture2D to Image: http://answers.unity3d.com/questions/650552/convert-a-texture2d-to-sprite.html
 
         #endregion
+
+        card.transform.SetParent(pos.transform);
 
         //Mittels NetworkServer.SpawnWithClientAuthority kann man ein GameObject - in diesem Fall die Karte (card) - über das Netzwerk bekannt machen und auch einen Besitzer festlegen.
         //connectionToClient besitzt die Daten von dem aktuellen Spieler der die Karte erzeugt hat, somit "gehört" (isAuthority) die Karte dem aktuellen Spieler der diese Methode aufgerufen hat
