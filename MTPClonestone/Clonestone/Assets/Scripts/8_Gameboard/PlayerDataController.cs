@@ -71,6 +71,8 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
+    
+
     //METHODS
 
     void Start()
@@ -118,6 +120,9 @@ public class PlayerDataController : NetworkBehaviour
 
             ///TODO Leider wird der Spieler beim ersten Start, lange bevor die Coroutine "GetDeck" fertig ist,  auf "IsReadyPlayer" gesetzt. Den Spieler am Ende der Coroutine auf "IsReadyPlayer" zu setzen, führt zu einem Crash.
         }
+
+        
+        
     }
 
     /// <summary>

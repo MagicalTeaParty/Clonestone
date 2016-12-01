@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class CardDataController : NetworkBehaviour
 {
@@ -42,9 +43,14 @@ public class CardDataController : NetworkBehaviour
     public CardData Data;
 
 
+    public Transform LifeField;
+
+
     private void Update()
     {
         setCardVisibility();
+
+        LifeField.GetComponent<Text>().text = GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentHealth.ToString();
     }
 
 
@@ -87,7 +93,6 @@ public class CardDataController : NetworkBehaviour
                 {
                     cardBackGameObjekt.SetActive(false);
                     cardLifeGameObjekt.SetActive(true);
-
                 }
                 else
                 {
