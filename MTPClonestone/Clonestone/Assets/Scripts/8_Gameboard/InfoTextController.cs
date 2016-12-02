@@ -17,7 +17,7 @@ public class InfoTextController : MonoBehaviour
 	}
     
     /// <summary>
-    /// Zeigt einen Infotext an.
+    /// Zeigt einen Infotext eine bestimmte Zeit lang an.
     /// </summary>
     /// <param name="infoText">Der anzuzeigende Text</param>
     /// <param name="delay">So lange wird der Text angezeigt</param>

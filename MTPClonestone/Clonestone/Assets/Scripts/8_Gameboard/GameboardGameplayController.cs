@@ -22,16 +22,16 @@ public class GameboardGameplayController : MonoBehaviour
         //Hier wird überprüft, ob das Spiel gewonnen wurde
         CheckWinCondition(GameboardInitController.Players);
     }
-    
+
     /// <summary>
-    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" der mitgegebenen Spieler
+    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" der mitgegebenen Spieler von "true" auf "false" oder vice versa.
     /// </summary>
     /// <param name="p1">Spieler 1</param>
     /// <param name="p2">Spieler 2</param>
     public static void ChangeActivePlayer(PlayerDataController p1, PlayerDataController p2)
     {
-        p1.ChangeIsActivePlayer();
-        p2.ChangeIsActivePlayer();
+        p1.Data.IsActivePLayer = !p1.Data.IsActivePLayer;
+        p2.Data.IsActivePLayer = !p1.Data.IsActivePLayer;
     }
 
     /// <summary>

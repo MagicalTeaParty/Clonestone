@@ -115,17 +115,7 @@ public class PlayerDataController : NetworkBehaviour
 
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
-
-            ///TODO Leider wird der Spieler beim ersten Start, lange bevor die Coroutine "GetDeck" fertig ist,  auf "IsReadyPlayer" gesetzt. Den Spieler am Ende der Coroutine auf "IsReadyPlayer" zu setzen, führt zu einem Crash.
         }
-    }
-
-    /// <summary>
-    /// Ändert die Bool-Variable "IsActivePlayer" von "true" auf "false" oder vice versa.
-    /// </summary>
-    public void ChangeIsActivePlayer()
-    {
-        Data.IsActivePLayer = !Data.IsActivePLayer;
     }
 
     /// <summary>
