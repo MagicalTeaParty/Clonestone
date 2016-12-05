@@ -75,6 +75,8 @@
     <Compile Include="Assets\Scripts\6_Options\SliderSave.cs" />
     <Compile Include="Assets\Scripts\6_Options\VolumeChange.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\CardDataController.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\Dragable.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\Dropzone.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\EndTurnButtonController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\GameboardGameplayController.cs" />
