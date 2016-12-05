@@ -72,4 +72,30 @@ public class GameboardInitController : MonoBehaviour
             return true;
         else return false;
     }
+
+    ///// <summary>
+    ///// Setzt die Variable "isFirstPlayer" für beide Spieler
+    ///// </summary>
+    ///// <param name="p1">Spieler 1</param>
+    ///// <param name="p2">Spieler 2</param>
+    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
+    //{
+    //    //p1.isFirstPlayer = GameboardDataController.TossCoin();
+    //    p1.isFirstPlayer = true;
+    //    p2.isFirstPlayer = !p1.isFirstPlayer;
+    //}
+
+    //static System.Random rnd = new System.Random();
+
+    ///// <summary>
+    ///// Wird benutzt, um die Spielerreihenfolge zu bestimmen.
+    ///// Darf nur einmal aufgerufen werden --> nicht pro Spieler!!!
+    ///// </summary>
+    ///// <returns></returns>
+    //public static bool TossCoin()
+    //{
+    //    if (rnd.Next(0, 2) == 0)
+    //        return false;
+    //    else return true;
+    //}
 }

@@ -24,57 +24,14 @@ public class GameboardGameplayController : MonoBehaviour
     }
 
     /// <summary>
-    /// Diese Methode zieht eine Karte vom Deck des mitgegebenen Spielers.
-    /// Soll mehr als eine Karte gezogen werden, muss die Methode dementsprechend oft aufgerufen werden
-    /// </summary>
-    /// <param name="p">Der Spieler, der die Karte bekommt</param>
-    /// <returns>Die gezogene Karte</returns>
-    public static GameObject DrawCard(PlayerDataController p)
-    {
-        if (p.CardList.Count < 1)
-            return null;
-
-        GameObject cardDrawn = null;
-
-        ///Wird benötigt, um die Anzahl der Karten in der Hand zu bestimmen.
-        int cardsInHandCount = 0;
-
-        ///Die Schleife sucht in der Kartenliste des mitgegebenen Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
-        foreach (GameObject card in p.CardList)
-        {
-            //Zählt die Anzahl der Karten in der Hand
-            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
-                cardsInHandCount += 1;
-
-            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDeck)
-            {
-                cardDrawn = card;
-
-                if (cardsInHandCount < PlayerDataController.MaxHandSize)
-                {
-                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
-                }
-                //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
-                else
-                {
-                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
-                }
-                return cardDrawn;
-            }
-        }
-
-        return cardDrawn;
-    }
-
-    /// <summary>
-    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" der mitgegebenen Spieler
+    /// Diese Methode wechselt den Zustand des Bools "IsActivePlayer" der mitgegebenen Spieler von "true" auf "false" oder vice versa.
     /// </summary>
     /// <param name="p1">Spieler 1</param>
     /// <param name="p2">Spieler 2</param>
     public static void ChangeActivePlayer(PlayerDataController p1, PlayerDataController p2)
     {
-        p1.ChangeIsActivePlayer();
-        p2.ChangeIsActivePlayer();
+        p1.Data.IsActivePLayer = !p1.Data.IsActivePLayer;
+        p2.Data.IsActivePLayer = !p1.Data.IsActivePLayer;
     }
 
     /// <summary>
@@ -100,8 +57,10 @@ public class GameboardGameplayController : MonoBehaviour
         PlayerDataController p1 = players[0].GetComponent<PlayerDataController>();
         PlayerDataController p2 = players[1].GetComponent<PlayerDataController>();
 
-        //Wechsle den aktiven Spieler
+        //Wechsle den aktiven Spieler...
         ChangeActivePlayer(p1, p2);
+        //und informiere die Spieler
+        ShowInfoTurnText(p1, p2);
 
         GameObject card = null;
         GameObject placeToDrop = null;
@@ -112,7 +71,7 @@ public class GameboardGameplayController : MonoBehaviour
             //Fülle sein Mana auf
             RefillMana(p1);
             //Ziehe eine Karte für ihn
-            card = DrawCard(p1);
+            card = p1.DrawCard();
             if (card == null)
                 DealFatigue(p1);
 
@@ -125,7 +84,7 @@ public class GameboardGameplayController : MonoBehaviour
             //Fülle ihr Mana auf
             RefillMana(p2);
             //Ziehe eine Karte für sie
-            card = DrawCard(p2);
+            card = p2.DrawCard();
             if (card == null)
                 DealFatigue(p2);
 
@@ -169,5 +128,17 @@ public class GameboardGameplayController : MonoBehaviour
                 GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
             }
         }
+    }
+
+    internal void ShowInfoTurnText(PlayerDataController p1, PlayerDataController p2)
+    {
+        string infoTurn = "Enemy Turn!";
+        if (p1.isLocalPlayer && p1.Data.IsActivePLayer)
+            infoTurn = "Your Turn!";
+        if (p2.isLocalPlayer && p2.Data.IsActivePLayer)
+            infoTurn = "Your Turn!";
+
+        info.SetActive(true);
+        StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(infoTurn, 1));
     }
 }

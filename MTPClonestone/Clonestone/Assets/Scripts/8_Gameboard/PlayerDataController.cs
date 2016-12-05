@@ -117,20 +117,10 @@ public class PlayerDataController : NetworkBehaviour
 
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
-
-            ///TODO Leider wird der Spieler beim ersten Start, lange bevor die Coroutine "GetDeck" fertig ist,  auf "IsReadyPlayer" gesetzt. Den Spieler am Ende der Coroutine auf "IsReadyPlayer" zu setzen, führt zu einem Crash.
         }
 
         
         
-    }
-
-    /// <summary>
-    /// Ändert die Bool-Variable "IsActivePlayer" von "true" auf "false" oder vice versa.
-    /// </summary>
-    public void ChangeIsActivePlayer()
-    {
-        Data.IsActivePLayer = !Data.IsActivePLayer;
     }
 
     /// <summary>
@@ -153,7 +143,7 @@ public class PlayerDataController : NetworkBehaviour
     {
         for (int i = 0; i < this.startingHandSize; i++)
         {
-            GameObject card = GameboardGameplayController.DrawCard(this);
+            GameObject card = DrawCard();
 
             if (card != null)
             {
@@ -425,15 +415,42 @@ public class PlayerDataController : NetworkBehaviour
         card.SetActive(true);
     }
 
-    ///// <summary>
-    ///// Setzt die Variable "isFirstPlayer" für beide Spieler
-    ///// </summary>
-    ///// <param name="p1">Spieler 1</param>
-    ///// <param name="p2">Spieler 2</param>
-    //public static void SetPlayerOrder(PlayerDataController p1, PlayerDataController p2)
-    //{
-    //    //p1.isFirstPlayer = GameboardDataController.TossCoin();
-    //    p1.isFirstPlayer = true;
-    //    p2.isFirstPlayer = !p1.isFirstPlayer;
-    //}
+    /// <summary>
+    /// Diese Methode zieht eine Karte vom Deck des Spielers.
+    /// Soll mehr als eine Karte gezogen werden, muss die Methode dementsprechend oft aufgerufen werden
+    /// </summary>
+    /// <returns>Die gezogene Karte</returns>
+    public GameObject DrawCard()
+    {
+        if (CardList.Count < 1)
+            return null;
+
+        GameObject cardDrawn = null;
+
+        ///Wird benötigt, um die Anzahl der Karten in der Hand zu bestimmen.
+        int cardsInHandCount = 0;
+
+        ///Die Schleife sucht in der Kartenliste des Spielers die erste Karte, deren "CardStatus" gleich "inDeck" ist, und gibt diese zurück
+        foreach (GameObject card in CardList)
+        {
+            //Zählt die Anzahl der Karten in der Hand
+            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+                cardsInHandCount += 1;
+
+            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inDeck)
+            {
+                cardDrawn = card;
+
+                if (cardsInHandCount < PlayerDataController.MaxHandSize)
+                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inHand;
+                //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
+                else
+                    cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
+
+                return cardDrawn;
+            }
+        }
+
+        return cardDrawn;
+    }
 }

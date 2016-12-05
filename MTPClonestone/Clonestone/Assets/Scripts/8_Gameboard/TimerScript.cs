@@ -9,7 +9,7 @@ public class TimerScript : MonoBehaviour
     /// Folgende Variablen sind "internal", damit im GameplayController auf sie zugegriffen werden kann
     /// ...da sie nicht public sind, können sie aber nicht im Unity-GUI verändert werden.
     /// </summary>
-    internal const int time4Round = 1;
+    internal const int time4Round = 10;
     internal int TimeLeft = time4Round;
 
     GameboardGameplayController board;
@@ -42,6 +42,7 @@ public class TimerScript : MonoBehaviour
         if (isFirstCountDown)
         {
             StartCoroutine("CountDown");
+            board.ShowInfoTurnText(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
             isFirstCountDown = false;
         }
 
