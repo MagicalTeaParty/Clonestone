@@ -78,7 +78,7 @@ public class PlayerDataController : NetworkBehaviour
     void Start()
     {
         //Hier werden die Werte initialisiert
-        Data.CurrentMaxMana = MaxMana;
+        Data.CurrentMaxMana = 1;
         Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
         Data.Fatigue = 0;
