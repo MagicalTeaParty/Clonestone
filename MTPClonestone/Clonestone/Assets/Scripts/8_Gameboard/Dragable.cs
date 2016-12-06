@@ -16,6 +16,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         //Debug.Log("BeginDrag");
 
+        
         placeholder = new GameObject();
         placeholder.transform.SetParent(this.transform.parent.parent);
         LayoutElement lay = placeholder.AddComponent<LayoutElement>();
@@ -71,6 +72,19 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         Destroy(placeholder);
+
+        //gameObject.GetComponent<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
+
+        if (this.gameObject.GetComponent<PlayerDataController>().Data.IsActivePLayer)
+        {
+            this.gameObject.GetComponent<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
+
+            //PlayerDataController.FindObjectOfType<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
+        }
+
+
+        
+
     }
 
 }
