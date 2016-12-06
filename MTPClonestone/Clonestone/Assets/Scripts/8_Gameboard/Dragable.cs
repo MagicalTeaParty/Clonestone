@@ -12,6 +12,9 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     GameObject placeholder = null;
 
+
+
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         //Debug.Log("BeginDrag");
