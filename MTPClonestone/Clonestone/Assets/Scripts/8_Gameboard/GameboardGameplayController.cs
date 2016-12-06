@@ -6,6 +6,9 @@ public class GameboardGameplayController : MonoBehaviour
     GameObject info;
     TimerScript timer;
 
+
+    bool screenspace = true;
+
     //Methods
 
     void Start()
@@ -46,6 +49,15 @@ public class GameboardGameplayController : MonoBehaviour
     /// </summary>
     internal void EndTurn()
     {
+        if (screenspace)
+        {
+            //Hier wird RenderMode geändert damit Karten während Drag&Drop sichtbar sind
+            GameObject boardCanvas;
+            boardCanvas = GameObject.Find("/Board");
+            boardCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            screenspace = false;
+        }
+
         //Beende den Timer und Setze die Zeit zurück
         timer.StopCoroutine("CountDown");
         timer.TimeLeft = TimerScript.time4Round;

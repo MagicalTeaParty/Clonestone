@@ -71,12 +71,14 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
+    
+
     //METHODS
 
     void Start()
     {
         //Hier werden die Werte initialisiert
-        Data.CurrentMaxMana = MaxMana;
+        Data.CurrentMaxMana = 1;
         Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
         Data.Fatigue = 0;
@@ -116,6 +118,9 @@ public class PlayerDataController : NetworkBehaviour
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
         }
+
+        
+        
     }
 
     /// <summary>
