@@ -71,6 +71,11 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         Destroy(placeholder);
+
+        
+        //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
+        Dragable d = this.GetComponent<Dragable>();
+        d.enabled = false;
     }
 
 }
