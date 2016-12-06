@@ -79,6 +79,13 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
         Dragable d = this.GetComponent<Dragable>();
         d.enabled = false;
+
+        //Aktiviere das Attack-Script
+        
+        //Draggable a = GameObject.Find("Target")
+        //a.enabled = true;
+        //DragCreatureAttack at = this.GetComponentInChildren<DragCreatureAttack>();
+        //at.enabled = true;
     }
 
 }

@@ -52,6 +52,10 @@ public class CardDataController : NetworkBehaviour
     int currentMana;
     int minionLife;
 
+    private void Awake()
+    {
+    }
+
     private void Start()
     {
         //if ( .GetComponent<NetworkIdentity>().isLocalPlayer)
