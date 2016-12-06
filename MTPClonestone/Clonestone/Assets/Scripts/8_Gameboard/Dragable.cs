@@ -17,6 +17,8 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        zDisplacement = -Camera.main.transform.position.z + transform.position.z;
+        
         //Debug.Log("BeginDrag");
 
         placeholder = new GameObject();
@@ -36,11 +38,22 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
+
+    private float zDisplacement;
+    // returns mouse position in World coordinates for our GameObject to follow. 
+    private Vector3 MouseInWorldCoords()
+    {
+        var screenMousePos = Input.mousePosition;
+        //Debug.Log(screenMousePos);
+        screenMousePos.z = zDisplacement;
+        return Camera.main.ScreenToWorldPoint(screenMousePos);
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("OnDrag");
 
-        this.transform.position = eventData.position;
+        this.transform.position = MouseInWorldCoords();// eventData.position;
 
         if (placeholder.transform.parent != placeholderParent)
         {
@@ -81,6 +94,8 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         d.enabled = false;
 
         //Aktiviere das Attack-Script
+        //setze z-index
+        //this.GetComponent<RectTransform>().position.z = -9216;
         
         //Draggable a = GameObject.Find("Target")
         //a.enabled = true;
