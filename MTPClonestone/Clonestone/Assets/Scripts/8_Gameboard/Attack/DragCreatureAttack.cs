@@ -24,7 +24,7 @@ public class DragCreatureAttack : DraggingActions
         // establish all the connections
         sr = GetComponent<SpriteRenderer>();
         lr = GetComponentInChildren<LineRenderer>();
-        lr.sortingLayerName = "AboveEverything";
+        //lr.sortingLayerName = "AboveEverything";
         triangle = transform.Find("Triangle");
         triangleSR = triangle.GetComponent<SpriteRenderer>();
 
@@ -32,19 +32,20 @@ public class DragCreatureAttack : DraggingActions
         //whereIsThisCreature = GetComponentInParent<WhereIsTheCardOrCreature>();
     }
 
-    //public override bool CanDrag
-    //{
-        //get
-        //{
-            // TEST LINE: just for testing 
-            // return true;
+    public override bool CanDrag
+    {
+        get
+        {
+            //TEST LINE: just for testing
+             return true;
 
-            // we can drag this card if 
-            // a) we can control this our player (this is checked in base.canDrag)
+            //we can drag this card if
+
+            //a) we can control this our player (this is checked in base.canDrag)
             // b) creature "CanAttackNow" - this info comes from logic part of our code into each creature`s manager script
             //return base.CanDrag && manager.CanAttackNow;
-        //}
-    //}
+        }
+    }
 
     public override void OnStartDrag()
     {
@@ -92,22 +93,22 @@ public class DragCreatureAttack : DraggingActions
             direction: (-Camera.main.transform.position + this.transform.position).normalized,
             maxDistance: 30f);
 
-        foreach (RaycastHit h in hits)
-        {
-            if ((h.transform.tag == "TopPlayer" && this.tag == "LowCreature") ||
-                (h.transform.tag == "LowPlayer" && this.tag == "TopCreature"))
-            {
-                // go face
-                Target = h.transform.gameObject;
-            }
-            else if ((h.transform.tag == "TopCreature" && this.tag == "LowCreature") ||
-                    (h.transform.tag == "LowCreature" && this.tag == "TopCreature"))
-            {
-                // hit a creature, save parent transform
-                Target = h.transform.parent.gameObject;
-            }
+        //foreach (RaycastHit h in hits)
+        //{
+        //    if ((h.transform.tag == "TopPlayer" && this.tag == "LowCreature") ||
+        //        (h.transform.tag == "LowPlayer" && this.tag == "TopCreature"))
+        //    {
+        //        // go face
+        //        Target = h.transform.gameObject;
+        //    }
+        //    else if ((h.transform.tag == "TopCreature" && this.tag == "LowCreature") ||
+        //            (h.transform.tag == "LowCreature" && this.tag == "TopCreature"))
+        //    {
+        //        // hit a creature, save parent transform
+        //        Target = h.transform.parent.gameObject;
+        //    }
 
-        }
+        //}
 
         bool targetValid = false;
 
