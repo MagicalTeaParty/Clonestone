@@ -1,0 +1,63 @@
+﻿@model ClonestoneMVC.Models.tbleditFile
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Newsbeitrag veröffentlichen</h2>
+
+
+@using (Html.BeginForm("Create", "tbleditFiles", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal" id="createnewsblock" style="padding: 20px">
+        <h4 id="newshead">Newsbeitrag veröffentlichen</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.fkedit, "fkedit", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("fkedit", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.fkedit, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.uidfile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.uidfile, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.uidfile, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            datei
+            <div class="col-md-10">
+               <input type="file" id="upload" name="upload" />
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.mimetype, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.mimetype, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.mimetype, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

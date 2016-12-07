@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ClonestoneMVC.Models.tbledit>
+
+@{
+    ViewBag.Title = "Newsübersicht";
+}
+
+
+<div class="gesamtAnzeige">
+        @{
+            var i = 0;
+        }
+        @foreach (var news in Model)
+        {
+            if(i%2 == 0) {
+                <div class="row" id="newscontainerright">
+                    <div class="col-md-3 col-md-offset-1 newsblockimage">
+                        @if (news.tbleditFiles.Count > 0)
+                        {
+                            var newsfile = @news.tbleditFiles.First();
+                            var image = Convert.ToBase64String(newsfile.editfile);
+                            <img class="img-responsive" src="data:@newsfile.mimetype;base64,@image" />
+                        }
+                        else
+                        {                           
+                            <img class="img-responsive" src="~/img/FrostShock.jpg" />
+                        }
+                    </div>
+
+                    <div class="col-md-6 newsblock"><hr />                   
+                        <div class="newstitle">@news.title</div><hr />
+                        <div class="newscontent">@news.content</div><hr />
+                        <div class="newsdate">Erstellt am: @news.editdate</div><hr />
+                        <div class="newseditor"><p>Erstellt von: @news.tblperson.firstname @news.tblperson.lastname</p></div>                  
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row" id="newscontainerleft">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-1 newsblock"><hr />
+                            <div class="newstitle">@news.title</div><hr />
+                            <div class="newscontent">@news.content</div><hr />
+                            <div class="newsdate">Erstellt am: @news.editdate</div><hr />
+                            <div class="newseditor"><p>Erstellt von: @news.tblperson.firstname @news.tblperson.lastname</p></div>
+                        </div>
+
+                        <div class="col-md-3 newsblockimage">
+                            @if (news.tbleditFiles.Count > 0)
+                            {
+                                var newsfile = @news.tbleditFiles.First();
+                                var image = Convert.ToBase64String(newsfile.editfile);
+                                <img class="img-responsive" src="data:@newsfile.mimetype;base64,@image" />
+                            }
+                            else
+                            {
+                                <img src="~/img/th.png" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            i++;
+        }
+</div>
+<p style="margin-top:300px;">&nbsp</p>
+
+

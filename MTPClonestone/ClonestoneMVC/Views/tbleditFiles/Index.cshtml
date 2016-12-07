@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ClonestoneMVC.Models.tbleditFile>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.uidfile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.editfile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mimetype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbledit.title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.uidfile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.editfile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mimetype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbledit.title)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ideditfile }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ideditfile }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ideditfile })
+        </td>
+    </tr>
+}
+
+</table>

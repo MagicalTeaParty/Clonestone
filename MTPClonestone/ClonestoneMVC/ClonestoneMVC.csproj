@@ -160,11 +160,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CardsController.cs" />
     <Compile Include="Controllers\DeckController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PasswordForgottenController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
+    <Compile Include="Controllers\tbleditFilesController.cs" />
     <Compile Include="Controllers\TutorialController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -314,6 +316,13 @@
     <Content Include="Views\Profile\Details.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Edit\Detail.cshtml" />
+    <Content Include="Views\Edit\Index.cshtml" />
+    <Content Include="Views\tbleditFiles\Create.cshtml" />
+    <Content Include="Views\tbleditFiles\Delete.cshtml" />
+    <Content Include="Views\tbleditFiles\Details.cshtml" />
+    <Content Include="Views\tbleditFiles\Edit.cshtml" />
+    <Content Include="Views\tbleditFiles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
