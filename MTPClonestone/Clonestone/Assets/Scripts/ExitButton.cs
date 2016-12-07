@@ -16,6 +16,6 @@ public class ExitButton : MonoBehaviour {
     public void LogOut()
     {
         SceneManager.LoadScene(3);
-        Debug.Log("EXIT2");
+        
     }
 }
