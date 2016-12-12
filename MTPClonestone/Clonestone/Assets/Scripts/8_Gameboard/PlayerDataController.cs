@@ -84,19 +84,38 @@ public class PlayerDataController : NetworkBehaviour
         Data.Fatigue = 0;
     }
 
+    private void ShowCardPlayable(GameObject item)
+    {
+        if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+        {
+            item.gameObject.GetComponentInChildren<Outline>().enabled = true;
+            item.gameObject.GetComponentInChildren<Outline>().effectColor = new Color(0, 1, 0, 1);
+            item.gameObject.GetComponentInChildren<Outline>().effectDistance = new Vector2(10, 10);
+        }
+        else
+        {
+            item.gameObject.GetComponentInChildren<Outline>().enabled = false;
+        }
+    }
+
     void Update()
     {
 
         foreach (var item in this.CardList)
         {
-            if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
+            if ( this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
             {
                 item.gameObject.GetComponent<Dragable>().enabled = true;
+                
             }
             else
             {
                 item.gameObject.GetComponent<Dragable>().enabled = false;
+
+                
             }
+
+            ShowCardPlayable(item);
         }
 
 
