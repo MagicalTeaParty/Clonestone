@@ -12,8 +12,13 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     GameObject placeholder = null;
 
+
+
+
     public void OnBeginDrag(PointerEventData eventData)
     {
+        zDisplacement = -Camera.main.transform.position.z + transform.position.z;
+        
         //Debug.Log("BeginDrag");
 
         
@@ -34,11 +39,22 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
+
+    private float zDisplacement;
+    // returns mouse position in World coordinates for our GameObject to follow. 
+    private Vector3 MouseInWorldCoords()
+    {
+        var screenMousePos = Input.mousePosition;
+        //Debug.Log(screenMousePos);
+        screenMousePos.z = zDisplacement;
+        return Camera.main.ScreenToWorldPoint(screenMousePos);
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("OnDrag");
 
-        this.transform.position = eventData.position;
+        this.transform.position = MouseInWorldCoords();// eventData.position;
 
         if (placeholder.transform.parent != placeholderParent)
         {
@@ -73,18 +89,19 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         Destroy(placeholder);
 
-        //gameObject.GetComponent<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
-
-        if (this.gameObject.GetComponent<PlayerDataController>().Data.IsActivePLayer)
-        {
-            this.gameObject.GetComponent<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
-
-            //PlayerDataController.FindObjectOfType<PlayerDataController>().Data.CurrentActiveMana -= this.gameObject.GetComponent<CardDataController>().Data.Mana;
-        }
-
-
         
+        //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
+        Dragable d = this.GetComponent<Dragable>();
+        d.enabled = false;
 
+        //Aktiviere das Attack-Script
+        //setze z-index
+        //this.GetComponent<RectTransform>().position.z = -9216;
+        
+        //Draggable a = GameObject.Find("Target")
+        //a.enabled = true;
+        //DragCreatureAttack at = this.GetComponentInChildren<DragCreatureAttack>();
+        //at.enabled = true;
     }
 
 }
