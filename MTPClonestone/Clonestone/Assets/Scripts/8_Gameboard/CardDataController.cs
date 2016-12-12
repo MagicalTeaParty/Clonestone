@@ -51,11 +51,7 @@ public class CardDataController : NetworkBehaviour
     int currentLife;
     int currentMana;
     int minionLife;
-
-    private void Awake()
-    {
-    }
-
+      
     private void Start()
     {
         //if ( .GetComponent<NetworkIdentity>().isLocalPlayer)
@@ -118,13 +114,16 @@ public class CardDataController : NetworkBehaviour
     {
         if (this.Data.TypeName == "Hero")
             return;
-
+                
         var cardBackGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
         var cardLifeGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
 
         var players = GameObject.FindGameObjectsWithTag("Player");
-        
+
+        if (players.Length < 2)
+            return;
+
         GameObject owner=null;
 
         var cards = players[0].GetComponent<PlayerDataController>().CardList;

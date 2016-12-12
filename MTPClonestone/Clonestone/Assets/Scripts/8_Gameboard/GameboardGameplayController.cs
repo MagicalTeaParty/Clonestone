@@ -52,10 +52,10 @@ public class GameboardGameplayController : MonoBehaviour
         if (screenspace)
         {
             //Hier wird RenderMode geändert damit Karten während Drag&Drop sichtbar sind
-            GameObject boardCanvas;
-            boardCanvas = GameObject.Find("/Board");
-            boardCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            screenspace = false;
+            //GameObject boardCanvas;
+            //boardCanvas = GameObject.Find("/Board");
+            //boardCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            //screenspace = false;
         }
 
         //Beende den Timer und Setze die Zeit zurück

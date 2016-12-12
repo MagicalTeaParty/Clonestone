@@ -1,0 +1,50 @@
+﻿@model ClonestoneMVC.Models.tbleditFile
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbleditFile</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.uidfile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.uidfile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.editfile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.editfile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mimetype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mimetype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbledit.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbledit.title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ideditfile }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
