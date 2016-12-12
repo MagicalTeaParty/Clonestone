@@ -720,7 +720,7 @@
           <Property Type="String" Name="CardName" Nullable="false" MaxLength="50" />
           <Property Type="Byte" Name="Mana" Nullable="false" />
           <Property Type="Int16" Name="Attack" Nullable="false" />
-          <Property Type="Int16" Name="health" Nullable="false" />
+          <Property Type="Int16" Name="Health" Nullable="false" />
           <Property Type="String" Name="Flavour" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="IdDeckCard" Nullable="false" />
           <Property Type="String" Name="FileName" Nullable="true" MaxLength="8" />
@@ -873,7 +873,7 @@
                 <ScalarProperty Name="CardName" ColumnName="CardName" />
                 <ScalarProperty Name="Mana" ColumnName="Mana" />
                 <ScalarProperty Name="Attack" ColumnName="Attack" />
-                <ScalarProperty Name="health" ColumnName="health" />
+                <ScalarProperty Name="Health" ColumnName="Health" />
                 <ScalarProperty Name="Flavour" ColumnName="Flavour" />
                 <ScalarProperty Name="IdDeckCard" ColumnName="IdDeckCard" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />

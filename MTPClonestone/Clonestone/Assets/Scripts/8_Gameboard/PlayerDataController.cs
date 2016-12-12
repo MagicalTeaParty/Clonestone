@@ -71,12 +71,14 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
+    
+
     //METHODS
 
     void Start()
     {
         //Hier werden die Werte initialisiert
-        Data.CurrentMaxMana = MaxMana;
+        Data.CurrentMaxMana = 1;
         Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
         Data.Fatigue = 0;
@@ -84,6 +86,21 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
+
+        foreach (var item in this.CardList)
+        {
+            if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
+            {
+                item.gameObject.GetComponent<Dragable>().enabled = true;
+            }
+            else
+            {
+                item.gameObject.GetComponent<Dragable>().enabled = false;
+            }
+        }
+
+
+
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
 
@@ -116,7 +133,11 @@ public class PlayerDataController : NetworkBehaviour
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
         }
+        
     }
+
+    
+
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
