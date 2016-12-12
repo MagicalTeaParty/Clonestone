@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class GameboardDataController
+public class GameboardDataController : MonoBehaviour
 {
     public enum GameStatus { initializing, running, ending }
 
