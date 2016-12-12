@@ -21,6 +21,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         
         //Debug.Log("BeginDrag");
 
+        
         placeholder = new GameObject();
         placeholder.transform.SetParent(this.transform.parent.parent);
         LayoutElement lay = placeholder.AddComponent<LayoutElement>();
