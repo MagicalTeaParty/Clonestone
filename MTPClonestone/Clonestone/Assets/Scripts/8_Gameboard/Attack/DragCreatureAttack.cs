@@ -93,6 +93,11 @@ public class DragCreatureAttack : DraggingActions
             direction: (-Camera.main.transform.position + this.transform.position).normalized,
             maxDistance: 30f);
 
+        foreach(RaycastHit h in hits)
+        {
+            Debug.Log(h.transform.tag);
+        }
+
         //foreach (RaycastHit h in hits)
         //{
         //    if ((h.transform.tag == "TopPlayer" && this.tag == "LowCreature") ||
