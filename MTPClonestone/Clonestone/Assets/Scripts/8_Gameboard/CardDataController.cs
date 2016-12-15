@@ -51,7 +51,12 @@ public class CardDataController : NetworkBehaviour
     int currentLife;
     int currentMana;
     int minionLife;
-      
+
+    /// <summary>
+    /// Besitzer der Karte
+    /// </summary>
+    public GameObject Owner;
+
     private void Start()
     {
         //if ( .GetComponent<NetworkIdentity>().isLocalPlayer)
@@ -85,6 +90,41 @@ public class CardDataController : NetworkBehaviour
             LifeMinion = this.gameObject.GetComponentInChildren<Text>();
         }
 
+        setOwner();
+
+    }
+
+    /// <summary>
+    /// Legt den Besitzer der Karte fest
+    /// </summary>
+    private void setOwner()
+    {
+        //Hole alle Spieler
+        var players = GameObject.FindGameObjectsWithTag("Player");
+
+        if(players.Length < 2)
+        {
+            Debug.Log("ERROR: setOwner()");
+            return;
+        }
+
+        var cards = players[0].GetComponent<PlayerDataController>().CardList;
+        foreach(var card in cards)
+        {
+            if(card == this.gameObject)
+            {
+                this.Owner = players[0];
+            }
+        }
+
+        cards = players[1].GetComponent<PlayerDataController>().CardList;
+        foreach(var card in cards)
+        {
+            if(card == this.gameObject)
+            {
+                this.Owner = players[1];
+            }
+        }
     }
 
 
@@ -94,7 +134,7 @@ public class CardDataController : NetworkBehaviour
         {
             currentLife = GameboardInitController.Players[heroIndex].GetComponent<PlayerDataController>().Data.CurrentHealth;
             LifeField.text = currentLife.ToString();
-            Debug.Log(LifeField.text);
+            //Debug.Log(LifeField.text);
             currentMana = GameboardInitController.Players[heroIndex].GetComponent<PlayerDataController>().Data.CurrentActiveMana;
             ManaField.text = currentMana.ToString();
 
@@ -104,11 +144,24 @@ public class CardDataController : NetworkBehaviour
         {
             minionLife = this.Data.Health;
             LifeMinion.text = minionLife.ToString();
+
+            checkAlive();
         }
 
         setCardVisibility();
     }
 
+    /// <summary>
+    /// Prüft ob die Karte noch genug leben hat um am Brett bleiben zu drüfen, wenn nicht wird der Status auf inDiscardPile geändert
+    /// </summary>
+    private void checkAlive()
+    {
+        if(this.Data.Health <= 0)
+        {
+            //Debug.Log("Card " + this.Data.CardName + " destroyed");
+            this.Data.CardState = CardStatus.inDiscardPile;
+        }
+    }
 
     private void setCardVisibility()
     {
@@ -163,12 +216,28 @@ public class CardDataController : NetworkBehaviour
 
                 break;
             case CardStatus.onBoard:
+                cardBackGameObjekt.SetActive(false);
                 cardLifeGameObjekt.SetActive(true);
                 break;
             case CardStatus.inDiscardPile:
+                //Debug.Log("Card " + this.Data.CardName + " discarded");
+                //GameObject.Destroy(this); //Vernichte das GameObject
+                MoveOnDiscardPile();
                 break;
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// Hier wird die Karte auf den Ablagestapel verschoben
+    /// </summary>
+    private void MoveOnDiscardPile()
+    {
+        //Für Testzwecke wird die Karte, egal von welchem Spieler auf den Ablagestapel von Spieler 1 verschoben
+        GameObject pile = GameObject.Find("DiscardPile1");
+
+        this.gameObject.transform.SetParent(pile.transform);
+        
     }
 }
