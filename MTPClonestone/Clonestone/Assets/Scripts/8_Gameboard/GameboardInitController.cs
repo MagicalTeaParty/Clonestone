@@ -19,16 +19,16 @@ public class GameboardInitController : MonoBehaviour
 
     void Start()
     {
-        Texture2D tex = PlayerDataController.LoadPNG(PlayerDataController.GetApplicationPath() + @"/Images/Gameboard/board.png");
+        Texture2D tex = PlayerDataController.LoadPNG(Application.dataPath + @"/Images/Gameboard/board.png");
         GameObject.Find("Board").GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0,0,tex.width,tex.height), new Vector2(0.5f,0.5f));
 
-        tex = PlayerDataController.LoadPNG(PlayerDataController.GetApplicationPath() + @"/Images/Gameboard/sun.png");
+        tex = PlayerDataController.LoadPNG(Application.dataPath + @"/Images/Gameboard/sun.png");
         GameObject.Find("Board/EndTurn/Sun").GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        tex = PlayerDataController.LoadPNG(PlayerDataController.GetApplicationPath() + @"/Images/Gameboard/Auge.png");
+        tex = PlayerDataController.LoadPNG(Application.dataPath + @"/Images/Gameboard/Auge.png");
         GameObject.Find("Board/EndTurn/Eye").GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        tex = PlayerDataController.LoadPNG(PlayerDataController.GetApplicationPath() + @"/Images/GUI Elements/shield.png");
+        tex = PlayerDataController.LoadPNG(Application.dataPath + @"/Images/GUI Elements/shield.png");
         GameObject.Find("Board/EndTurn/EndTurnButton").GetComponent<Image>().sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
     }
 
