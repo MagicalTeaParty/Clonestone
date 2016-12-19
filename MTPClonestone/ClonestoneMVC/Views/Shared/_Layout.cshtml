@@ -30,8 +30,8 @@
                     <li>@Html.ActionLink("Login", "Login", "Login")</li>
                     <li>@Html.ActionLink("Gallery", "Index", "cards")</li>
                     <li>@Html.ActionLink("Registration", "create", "Registration")</li>
-                    <li>@Html.ActionLink("News", "News", "News")</li>
-                    <li>@Html.ActionLink("Tutorial", "Tutorial", "Tutorial")</li>
+                    <li>@Html.ActionLink("News", "Index", "Edit")</li>
+                    <li>@Html.ActionLink("Tutorial", "Index", "Tutorial")</li>
 
                     <!-- Abfrage userrole ob ADMIN! -->
                     @if (Convert.ToString(Session["sessionUserrole"]) == "2")

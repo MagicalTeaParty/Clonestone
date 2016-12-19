@@ -13,11 +13,11 @@ namespace ClonestoneMVC.Controllers
         private ClonestoneEntities db = new ClonestoneEntities();
 
         // GET: /Edit
-        public ActionResult Index()
-        {
-            //var news = (b => b.tblpersons);
-            return View(db.tbledits.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    //var news = (b => b.tblpersons);
+        //    return View(db.tbledits.ToList());
+        //}
 
         // GET: /Detail/Id
 
@@ -33,6 +33,15 @@ namespace ClonestoneMVC.Controllers
                 return RedirectToAction("Index");
             }
             return View(news);
+        }
+
+       
+        public ActionResult Index()
+        {
+            var Edit = (from edit in db.tbledits.ToList()
+                           where edit.isnews == true
+                           select edit);
+            return View(Edit);
         }
 
     }

@@ -193,4 +193,24 @@ h2 {
     text-shadow: 3px 3px 3px #000
 }
 
+.gesamtAnzeige {
+    margin-top: 100px;
+}
+
+.newsblock {
+    margin-top:50px !important;  
+    background-image: url('../img/paper_background.png');
+    font-size:12px;
+}
+
+.newstitle {
+    font-size:20px;
+    font-weight: bold;
+}
+
+.newsblockimage {    
+    margin-top:50px;
+    height:400px;
+}
+
 
