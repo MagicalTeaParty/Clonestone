@@ -102,6 +102,12 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
+        //Wenn nicht Host - also nicht "Hager"
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
+        {
+            playCards();
+            attackWithCards();
+        }
 
         foreach (GameObject item in this.CardList)
         {
@@ -123,7 +129,6 @@ public class PlayerDataController : NetworkBehaviour
 
             ShowCardPlayable(item);
         }
-
 
 
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
@@ -161,8 +166,69 @@ public class PlayerDataController : NetworkBehaviour
         
     }
 
-    
+    private void playCards()
+    {
+        foreach(var item in CardList)
+        {
+            CardDataController cdc = item.GetComponent<CardDataController>();
 
+            if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
+            {
+                playCard(item);
+            }
+        }
+    }
+
+   private void playCard(GameObject card)
+    {
+        GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
+
+        MoveCard(card, placeToDrop);
+        //setze den Status der Karte auf OnBoard
+        card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+    }
+
+    private void attackWithCards()
+    {
+        //GameObject p1cards = GameObject.Find("/Board/DropZoneP1Position");
+        //GameObject p2cards = GameObject.Find("/Board/DropZoneP2Position");
+
+        GameObject[] players = GameboardInitController.Players;
+        PlayerDataController hager = players[0].GetComponent<PlayerDataController>();
+        PlayerDataController comp = players[1].GetComponent<PlayerDataController>();
+        
+        foreach(var card in comp.CardList)
+        {
+            if(card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                int cards = GetLengthOfCardsOnBoard(hager.CardList);
+                if(cards > 0)
+                {
+                    int rand = Random.Range(0, cards);
+
+                    //Die fremde Karte bekommt den Angriff ab
+                    card.GetComponent<CardDataController>().Data.Health -= hager.CardList[rand].GetComponent<CardDataController>().Data.Attack;
+                    //Die Angriffskarte bekommt die Verteidigung ab
+                    hager.CardList[rand].GetComponent<CardDataController>().Data.Health -= card.GetComponent<CardDataController>().Data.Attack;
+                }
+            }
+        }
+    }
+    
+    private int GetLengthOfCardsOnBoard(List<GameObject> cardList)
+    {
+        int counter = 0;
+
+        foreach(var item in CardList)
+        {
+            if(item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
