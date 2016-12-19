@@ -125,7 +125,7 @@ public class GameboardGameplayController : MonoBehaviour
     {
         for (int i = 0; i < players.Length; i++)
         {
-            Debug.Log("Player " + i + ": " + players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
+            //Debug.Log("Player " + i + ": " + players[i].GetComponent<PlayerDataController>().Data.CurrentHealth);
 
             if (players[i].GetComponent<PlayerDataController>().Data.CurrentHealth <= 0)
             {
