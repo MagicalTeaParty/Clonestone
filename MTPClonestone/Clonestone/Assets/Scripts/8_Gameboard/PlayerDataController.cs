@@ -71,14 +71,14 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
-    TimerScriptAI timerAi = new TimerScriptAI();
+    TimerScriptAI timerAi;
 
     //METHODS
 
     void Start()
     {
         //Hier werden die Werte initialisiert
-        Data.CurrentMaxMana = 1;
+        Data.CurrentMaxMana = 0;
         Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
         Data.Fatigue = 0;
@@ -111,25 +111,25 @@ public class PlayerDataController : NetworkBehaviour
             //attackWithCards();
         }
 
-        foreach (GameObject item in this.CardList)
+        foreach (GameObject card in this.CardList)
         {
-            if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
-                item.gameObject.GetComponent<Dragable>().enabled = true;
-                item.transform.Find("Target").gameObject.SetActive(false);                
+                card.gameObject.GetComponent<Dragable>().enabled = true;
+                card.transform.Find("Target").gameObject.SetActive(false);                
             }
-            else if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
-                item.gameObject.GetComponent<Dragable>().enabled = false;
-                item.transform.Find("Target").gameObject.SetActive(true);
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(true);
             }
             else if (!this.Data.IsActivePLayer)
             {
-                item.gameObject.GetComponent<Dragable>().enabled = false;
-                item.transform.Find("Target").gameObject.SetActive(false);
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(false);
             }
 
-            ShowCardPlayable(item);
+            ShowCardPlayable(card);
         }
 
 
@@ -533,8 +533,6 @@ public class PlayerDataController : NetworkBehaviour
                 placeToDrop = GameObject.Find("/Board/DiscardPile2");
         }
 
-        //Warnung von Unity: Ausgebessert von LP & TF
-        //card.transform.parent = placeToDrop.transform;
         card.transform.SetParent(placeToDrop.transform);
         card.SetActive(true);
     }

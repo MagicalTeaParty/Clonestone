@@ -20,7 +20,6 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         zDisplacement = -Camera.main.transform.position.z + transform.position.z;
         
         //Debug.Log("BeginDrag");
-
         
         placeholder = new GameObject();
         placeholder.transform.SetParent(this.transform.parent.parent);
@@ -98,7 +97,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //Aktiviere das Attack-Script
         //setze z-index
         //this.GetComponent<RectTransform>().position.z = -9216;
-        
+
         //Draggable a = GameObject.Find("Target")
         //a.enabled = true;
         //DragCreatureAttack at = this.GetComponentInChildren<DragCreatureAttack>();
