@@ -290,7 +290,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: f4c811b04bc040c4ab539bc2df87635d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2716a540281d93946aa5ebdd8238a2ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -345,6 +345,7 @@ MonoBehaviour:
   LifeField: {fileID: 114000010100199840}
   ManaField: {fileID: 114000012686555658}
   LifeMinion: {fileID: 0}
+  Owner: {fileID: 0}
 --- !u!114 &114000013920634224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -385,7 +386,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 90d4d49449d776341b8085eb8b443b83, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a023cbfbe0438c4783fa7a619fe2251, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

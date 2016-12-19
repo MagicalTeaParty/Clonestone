@@ -84,19 +84,44 @@ public class PlayerDataController : NetworkBehaviour
         Data.Fatigue = 0;
     }
 
+    /// <summary>
+    /// Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
+    /// </summary>
+    /// <param name="card">Die Karte</param>
+    private void ShowCardPlayable(GameObject card)
+    {
+        if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+        {
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
+        }
+        else
+        {
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        }
+    }
+
     void Update()
     {
 
-        foreach (var item in this.CardList)
+        foreach (GameObject card in this.CardList)
         {
-            if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
+            if ( this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
-                item.gameObject.GetComponent<Dragable>().enabled = true;
+                card.gameObject.GetComponent<Dragable>().enabled = true;
+                item.transform.Find("Target").gameObject.SetActive(false);                
             }
-            else
+            else if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                item.transform.Find("Target").gameObject.SetActive(true);
+            }
+            else if (!this.Data.IsActivePLayer)
             {
                 item.gameObject.GetComponent<Dragable>().enabled = false;
+                item.transform.Find("Target").gameObject.SetActive(false);
             }
+
+            ShowCardPlayable(card);
         }
 
 

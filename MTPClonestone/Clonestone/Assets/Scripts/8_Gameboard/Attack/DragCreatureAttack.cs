@@ -84,6 +84,9 @@ public class DragCreatureAttack : DraggingActions
 
     }
 
+    /// <summary>
+    /// Prüft ob es eine Fremdkarte ist, wenn ja wird ein Angriff am Brett durchgeführt.
+    /// </summary>
     public override void OnEndDrag()
     {
         Target = null;
@@ -92,6 +95,33 @@ public class DragCreatureAttack : DraggingActions
         hits = Physics.RaycastAll(origin: Camera.main.transform.position,
             direction: (-Camera.main.transform.position + this.transform.position).normalized,
             maxDistance: 30f);
+
+        CardDataController myData = this.GetComponentInParent<CardDataController>();
+
+        foreach(RaycastHit h in hits)
+        {
+            CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
+
+            //Die aktuelle Karte muss sich von der geraycasteten Unterscheiden!
+            if(myData != rayData && //Die Karten müssen unterschiedlich sein
+                myData.Owner != rayData.Owner  //Die Besitzer der Karten müssen ray unterschiedlich sein
+                 //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
+                )
+            {
+                Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack +") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+
+                //Die fremde Karte bekommt den Angriff ab
+                rayData.Data.Health -= myData.Data.Attack;
+                //Die Angriffskarte bekommt die Verteidigung ab
+                myData.Data.Health -= rayData.Data.Attack;
+
+                Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+            }
+
+            //Debug.Log("Ray: " + h.transform.tag);
+            //Debug.Log("Ray: " + h.transform.gameObject.tag);
+            //Debug.Log("Ray: " + h.transform.gameObject.GetComponentInParent<CardDataController>().Data.CardName);
+        }
 
         //foreach (RaycastHit h in hits)
         //{
