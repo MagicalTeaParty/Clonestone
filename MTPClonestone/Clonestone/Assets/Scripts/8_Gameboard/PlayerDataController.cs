@@ -103,16 +103,20 @@ public class PlayerDataController : NetworkBehaviour
 
         foreach (var item in this.CardList)
         {
-            if ( this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
+            if ( this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
                 item.gameObject.GetComponent<Dragable>().enabled = true;
-                
+                item.transform.Find("Target").gameObject.SetActive(false);                
             }
-            else
+            else if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
                 item.gameObject.GetComponent<Dragable>().enabled = false;
-
-                
+                item.transform.Find("Target").gameObject.SetActive(true);
+            }
+            else if (!this.Data.IsActivePLayer)
+            {
+                item.gameObject.GetComponent<Dragable>().enabled = false;
+                item.transform.Find("Target").gameObject.SetActive(false);
             }
 
             ShowCardPlayable(item);
