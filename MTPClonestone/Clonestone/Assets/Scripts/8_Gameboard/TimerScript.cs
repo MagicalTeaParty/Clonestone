@@ -43,6 +43,8 @@ public class TimerScript : MonoBehaviour
         {
             StartCoroutine("CountDown");
             board.ShowInfoTurnText(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+            GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentMaxMana += 1;
+            GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentActiveMana = GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentMaxMana;
             isFirstCountDown = false;
         }
 

@@ -1391,7 +1391,7 @@ GameObject:
   - 114: {fileID: 808322168}
   m_Layer: 5
   m_Name: DropZoneP2Position
-  m_TagString: Untagged
+  m_TagString: DropZone2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1821,7 +1821,7 @@ GameObject:
   - 114: {fileID: 1464591107}
   m_Layer: 5
   m_Name: DropZoneP1Position
-  m_TagString: Untagged
+  m_TagString: DropZone1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
