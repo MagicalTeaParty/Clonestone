@@ -102,7 +102,6 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
-
         foreach (GameObject card in this.CardList)
         {
             if ( this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana)
@@ -113,14 +112,10 @@ public class PlayerDataController : NetworkBehaviour
             else
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
-
-                
             }
 
             ShowCardPlayable(card);
         }
-
-
 
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
@@ -154,7 +149,6 @@ public class PlayerDataController : NetworkBehaviour
             //Markiere den Spieler als "IsReadyPlayer"
             this.Data.IsReadyPlayer = true;
         }
-        
     }
 
     
