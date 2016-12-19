@@ -93,6 +93,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
         Dragable d = this.GetComponent<Dragable>();
         d.enabled = false;
+        this.gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
 
         //Aktiviere das Attack-Script
         //setze z-index
