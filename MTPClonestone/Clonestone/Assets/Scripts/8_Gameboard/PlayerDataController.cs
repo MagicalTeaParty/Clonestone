@@ -71,7 +71,7 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
-    
+    TimerScriptAI timerAi = new TimerScriptAI();
 
     //METHODS
 
@@ -105,8 +105,10 @@ public class PlayerDataController : NetworkBehaviour
         //Wenn nicht Host - also nicht "Hager"
         if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
         {
-            playCards();
-            attackWithCards();
+            StartCoroutine("playCards");
+
+            //playCards();
+            //attackWithCards();
         }
 
         foreach (GameObject item in this.CardList)
@@ -166,23 +168,37 @@ public class PlayerDataController : NetworkBehaviour
         
     }
 
-    private void playCards()
-    {
+    private IEnumerator playCards()
+    {        
         foreach(var item in CardList)
         {
+            //if(Data.IsReadyPlayer)
+            //    return;
+
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
             {
+                yield return new WaitForSecondsRealtime(2);
+                //StartCoroutine("playCard", item);
+                
                 playCard(item);
             }
         }
     }
 
-   private void playCard(GameObject card)
+    //IEnumerator CountDown()
+    //{
+    //    while(true)
+    //    {
+    //        yield return new WaitForSecondsRealtime(1);
+    //        TimeLeft--;
+    //    }
+    //}
+
+    private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
-
         MoveCard(card, placeToDrop);
         //setze den Status der Karte auf OnBoard
         card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
