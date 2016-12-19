@@ -17,7 +17,7 @@ namespace ClonestoneMVC.Models
 
         [Required(ErrorMessage = "required!", AllowEmptyStrings = false)]
         [DataType(DataType.EmailAddress, ErrorMessage = "invalid ermailadress")]
-        [System.ComponentModel.DataAnnotations.Compare("Newemail1", ErrorMessage = "email not identical!")]
+        [Compare("Newemail1", ErrorMessage = "email not identical!")]
         [DisplayName("Newemail2")]
         public string Newemail2 { get; set; }
 
@@ -29,7 +29,7 @@ namespace ClonestoneMVC.Models
 
         [Required(ErrorMessage = "required!", AllowEmptyStrings = false)]
         [DataType(DataType.Password)]
-        [System.ComponentModel.DataAnnotations.Compare("Newpass1", ErrorMessage = "passwords not identical!")]
+        [Compare("Newpass1", ErrorMessage = "passwords not identical!")]
         [DisplayName("Newpass2")]
         public string Newpass2 { get; set; }
 

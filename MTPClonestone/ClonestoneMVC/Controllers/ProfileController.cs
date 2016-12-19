@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using ClonestoneMVC.Models;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClonestoneMVC.Controllers
 {

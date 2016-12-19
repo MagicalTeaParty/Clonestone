@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClonestoneMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,40 @@ namespace ClonestoneMVC.Controllers
 {
     public class TutorialController : Controller
     {
-        // GET: Tutorial
+
+        private ClonestoneEntities db = new ClonestoneEntities();
+
+        // GET: /Edit
+        //public ActionResult Index()
+        //{
+        //    //var news = (b => b.tblpersons);
+        //    return View(db.tbledits.ToList());
+        //}
+
+        // GET: /Detail/Id
+
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var news = db.tbledits.Find(id);
+            if (news == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(news);
+        }
+
+
         public ActionResult Index()
         {
-            return View();
+            var Edit = (from edit in db.tbledits.ToList()
+                        where edit.isnews == false
+                        select edit);
+            return View(Edit);
         }
+
     }
 }
