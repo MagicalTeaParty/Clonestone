@@ -71,7 +71,7 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
-    
+    TimerScriptAI timerAi = new TimerScriptAI();
 
     //METHODS
 
@@ -105,8 +105,10 @@ public class PlayerDataController : NetworkBehaviour
         //Wenn nicht Host - also nicht "Hager"
         if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
         {
-            playCards();
-            attackWithCards();
+            StartCoroutine("playCards");
+
+            //playCards();
+            //attackWithCards();
         }
 
         foreach (GameObject item in this.CardList)
@@ -166,23 +168,37 @@ public class PlayerDataController : NetworkBehaviour
         
     }
 
-    private void playCards()
-    {
+    private IEnumerator playCards()
+    {        
         foreach(var item in CardList)
         {
+            //if(Data.IsReadyPlayer)
+            //    return;
+
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
             {
+                yield return new WaitForSecondsRealtime(2);
+                //StartCoroutine("playCard", item);
+                
                 playCard(item);
             }
         }
     }
 
-   private void playCard(GameObject card)
+    //IEnumerator CountDown()
+    //{
+    //    while(true)
+    //    {
+    //        yield return new WaitForSecondsRealtime(1);
+    //        TimeLeft--;
+    //    }
+    //}
+
+    private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
-
         MoveCard(card, placeToDrop);
         //setze den Status der Karte auf OnBoard
         card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
@@ -285,23 +301,24 @@ public class PlayerDataController : NetworkBehaviour
         return tex;
     }
 
-    /// <summary>
-    /// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
-    /// </summary>
-    /// <returns></returns>
-    /// 
-    public static string GetApplicationPath()
-    {
-        //Application.dataPath: https://docs.unity3d.com/ScriptReference/Application-dataPath.html
-        string path = Application.dataPath;
+    //Die folgende Methode ist unnötig, da "Application.dataPath" bereits den gewünschten Pfad zurückliefert
+    ///// <summary>
+    ///// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
+    ///// </summary>
+    ///// <returns></returns>
+    ///// 
+    //public static string GetApplicationPath()
+    //{
+    //    //Application.dataPath: https://docs.unity3d.com/ScriptReference/Application-dataPath.html
+    //    string path = Application.dataPath;
 
-        if (Application.platform == RuntimePlatform.OSXPlayer)
-            path += "/../../";
-        else if (Application.platform == RuntimePlatform.WindowsPlayer)
-            path += "/../";
+    //    if (Application.platform == RuntimePlatform.OSXPlayer)
+    //        path += "/../../";
+    //    else if (Application.platform == RuntimePlatform.WindowsPlayer)
+    //        path += "/../";
 
-        return path;
-    }
+    //    return path;
+    //}
 
     //Platzhalter für das Karten-Prefab
     public GameObject CardPrefab;
@@ -388,7 +405,7 @@ public class PlayerDataController : NetworkBehaviour
         //Bild setzen
         var image = card.GetComponentsInChildren<Image>()[1];
 
-        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
@@ -433,7 +450,7 @@ public class PlayerDataController : NetworkBehaviour
         // Get all components of type Image that are children of this GameObject.
         Image image = card.GetComponentsInChildren<Image>()[1];
 
-        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
