@@ -88,17 +88,20 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         Destroy(placeholder);
 
+        //Hier wird das Dragable-Script deaktiviert, sobald die Karte "onBoard" ist
         if (GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer && GetComponent<Transform>().parent == GameObject.FindGameObjectWithTag("DropZone1").GetComponent<Transform>())
         {
-            //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
             GetComponent<Dragable>().enabled = false;
             gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+
+            GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentActiveMana -= gameObject.GetComponent<CardDataController>().Data.Mana;
         }
         else if (GameboardInitController.Players[1].GetComponent<PlayerDataController>().Data.IsActivePLayer && GetComponent<Transform>().parent == GameObject.FindGameObjectWithTag("DropZone2").GetComponent<Transform>())
         {
-            //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
             GetComponent<Dragable>().enabled = false;
             gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+
+            GameboardInitController.Players[1].GetComponent<PlayerDataController>().Data.CurrentActiveMana -= gameObject.GetComponent<CardDataController>().Data.Mana;
         }
 
         //Aktiviere das Attack-Script

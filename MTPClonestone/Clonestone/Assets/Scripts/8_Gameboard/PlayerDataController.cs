@@ -206,6 +206,7 @@ public class PlayerDataController : NetworkBehaviour
         MoveCard(card, placeToDrop);
         //setze den Status der Karte auf OnBoard
         card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+        Data.CurrentActiveMana -= card.GetComponent<CardDataController>().Data.Mana;
     }
 
     private void attackWithCards()
