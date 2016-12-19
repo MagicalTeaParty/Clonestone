@@ -688,7 +688,7 @@ GameObject:
   - 114: {fileID: 321585837}
   m_Layer: 5
   m_Name: Board
-  m_TagString: Gameboard
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8ef331faa9e642a4e93bc86833cd1365, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c03092119307af6418a0d084e85d77c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -953,7 +953,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 817439d4e9b66eb4781fc3974f5193a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12e8a00e142aab149a183dfeb9a6cd0a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1722,7 +1722,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 533344a010ff8764c9220f60b5b1f3a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4cb98757a95e0e45b534c72829fd293, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
