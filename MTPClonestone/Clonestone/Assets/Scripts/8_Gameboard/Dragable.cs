@@ -8,7 +8,7 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 {
 
     public Transform parentToReturnTo = null;
-    public Transform placeholderParent =null;
+    public Transform placeholderParent = null;
 
     GameObject placeholder = null;
 
@@ -18,9 +18,9 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         zDisplacement = -Camera.main.transform.position.z + transform.position.z;
-        
+
         //Debug.Log("BeginDrag");
-        
+
         placeholder = new GameObject();
         placeholder.transform.SetParent(this.transform.parent.parent);
         LayoutElement lay = placeholder.AddComponent<LayoutElement>();
@@ -88,20 +88,27 @@ public class Dragable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         Destroy(placeholder);
 
-        
-        //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
-        Dragable d = this.GetComponent<Dragable>();
-        d.enabled = false;
-        this.gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+        if (GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.IsActivePLayer && GetComponent<Transform>().parent == GameObject.FindGameObjectWithTag("DropZone1").GetComponent<Transform>())
+        {
+            //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
+            GetComponent<Dragable>().enabled = false;
+            gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+        }
+        else if (GameboardInitController.Players[1].GetComponent<PlayerDataController>().Data.IsActivePLayer && GetComponent<Transform>().parent == GameObject.FindGameObjectWithTag("DropZone2").GetComponent<Transform>())
+        {
+            //Entferne das Dragable-Script um von der Hand zum Brett zu ziehen
+            GetComponent<Dragable>().enabled = false;
+            gameObject.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+        }
 
         //Aktiviere das Attack-Script
         //setze z-index
         //this.GetComponent<RectTransform>().position.z = -9216;
 
-        //Draggable a = GameObject.Find("Target")
-        //a.enabled = true;
-        //DragCreatureAttack at = this.GetComponentInChildren<DragCreatureAttack>();
-        //at.enabled = true;
+            //Draggable a = GameObject.Find("Target")
+            //a.enabled = true;
+            //DragCreatureAttack at = this.GetComponentInChildren<DragCreatureAttack>();
+            //at.enabled = true;
     }
 
 }

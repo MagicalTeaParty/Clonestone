@@ -8,6 +8,8 @@ TagManager:
   - HeroCardHealth
   - HeroCardMana
   - Gameboard
+  - DropZone1
+  - DropZone2
   layers:
   - Default
   - TransparentFX

@@ -118,7 +118,11 @@ public class PlayerDataController : NetworkBehaviour
                 card.gameObject.GetComponent<Dragable>().enabled = true;
                 card.transform.Find("Target").gameObject.SetActive(false);                
             }
-            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            else if (card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+            }
+            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
                 card.transform.Find("Target").gameObject.SetActive(true);
