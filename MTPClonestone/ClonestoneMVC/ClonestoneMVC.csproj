@@ -251,6 +251,7 @@
     <Content Include="img\foo.png" />
     <Content Include="img\foo2.png" />
     <Content Include="img\footer3.png" />
+    <Content Include="img\FrostShock.jpg" />
     <Content Include="img\Head.png" />
     <Content Include="img\paper_background.png" />
     <Content Include="img\th.png" />
@@ -281,6 +282,7 @@
     <Content Include="img\AGB.pdf" />
     <Content Include="img\Disclaimer.pdf" />
     <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Properties\PublishProfiles\clonestone.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

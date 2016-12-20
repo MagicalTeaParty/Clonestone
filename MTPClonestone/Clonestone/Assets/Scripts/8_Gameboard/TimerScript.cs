@@ -43,6 +43,8 @@ public class TimerScript : MonoBehaviour
         {
             StartCoroutine("CountDown");
             board.ShowInfoTurnText(GameboardInitController.Players[0].GetComponent<PlayerDataController>(), GameboardInitController.Players[1].GetComponent<PlayerDataController>());
+            GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentMaxMana += 1;
+            GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentActiveMana = GameboardInitController.Players[0].GetComponent<PlayerDataController>().Data.CurrentMaxMana;
             isFirstCountDown = false;
         }
 
@@ -51,12 +53,10 @@ public class TimerScript : MonoBehaviour
             //Jetzt wird der Countdown angezeigt
             countDownText.enabled = true;
             countDownText.text = (TimeLeft).ToString();
-            GameObject.Find("/Board/EndTurn/Sun").GetComponent<Animator>().enabled = true;
 
             //Wenn die Zeit abgelaufen ist, wird der Zug beendet
             if (TimeLeft < 1)
                 board.EndTurn();
-            GameObject.Find("/Board/EndTurn/Sun").GetComponent<Animator>().enabled = false;
         }
     }
     

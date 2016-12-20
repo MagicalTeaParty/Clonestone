@@ -59,6 +59,7 @@
           <Property Name="content" Type="varchar" MaxLength="2000" />
           <Property Name="fkperson" Type="int" />
           <Property Name="editdate" Type="smalldatetime" />
+          <Property Name="isnews" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="tbleditFile">
           <Key>
@@ -423,6 +424,7 @@
           <Property Name="editdate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tblperson" Relationship="Self.FK__tbledit__fkperso__3B75D760" FromRole="tbledit" ToRole="tblperson" />
           <NavigationProperty Name="tbleditFiles" Relationship="Self.FK__tbleditFi__fkedi__534D60F1" FromRole="tbledit" ToRole="tbleditFile" />
+          <Property Name="isnews" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="tbleditFile">
           <Key>
@@ -694,7 +696,7 @@
             <Parameter Name="passcode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="pGetDeckTextOnly" ReturnType="Collection(itin21_ClonestoneFSModel.pGetDeckTextOnly_Result)">
-            <Parameter Name="iddeck" Mode="In" Type="Int32" />
+          <Parameter Name="iddeck" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetMana5_Result">
@@ -785,6 +787,7 @@
           <EntitySetMapping Name="tbledits">
             <EntityTypeMapping TypeName="itin21_ClonestoneFSModel.tbledit">
               <MappingFragment StoreEntitySet="tbledit">
+                <ScalarProperty Name="isnews" ColumnName="isnews" />
                 <ScalarProperty Name="idedit" ColumnName="idedit" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="content" ColumnName="content" />
