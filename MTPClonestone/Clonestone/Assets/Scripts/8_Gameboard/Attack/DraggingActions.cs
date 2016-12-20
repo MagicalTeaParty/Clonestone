@@ -14,7 +14,8 @@ public abstract class DraggingActions : MonoBehaviour
     {
         get
         {
-            return GlobalSettings.Instance.CanControlThisPlayer();// playerOwner);
+            return true;
+            //return GlobalSettings.Instance.CanControlThisPlayer();// playerOwner);
         }
     }
 

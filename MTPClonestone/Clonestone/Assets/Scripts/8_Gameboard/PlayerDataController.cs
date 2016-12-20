@@ -58,6 +58,9 @@ public class PlayerDataController : NetworkBehaviour
     internal const int MaxMana = 10;
     internal int MaxHealth = 30;
 
+    //Ob bei jeder Karte schon der Besitzer festgelegt wurde
+    public bool CardOwnerSetted = false;
+
     /// <summary>
     /// Die Anzahl der Karten, die der Spieler zu Beginn des Spiels auf die Hand bekommt.
     /// </summary>
@@ -70,9 +73,7 @@ public class PlayerDataController : NetworkBehaviour
 
     [SyncVar]
     public PlayerData Data;
-
-    TimerScriptAI timerAi;
-
+    
     //METHODS
 
     void Start()
@@ -102,34 +103,32 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
-        //Wenn nicht Host - also nicht "Hager"
-        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
-        {
-            StartCoroutine("playCards");
-
-            //playCards();
-            //attackWithCards();
-        }
-
-        foreach (GameObject card in this.CardList)
+        foreach(GameObject card in this.CardList)
         {
             //Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
-            if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = true;
                 card.transform.Find("Target").gameObject.SetActive(false);
             }
             //Wenn aktiver Spieler UND karte auf Board
-            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            else if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(true);
+
+                if(card.transform.Find("Target").gameObject.active == false)
+                    card.transform.Find("Target").gameObject.SetActive(true);
             }
             //Wenn nicht aktiver Spieler
-            else if (!this.Data.IsActivePLayer)
+            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
-                //card.transform.Find("Target").gameObject.SetActive(false);
+                card.transform.Find("Target").gameObject.SetActive(false);
+            }
+            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(false);
             }
 
 
@@ -141,6 +140,16 @@ public class PlayerDataController : NetworkBehaviour
             ShowCardPlayable(card);
         }
 
+        //Wenn nicht Host - also nicht "Hager"
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
+        {
+            StartCoroutine("playCards");
+
+            //playCards();
+            //attackWithCards();
+        }
+        
+        //HIER WAR DER BERNDL_SANDMAN_PFEIFFER CODE
 
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
