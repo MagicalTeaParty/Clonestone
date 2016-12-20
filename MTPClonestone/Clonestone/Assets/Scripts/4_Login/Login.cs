@@ -116,7 +116,7 @@ public class Login : MonoBehaviour {
         //Debug.Log("Email: " + email + "Passw: " + pass);
         //Debug.Log("Hash: " + hashpass);
 
-        //http://localhost:53861/Login/verifyLogin
+        //http://mtp.a-k-t.at/clonestone/Login/verifyLogin
 
         //WICHTIG! Controller wird mit dem Controllernamen ohne *Controller angesprochen! 
         string saveUrl = "http://mtp.a-k-t.at/clonestone/Login/verifyLogin";

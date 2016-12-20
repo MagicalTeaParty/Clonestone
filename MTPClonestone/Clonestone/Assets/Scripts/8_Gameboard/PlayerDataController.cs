@@ -504,7 +504,7 @@ public class PlayerDataController : NetworkBehaviour
         //Beispiel für ein Json-Objekt
         //{\"IdDeck\":1,\"DeckName\":\"default 1\",	\"IdClass\":7,	\"Class\":\"Paladin\",	\"IdType\":2,	\"TypeName\":\"Hero\",	\"IdCard\":705,	\"CardName\":\"Paladin\",	\"Mana\":0, \"Attack\":0,	\"Health\":30,		\"Flavour\":null, \"IdDeckCard\":31,	\"FileName\":\"705.png\",	\"zahl\":\"00000000-0000-0000-0000-000000000000\" }
 
-        string url = "http://localhost:53861/Deck/GetDeck";
+        string url = "http://mtp.a-k-t.at/clonestone/Deck/GetDeck";
         WWWForm form = new WWWForm();
         form.AddField("idDeck", 1);
 
