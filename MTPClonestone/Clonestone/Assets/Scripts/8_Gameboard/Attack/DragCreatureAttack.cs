@@ -102,20 +102,24 @@ public class DragCreatureAttack : DraggingActions
         {
             CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
 
+            //Die Karten müssen unterschiedlich sein
+            //Die Besitzer der Karten müssen ray unterschiedlich sein
+            //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
+
             //Die aktuelle Karte muss sich von der geraycasteten Unterscheiden!
-            if(myData != rayData && //Die Karten müssen unterschiedlich sein
-                myData.Owner != rayData.Owner  //Die Besitzer der Karten müssen ray unterschiedlich sein
-                 //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
-                )
+            if(myData != rayData)
             {
-                Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack +") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+                if(myData.Owner != rayData.Owner)
+                {
+                    Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack + ") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
 
-                //Die fremde Karte bekommt den Angriff ab
-                rayData.Data.Health -= myData.Data.Attack;
-                //Die Angriffskarte bekommt die Verteidigung ab
-                myData.Data.Health -= rayData.Data.Attack;
+                    //Die fremde Karte bekommt den Angriff ab
+                    rayData.Data.Health -= myData.Data.Attack;
+                    //Die Angriffskarte bekommt die Verteidigung ab
+                    myData.Data.Health -= rayData.Data.Attack;
 
-                Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+                    Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+                }
             }
 
             //Debug.Log("Ray: " + h.transform.tag);

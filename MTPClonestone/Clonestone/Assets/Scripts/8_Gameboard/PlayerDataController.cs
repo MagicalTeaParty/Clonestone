@@ -103,13 +103,32 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
+        PlayerDataController p1 = null;
+        GameObject[] players = GameboardInitController.Players;
+        if(players.Length >= 2)
+        {
+            p1 = players[0].GetComponent<PlayerDataController>();
+
+            if(p1.gameObject != this.gameObject)
+            {
+                //GEGNERZUG
+                //Wenn nicht Host - also nicht "Hager"
+                if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+                {
+                    StartCoroutine("playCards");
+                }
+            }
+        }
+
         foreach(GameObject card in this.CardList)
         {
             //Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
             if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = true;
-                card.transform.Find("Target").gameObject.SetActive(false);
+
+                if(card.transform.Find("Target").gameObject.active == true)
+                    card.transform.Find("Target").gameObject.SetActive(false);
             }
             //Wenn aktiver Spieler UND karte auf Board
             else if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
@@ -119,17 +138,19 @@ public class PlayerDataController : NetworkBehaviour
                 if(card.transform.Find("Target").gameObject.active == false)
                     card.transform.Find("Target").gameObject.SetActive(true);
             }
-            //Wenn nicht aktiver Spieler
-            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
-            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
+            ////Wenn nicht aktiver Spieler
+            //else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //    if(card.transform.Find("Target").gameObject.active == true)
+            //        card.transform.Find("Target").gameObject.SetActive(false);
+            //}
+            //else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //    if(card.transform.Find("Target").gameObject.active == true)
+            //        card.transform.Find("Target").gameObject.SetActive(false);
+            //}
 
 
             //if(card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
@@ -139,18 +160,7 @@ public class PlayerDataController : NetworkBehaviour
 
             ShowCardPlayable(card);
         }
-
-        //Wenn nicht Host - also nicht "Hager"
-        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
-        {
-            StartCoroutine("playCards");
-
-            //playCards();
-            //attackWithCards();
-        }
         
-        //HIER WAR DER BERNDL_SANDMAN_PFEIFFER CODE
-
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
 
