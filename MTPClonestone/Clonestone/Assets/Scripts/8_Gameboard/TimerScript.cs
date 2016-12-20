@@ -9,7 +9,7 @@ public class TimerScript : MonoBehaviour
     /// Folgende Variablen sind "internal", damit im GameplayController auf sie zugegriffen werden kann
     /// ...da sie nicht public sind, können sie aber nicht im Unity-GUI verändert werden.
     /// </summary>
-    internal const int time4Round = 10;
+    internal const int time4Round = 15;
     internal int TimeLeft = time4Round;
 
     GameboardGameplayController board;

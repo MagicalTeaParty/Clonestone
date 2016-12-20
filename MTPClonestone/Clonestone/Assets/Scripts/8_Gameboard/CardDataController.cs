@@ -89,9 +89,7 @@ public class CardDataController : NetworkBehaviour
         {
             LifeMinion = this.gameObject.GetComponentInChildren<Text>();
         }
-
-        setOwner();
-
+        
     }
 
     /// <summary>
@@ -104,7 +102,14 @@ public class CardDataController : NetworkBehaviour
 
         if(players.Length < 2)
         {
-            Debug.Log("ERROR: setOwner()");
+            //Debug.Log("ERROR: setOwner()");
+            return;
+        }
+
+        if(players[0].GetComponent<PlayerDataController>().CardOwnerSetted == true &&
+            players[1].GetComponent<PlayerDataController>().CardOwnerSetted == true)
+        {
+            //Debug.Log("ERROR: setOwner()");
             return;
         }
 
@@ -125,11 +130,19 @@ public class CardDataController : NetworkBehaviour
                 this.Owner = players[1];
             }
         }
+
+        players[0].GetComponent<PlayerDataController>().CardOwnerSetted = true;
+        players[1].GetComponent<PlayerDataController>().CardOwnerSetted = true;
+
+        //Debug.Log("OK: setOwner()");
     }
 
 
     private void Update()
     {
+
+        setOwner();
+
         if (this.Data.TypeName == "Hero")
         {
             currentLife = GameboardInitController.Players[heroIndex].GetComponent<PlayerDataController>().Data.CurrentHealth;

@@ -8,28 +8,28 @@ public class OpenURL : MonoBehaviour {
 
     {
         /// TODO - Link auf Registrierung!
-        Application.OpenURL("http://localhost:53861/Registration");
+        Application.OpenURL("http://mtp.a-k-t.at/Clonestone/Registration/create");
     }
 
     public void onClickPF()
 
     {
         /// TODO - Link auf Passwort vergessen!
-        Application.OpenURL("http://localhost:53861/PasswordForgotten");
+        Application.OpenURL("http://mtp.a-k-t.at/Clonestone/Login/Login");
     }
 
     public void onClickTutorial()
 
     {
         /// TODO - Link auf Tutorial!
-        Application.OpenURL("http://localhost:53861/Tutorial");
+        Application.OpenURL("http://mtp.a-k-t.at/Clonestone/Tutorial");
     }
 
     public void onClickProfil()
 
     {
         /// TODO - Link auf Profil!
-        Application.OpenURL("http://localhost:53861/Profile");
+        Application.OpenURL("http://mtp.a-k-t.at/Clonestone/Login/Login");
     }
 
 }

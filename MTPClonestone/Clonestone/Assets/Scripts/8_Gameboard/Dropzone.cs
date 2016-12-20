@@ -54,9 +54,7 @@ public class Dropzone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
                 //setze den Status der Karte auf OnBoard
                 eventData.pointerDrag.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
-
-
-
+                
                 //cardBackGameObjekt.SetActive(false);
                 //cardLifeGameObjekt.SetActive(true);
 

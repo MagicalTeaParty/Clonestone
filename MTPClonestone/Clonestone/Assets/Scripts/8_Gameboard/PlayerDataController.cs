@@ -58,6 +58,9 @@ public class PlayerDataController : NetworkBehaviour
     internal const int MaxMana = 10;
     internal int MaxHealth = 30;
 
+    //Ob bei jeder Karte schon der Besitzer festgelegt wurde
+    public bool CardOwnerSetted = false;
+
     /// <summary>
     /// Die Anzahl der Karten, die der Spieler zu Beginn des Spiels auf die Hand bekommt.
     /// </summary>
@@ -70,9 +73,7 @@ public class PlayerDataController : NetworkBehaviour
 
     [SyncVar]
     public PlayerData Data;
-
-    TimerScriptAI timerAi;
-
+    
     //METHODS
 
     void Start()
@@ -102,6 +103,43 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
+        foreach(GameObject card in this.CardList)
+        {
+            //Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
+            if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = true;
+                card.transform.Find("Target").gameObject.SetActive(false);
+            }
+            //Wenn aktiver Spieler UND karte auf Board
+            else if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+
+                if(card.transform.Find("Target").gameObject.active == false)
+                    card.transform.Find("Target").gameObject.SetActive(true);
+            }
+            //Wenn nicht aktiver Spieler
+            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(false);
+            }
+            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(false);
+            }
+
+
+            //if(card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //}
+
+            ShowCardPlayable(card);
+        }
+
         //Wenn nicht Host - also nicht "Hager"
         if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
         {
@@ -110,32 +148,8 @@ public class PlayerDataController : NetworkBehaviour
             //playCards();
             //attackWithCards();
         }
-
-        foreach (GameObject card in this.CardList)
-        {
-            if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = true;
-                card.transform.Find("Target").gameObject.SetActive(false);                
-            }
-            else if (card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-            }
-            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(true);
-            }
-            else if (!this.Data.IsActivePLayer)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
-
-            ShowCardPlayable(card);
-        }
-
+        
+        //HIER WAR DER BERNDL_SANDMAN_PFEIFFER CODE
 
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
@@ -182,24 +196,17 @@ public class PlayerDataController : NetworkBehaviour
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
-            {
-                yield return new WaitForSecondsRealtime(2);
+            {                
+                yield return new WaitForSecondsRealtime(Random.Range(2, 8));
                 //StartCoroutine("playCard", item);
-                
-                playCard(item);
+                if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
+                {
+                    playCard(item);
+                }
             }
         }
     }
-
-    //IEnumerator CountDown()
-    //{
-    //    while(true)
-    //    {
-    //        yield return new WaitForSecondsRealtime(1);
-    //        TimeLeft--;
-    //    }
-    //}
-
+        
     private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
