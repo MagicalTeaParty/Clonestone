@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clonestone.CSharp", "Clonestone.CSharp.csproj", "{5131F7DB-ECDC-3EF2-08CC-DD5A1EB7E64B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clonestone", "Clonestone.csproj", "{5959DB8D-5C49-7B05-91AB-568469C73016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5131F7DB-ECDC-3EF2-08CC-DD5A1EB7E64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5131F7DB-ECDC-3EF2-08CC-DD5A1EB7E64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5131F7DB-ECDC-3EF2-08CC-DD5A1EB7E64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5131F7DB-ECDC-3EF2-08CC-DD5A1EB7E64B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5959DB8D-5C49-7B05-91AB-568469C73016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5959DB8D-5C49-7B05-91AB-568469C73016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5959DB8D-5C49-7B05-91AB-568469C73016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5959DB8D-5C49-7B05-91AB-568469C73016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
