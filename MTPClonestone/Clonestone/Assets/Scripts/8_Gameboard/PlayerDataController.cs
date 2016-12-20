@@ -182,24 +182,17 @@ public class PlayerDataController : NetworkBehaviour
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
-            {
-                yield return new WaitForSecondsRealtime(2);
+            {                
+                yield return new WaitForSecondsRealtime(Random.Range(2, 8));
                 //StartCoroutine("playCard", item);
-                
-                playCard(item);
+                if(!Data.IsReadyPlayer && cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
+                {
+                    playCard(item);
+                }
             }
         }
     }
-
-    //IEnumerator CountDown()
-    //{
-    //    while(true)
-    //    {
-    //        yield return new WaitForSecondsRealtime(1);
-    //        TimeLeft--;
-    //    }
-    //}
-
+        
     private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
