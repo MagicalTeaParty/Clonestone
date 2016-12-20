@@ -113,25 +113,30 @@ public class PlayerDataController : NetworkBehaviour
 
         foreach (GameObject card in this.CardList)
         {
+            //Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
             if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = true;
-                card.transform.Find("Target").gameObject.SetActive(false);                
+                card.transform.Find("Target").gameObject.SetActive(false);
             }
-            else if (card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-            }
+            //Wenn aktiver Spieler UND karte auf Board
             else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
                 card.transform.Find("Target").gameObject.SetActive(true);
             }
+            //Wenn nicht aktiver Spieler
             else if (!this.Data.IsActivePLayer)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
+                //card.transform.Find("Target").gameObject.SetActive(false);
             }
+
+
+            //if(card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //}
 
             ShowCardPlayable(card);
         }
@@ -185,7 +190,7 @@ public class PlayerDataController : NetworkBehaviour
             {                
                 yield return new WaitForSecondsRealtime(Random.Range(2, 8));
                 //StartCoroutine("playCard", item);
-                if(!Data.IsReadyPlayer && cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
+                if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
                 {
                     playCard(item);
                 }
