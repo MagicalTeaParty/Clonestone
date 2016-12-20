@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\8_Gameboard\MoveCardController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\PlayerDataController.cs" />
     <Compile Include="Assets\Scripts\8_Gameboard\TimerScript.cs" />
+    <Compile Include="Assets\Scripts\8_Gameboard\TimerScriptAI.cs" />
     <Compile Include="Assets\Scripts\9_News\LoadNews.cs" />
     <Compile Include="Assets\Scripts\ExitButton.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />

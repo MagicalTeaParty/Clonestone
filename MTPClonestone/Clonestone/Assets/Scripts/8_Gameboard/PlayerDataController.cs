@@ -71,14 +71,14 @@ public class PlayerDataController : NetworkBehaviour
     [SyncVar]
     public PlayerData Data;
 
-    
+    TimerScriptAI timerAi;
 
     //METHODS
 
     void Start()
     {
         //Hier werden die Werte initialisiert
-        Data.CurrentMaxMana = 1;
+        Data.CurrentMaxMana = 0;
         Data.CurrentActiveMana = Data.CurrentMaxMana;
         Data.CurrentHealth = MaxHealth;
         Data.Fatigue = 0;
@@ -102,28 +102,39 @@ public class PlayerDataController : NetworkBehaviour
 
     void Update()
     {
+        //Wenn nicht Host - also nicht "Hager"
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
+        {
+            StartCoroutine("playCards");
+
+            //playCards();
+            //attackWithCards();
+        }
 
         foreach (GameObject card in this.CardList)
         {
-            if ( this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = true;
-                item.transform.Find("Target").gameObject.SetActive(false);                
+                card.transform.Find("Target").gameObject.SetActive(false);                
             }
-            else if (this.Data.IsActivePLayer && item.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            else if (card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana)
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
-                item.transform.Find("Target").gameObject.SetActive(true);
+            }
+            else if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(true);
             }
             else if (!this.Data.IsActivePLayer)
             {
-                item.gameObject.GetComponent<Dragable>().enabled = false;
-                item.transform.Find("Target").gameObject.SetActive(false);
+                card.gameObject.GetComponent<Dragable>().enabled = false;
+                card.transform.Find("Target").gameObject.SetActive(false);
             }
 
             ShowCardPlayable(card);
         }
-
 
 
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
@@ -161,8 +172,84 @@ public class PlayerDataController : NetworkBehaviour
         
     }
 
-    
+    private IEnumerator playCards()
+    {        
+        foreach(var item in CardList)
+        {
+            //if(Data.IsReadyPlayer)
+            //    return;
 
+            CardDataController cdc = item.GetComponent<CardDataController>();
+
+            if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
+            {
+                yield return new WaitForSecondsRealtime(2);
+                //StartCoroutine("playCard", item);
+                
+                playCard(item);
+            }
+        }
+    }
+
+    //IEnumerator CountDown()
+    //{
+    //    while(true)
+    //    {
+    //        yield return new WaitForSecondsRealtime(1);
+    //        TimeLeft--;
+    //    }
+    //}
+
+    private void playCard(GameObject card)
+    {
+        GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
+        MoveCard(card, placeToDrop);
+        //setze den Status der Karte auf OnBoard
+        card.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.onBoard;
+        Data.CurrentActiveMana -= card.GetComponent<CardDataController>().Data.Mana;
+    }
+
+    private void attackWithCards()
+    {
+        //GameObject p1cards = GameObject.Find("/Board/DropZoneP1Position");
+        //GameObject p2cards = GameObject.Find("/Board/DropZoneP2Position");
+
+        GameObject[] players = GameboardInitController.Players;
+        PlayerDataController hager = players[0].GetComponent<PlayerDataController>();
+        PlayerDataController comp = players[1].GetComponent<PlayerDataController>();
+        
+        foreach(var card in comp.CardList)
+        {
+            if(card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                int cards = GetLengthOfCardsOnBoard(hager.CardList);
+                if(cards > 0)
+                {
+                    int rand = Random.Range(0, cards);
+
+                    //Die fremde Karte bekommt den Angriff ab
+                    card.GetComponent<CardDataController>().Data.Health -= hager.CardList[rand].GetComponent<CardDataController>().Data.Attack;
+                    //Die Angriffskarte bekommt die Verteidigung ab
+                    hager.CardList[rand].GetComponent<CardDataController>().Data.Health -= card.GetComponent<CardDataController>().Data.Attack;
+                }
+            }
+        }
+    }
+    
+    private int GetLengthOfCardsOnBoard(List<GameObject> cardList)
+    {
+        int counter = 0;
+
+        foreach(var item in CardList)
+        {
+            if(item.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            {
+                counter++;
+            }
+        }
+
+        return counter;
+    }
 
     /// <summary>
     /// Setzt die Anzahl der Karten auf der Starthand fest.
@@ -219,23 +306,24 @@ public class PlayerDataController : NetworkBehaviour
         return tex;
     }
 
-    /// <summary>
-    /// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
-    /// </summary>
-    /// <returns></returns>
-    /// 
-    public static string GetApplicationPath()
-    {
-        //Application.dataPath: https://docs.unity3d.com/ScriptReference/Application-dataPath.html
-        string path = Application.dataPath;
+    //Die folgende Methode ist unnötig, da "Application.dataPath" bereits den gewünschten Pfad zurückliefert
+    ///// <summary>
+    ///// Ermittelt den Pfad anhand der Plattform: http://answers.unity3d.com/questions/13072/how-do-i-get-the-application-path.html
+    ///// </summary>
+    ///// <returns></returns>
+    ///// 
+    //public static string GetApplicationPath()
+    //{
+    //    //Application.dataPath: https://docs.unity3d.com/ScriptReference/Application-dataPath.html
+    //    string path = Application.dataPath;
 
-        if (Application.platform == RuntimePlatform.OSXPlayer)
-            path += "/../../";
-        else if (Application.platform == RuntimePlatform.WindowsPlayer)
-            path += "/../";
+    //    if (Application.platform == RuntimePlatform.OSXPlayer)
+    //        path += "/../../";
+    //    else if (Application.platform == RuntimePlatform.WindowsPlayer)
+    //        path += "/../";
 
-        return path;
-    }
+    //    return path;
+    //}
 
     //Platzhalter für das Karten-Prefab
     public GameObject CardPrefab;
@@ -322,7 +410,7 @@ public class PlayerDataController : NetworkBehaviour
         //Bild setzen
         var image = card.GetComponentsInChildren<Image>()[1];
 
-        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
@@ -367,7 +455,7 @@ public class PlayerDataController : NetworkBehaviour
         // Get all components of type Image that are children of this GameObject.
         Image image = card.GetComponentsInChildren<Image>()[1];
 
-        Texture2D txt2d = LoadPNG(GetApplicationPath() + @"/Images/Cards/" + cardData.FileName);
+        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
 
         image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
 
@@ -450,8 +538,6 @@ public class PlayerDataController : NetworkBehaviour
                 placeToDrop = GameObject.Find("/Board/DiscardPile2");
         }
 
-        //Warnung von Unity: Ausgebessert von LP & TF
-        //card.transform.parent = placeToDrop.transform;
         card.transform.SetParent(placeToDrop.transform);
         card.SetActive(true);
     }

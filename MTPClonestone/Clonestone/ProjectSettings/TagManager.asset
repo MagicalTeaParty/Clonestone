@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Card
+  - HeroCardHealth
+  - HeroCardMana
+  - Gameboard
+  - DropZone1
+  - DropZone2
   layers:
   - Default
   - TransparentFX
