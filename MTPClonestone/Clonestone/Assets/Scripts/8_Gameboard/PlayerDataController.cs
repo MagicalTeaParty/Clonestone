@@ -116,6 +116,17 @@ public class PlayerDataController : NetworkBehaviour
                 if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
                 {
                     StartCoroutine("playCards");
+
+                    if(Data.CurrentActiveMana == 0)
+                    {
+                        //Wenn nicht Hager am Zug => Computerzug Endturn
+                        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+                        {
+                            StartCoroutine("CompEndTurnExecuteAfterTime", Random.Range(10, 20));
+
+                        }
+                    }
+
                 }
             }
         }
@@ -138,7 +149,7 @@ public class PlayerDataController : NetworkBehaviour
                 if(card.transform.Find("Target").gameObject.active == false)
                     card.transform.Find("Target").gameObject.SetActive(true);
             }
-            ////Wenn nicht aktiver Spieler
+            //Wenn nicht aktiver Spieler
             //else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
             //{
             //    card.gameObject.GetComponent<Dragable>().enabled = false;
@@ -197,7 +208,7 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     private IEnumerator playCards()
-    {        
+    {
         foreach(var item in CardList)
         {
             //if(Data.IsReadyPlayer)
@@ -206,17 +217,42 @@ public class PlayerDataController : NetworkBehaviour
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
-            {                
-                yield return new WaitForSecondsRealtime(Random.Range(2, 8));
+            {
+                yield return new WaitForSecondsRealtime(Random.Range(3, 10));
                 //StartCoroutine("playCard", item);
                 if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
                 {
                     playCard(item);
                 }
+
             }
         }
+
+        //Wenn nicht Hager am Zug => Computerzug Endturn
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+        {
+            StartCoroutine("CompEndTurnExecuteAfterTime", Random.Range(10,20));
+            
+        }
     }
-        
+
+    IEnumerator CompEndTurnExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+        {
+            // Code to execute after the delay
+            CompEndTurn();
+        }
+    }
+
+    private void CompEndTurn()
+    {
+        GameObject board = GameObject.Find("Board");
+        board.GetComponent<GameboardGameplayController>().EndTurn();
+    }
+
     private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
