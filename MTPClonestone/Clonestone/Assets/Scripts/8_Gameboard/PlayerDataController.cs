@@ -86,17 +86,20 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     /// <summary>
-    /// Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
+    /// 1. Aktiviert/Deaktiviert das "Dragable"-Script
+    /// 2. Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
     /// </summary>
     /// <param name="card">Die Karte</param>
-    private void ShowCardPlayable(GameObject card)
+    private void MarkCardPlayable(GameObject card)
     {
         if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
         {
+            card.GetComponent<Dragable>().enabled = true;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
         }
         else
         {
+            card.GetComponent<Dragable>().enabled = false;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
     }
@@ -169,7 +172,7 @@ public class PlayerDataController : NetworkBehaviour
             //    card.gameObject.GetComponent<Dragable>().enabled = false;
             //}
 
-            ShowCardPlayable(card);
+            MarkCardPlayable(card);
         }
         
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
