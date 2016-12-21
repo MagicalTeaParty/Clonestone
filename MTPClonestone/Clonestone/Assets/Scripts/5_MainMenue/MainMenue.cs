@@ -3,18 +3,16 @@ using System.Collections;
 using System;
 using UnityEngine.UI;
 
-public class MainMenue : MonoBehaviour
-{
+public class MainMenue : MonoBehaviour {
 
     // Variablen die sich auf IO Objekte in der MainMenue Scene beziehen.
     public Text welcome;
 
-    void Start ()
-    {
+    void Start () {
 
         //Übernahme der beiden via PlayerPrefs gespeicherten Variablen (PlayerPrefs.Get...)
         string gamertag = PlayerPrefs.GetString("Gamertag");
-        //int playerid = PlayerPrefs.GetInt("PlayerID");
+        int playerid = PlayerPrefs.GetInt("PlayerID");
 
         // TEST TEST TEST 
         //Debug.Log(gamertag);
@@ -26,8 +24,7 @@ public class MainMenue : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update ()
-    {
+	void Update () {
 	
 	}
 }

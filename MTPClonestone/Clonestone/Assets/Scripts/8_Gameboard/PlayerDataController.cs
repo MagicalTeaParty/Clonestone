@@ -138,7 +138,7 @@ public class PlayerDataController : NetworkBehaviour
             {
                 card.gameObject.GetComponent<Dragable>().enabled = true;
 
-                if(card.transform.Find("Target").gameObject.activeSelf == true)
+                if(card.transform.Find("Target").gameObject.active == true)
                     card.transform.Find("Target").gameObject.SetActive(false);
             }
             //Wenn aktiver Spieler UND karte auf Board
