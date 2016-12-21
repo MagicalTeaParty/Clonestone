@@ -146,7 +146,7 @@ public class PlayerDataController : NetworkBehaviour
             {
                 card.gameObject.GetComponent<Dragable>().enabled = false;
 
-                if(card.transform.Find("Target").gameObject.activeSelf == false)
+                if(card.transform.Find("Target").gameObject.active == false)
                     card.transform.Find("Target").gameObject.SetActive(true);
             }
             //Wenn nicht aktiver Spieler
