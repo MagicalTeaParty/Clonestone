@@ -5,7 +5,7 @@ public class Player : MonoBehaviour//, ICharacter
 {
     // PUBLIC FIELDS
     // int ID that we get from ID factory
-    public int PlayerID;
+    //public int PlayerID;
     // a Character Asset that contains data about this Hero
     //public CharacterAsset charAsset;
     // a script with references to all the visual game objects for this player
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour//, ICharacter
     // (essenitially, using hero power is like playing a spell in a way)
     //public SpellEffect HeroPowerEffect;
     // a flag not to use hero power twice
-    public bool usedHeroPowerThisTurn = false;
+    //public bool usedHeroPowerThisTurn = false;
 
     // REFERENCES TO LOGICAL STUFF THAT BELONGS TO THIS PLAYER
     //public Deck deck;
@@ -25,15 +25,15 @@ public class Player : MonoBehaviour//, ICharacter
     //public static Player[] Players;
 
     // this value used exclusively for our coin spell
-    private int bonusManaThisTurn = 0;
+    //private int bonusManaThisTurn = 0;
 
 
     // PROPERTIES 
     // this property is a part of interface ICharacter
-    public int ID
-    {
-        get{ return PlayerID; }
-    }
+    //public int ID
+    //{
+    //    get{ return PlayerID; }
+    //}
 
     // opponent player
     //public Player otherPlayer
