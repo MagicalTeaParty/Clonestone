@@ -119,6 +119,8 @@ public class DragCreatureAttack : DraggingActions
                     myData.Data.Health -= rayData.Data.Attack;
 
                     Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+
+                    myData.Data.hasAttacked = true;
                 }
             }
 

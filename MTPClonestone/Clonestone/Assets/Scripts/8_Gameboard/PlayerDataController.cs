@@ -86,16 +86,22 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     /// <summary>
-    /// 1. Aktiviert/Deaktiviert das "Draggable"-Script
-    /// 2. Setzt das Frontpanel der Karte auf Blau, während sie aktiv ist
-    /// 3. Aktiviert/Deaktiviert das "Dragable"-Script
-    /// 4. Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
+    /// !!! Deaktiviert das gesamte Objekt! 1. Aktiviert/Deaktiviert das "Target"-Child der Karte
+    /// 2. Aktiviert/Deaktiviert das "Draggable"-Script
+    /// 3. Setzt das Frontpanel der Karte auf Blau, während sie aktiv ist
+    /// 4. Aktiviert/Deaktiviert das "Dragable"-Script
+    /// 5. Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
     /// </summary>
     /// <param name="card">Die Karte</param>
     private void MarkCard(GameObject card)
     {
+        //if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard)
+        //    card.transform.Find("Target").gameObject.SetActive(true);
+        //else
+        //    card.transform.Find("Target").gameObject.SetActive(false);
+
         //Wenn Karte (!onBoard oder !isLocalPlayer) ist, wird "Target" deaktiviert
-        if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().Data.IsActivePLayer)
+        if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().Data.IsActivePLayer || card.GetComponent<CardDataController>().Data.hasAttacked)
         {
             card.GetComponentInChildren<Draggable>().enabled = false;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
@@ -106,7 +112,7 @@ public class PlayerDataController : NetworkBehaviour
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 1, 0.8f);
         }
 
-        if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+        if (Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
         {
             card.GetComponent<Dragable>().enabled = true;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
@@ -669,6 +675,8 @@ public class PlayerDataController : NetworkBehaviour
                 //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
                 else
                     cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
+
+                cardDrawn.GetComponent<CardDataController>().Data.hasAttacked = true;
 
                 return cardDrawn;
             }

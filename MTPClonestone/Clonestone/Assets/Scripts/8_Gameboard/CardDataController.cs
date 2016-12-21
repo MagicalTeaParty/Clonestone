@@ -36,6 +36,8 @@ public class CardDataController : NetworkBehaviour
         
         public Transform Transform;
         public CardStatus CardState;
+
+        public bool hasAttacked;
     }
 
     //Fields
