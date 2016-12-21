@@ -10,6 +10,8 @@ TagManager:
   - Gameboard
   - DropZone1
   - DropZone2
+  - CardHealth
+  - CardBack
   layers:
   - Default
   - TransparentFX

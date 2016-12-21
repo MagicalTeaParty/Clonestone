@@ -459,13 +459,25 @@ public class PlayerDataController : NetworkBehaviour
         cdc.Data.CardState = CardDataController.CardStatus.onBoard;
 
         #endregion
+        
+        #region Sprites zuweisen
 
         //Bild setzen
-        var image = card.GetComponentsInChildren<Image>()[1];
+        Image image = card.GetComponentsInChildren<Image>()[1];
+        Texture2D tex = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        //Hero Health
+        image = card.GetComponentsInChildren<Image>()[2];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/health.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+        //Hero Mana
+        image = card.GetComponentsInChildren<Image>()[3];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/mana.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+
+        #endregion
 
         //Warnung von Unity: Ausgebessert von LP & TF
         //card.transform.parent = placeHeroCard.transform;
@@ -505,12 +517,24 @@ public class PlayerDataController : NetworkBehaviour
 
         this.CardList.Add(card);
 
+        #region Sprites zuweisen
+
         // Get all components of type Image that are children of this GameObject.
         Image image = card.GetComponentsInChildren<Image>()[1];
+        Texture2D tex = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        //Card Back
+        image = card.GetComponentsInChildren<Image>()[3];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/cardBack.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+        //Card Health
+        image = card.GetComponentsInChildren<Image>()[2];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/health.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+
+        #endregion
 
         #region Testladen eines Bildes
 
