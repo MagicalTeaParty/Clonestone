@@ -98,7 +98,7 @@ public class CardDataController : NetworkBehaviour
     private void setOwner()
     {
         //Hole alle Spieler
-        var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = GameboardInitController.Players;//GameObject.FindGameObjectsWithTag("Player");
 
         if(players.Length < 2)
         {
@@ -106,8 +106,8 @@ public class CardDataController : NetworkBehaviour
             return;
         }
 
-        //if(players[0].GetComponent<PlayerDataController>().CardOwnerSetted == true &&
-        //    players[1].GetComponent<PlayerDataController>().CardOwnerSetted == true)
+        //if(players[0].GetComponent<PlayerDataController>().CardOwnerSet == true &&
+        //    players[1].GetComponent<PlayerDataController>().CardOwnerSet == true)
         //{
         //    //Debug.Log("ERROR: setOwner()");
         //    return;
@@ -131,8 +131,8 @@ public class CardDataController : NetworkBehaviour
             }
         }
 
-        players[0].GetComponent<PlayerDataController>().CardOwnerSetted = true;
-        players[1].GetComponent<PlayerDataController>().CardOwnerSetted = true;
+        players[0].GetComponent<PlayerDataController>().CardOwnerSet = true;
+        players[1].GetComponent<PlayerDataController>().CardOwnerSet = true;
 
         //Debug.Log("OK: setOwner()");
     }
@@ -192,7 +192,7 @@ public class CardDataController : NetworkBehaviour
         var cardLifeGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
 
-        var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = GameboardInitController.Players;
 
         if (players.Length < 2)
             return;
