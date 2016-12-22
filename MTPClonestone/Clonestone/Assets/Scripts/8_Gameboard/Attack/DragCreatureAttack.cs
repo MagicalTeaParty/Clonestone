@@ -101,20 +101,24 @@ public class DragCreatureAttack : DraggingActions
         foreach(RaycastHit h in hits)
         {
             CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
+            Debug.Log(rayData.ToString());
 
             //Die Karten müssen unterschiedlich sein
             //Die Besitzer der Karten müssen ray unterschiedlich sein
             //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
 
             //Die aktuelle Karte muss sich von der geraycasteten Unterscheiden!
-            if(myData != rayData)
+            if (myData != rayData)
             {
                 if(myData.Owner != rayData.Owner)
                 {
                     Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack + ") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
 
-                    //Die fremde Karte bekommt den Angriff ab
-                    rayData.Data.Health -= myData.Data.Attack;
+                    if (rayData.Data.TypeName == "Hero")
+                        rayData.Owner.GetComponent<PlayerDataController>().Data.CurrentHealth -= myData.Data.Attack;
+                    else
+                        //Die fremde Karte bekommt den Angriff ab
+                        rayData.Data.Health -= myData.Data.Attack;
                     //Die Angriffskarte bekommt die Verteidigung ab
                     myData.Data.Health -= rayData.Data.Attack;
 

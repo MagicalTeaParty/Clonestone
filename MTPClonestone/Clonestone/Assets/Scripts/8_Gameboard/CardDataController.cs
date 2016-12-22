@@ -180,8 +180,9 @@ public class CardDataController : NetworkBehaviour
 
             this.Data.Health = int.MinValue;
 
-            //Hero ein Leben abziehen
-            this.Owner.GetComponent<PlayerDataController>().Data.CurrentHealth--;
+            //Brauchen wir nicht mehr: Hero attackieren funktioniert! :)
+            ////Hero ein Leben abziehen
+            //this.Owner.GetComponent<PlayerDataController>().Data.CurrentHealth--;
         }
     }
 

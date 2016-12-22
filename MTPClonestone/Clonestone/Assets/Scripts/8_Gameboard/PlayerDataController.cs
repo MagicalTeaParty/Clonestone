@@ -125,6 +125,13 @@ public class PlayerDataController : NetworkBehaviour
 
         if (!card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard)
             card.transform.Find("Target").gameObject.SetActive(false);
+
+        if (card.GetComponent<CardDataController>().Data.TypeName == "Hero")
+        {
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, 0);
+            card.transform.Find("Target").position = new Vector3(card.transform.position.x, card.transform.position.y, 0);
+        }
     }
 
     void Update()
@@ -486,8 +493,13 @@ public class PlayerDataController : NetworkBehaviour
         cdc.Data = cardData;
         cdc.Data.CardState = CardDataController.CardStatus.onBoard;
 
+        if (this.CardList == null)
+            this.CardList = new List<GameObject>();
+
+        this.CardList.Add(card);
+
         #endregion
-        
+
         #region Sprites zuweisen
 
         //Bild setzen
@@ -510,7 +522,6 @@ public class PlayerDataController : NetworkBehaviour
         //Warnung von Unity: Ausgebessert von LP & TF
         //card.transform.parent = placeHeroCard.transform;
         card.transform.SetParent(placeHeroCard.transform);
-
 
         NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
     }
