@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DragCreatureAttack : DraggingActions
 {
@@ -19,6 +20,8 @@ public class DragCreatureAttack : DraggingActions
     //// Reference to creature manager, attached to the parent game object
     //private OneCreatureManager manager;
 
+    GameObject info;
+
     void Awake()
     {
         // establish all the connections
@@ -30,6 +33,8 @@ public class DragCreatureAttack : DraggingActions
 
         //manager = GetComponentInParent<OneCreatureManager>();
         //whereIsThisCreature = GetComponentInParent<WhereIsTheCardOrCreature>();
+
+        info = GameObject.Find("/Board/Info");
     }
 
     public override bool CanDrag
@@ -82,6 +87,30 @@ public class DragCreatureAttack : DraggingActions
             triangleSR.enabled = false;
         }
 
+
+        RaycastHit[] hits;
+        // TODO: raycast here anyway, store the results in 
+        hits = Physics.RaycastAll(origin: Camera.main.transform.position,
+            direction: (-Camera.main.transform.position + this.transform.position).normalized,
+            maxDistance: 30f);
+
+        CardDataController myData = this.GetComponentInParent<CardDataController>();
+
+        foreach (RaycastHit h in hits)
+        {
+            CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
+            if (myData != rayData)
+            {
+                if (myData.Owner != rayData.Owner)
+                {
+                    if (rayData.Data.Health - myData.Data.Attack <= 0)
+                        rayData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                    if (myData.Data.Health - rayData.Data.Attack <= 0)
+                        myData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                }
+            }
+
+        }
     }
 
     /// <summary>
@@ -123,6 +152,8 @@ public class DragCreatureAttack : DraggingActions
                     myData.Data.Health -= rayData.Data.Attack;
 
                     Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+
+                    ShowAttackInfo(myData);
 
                     myData.Data.hasAttacked = true;
                 }
@@ -196,5 +227,12 @@ public class DragCreatureAttack : DraggingActions
     protected override bool DragSuccessful()
     {
         return true;
+    }
+
+    internal void ShowAttackInfo(CardDataController attacker)
+    {
+        string atkInfo = "-" + attacker.Data.Attack;
+        info.SetActive(true);
+        StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(atkInfo, 1));
     }
 }
