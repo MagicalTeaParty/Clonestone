@@ -133,22 +133,34 @@ public class PlayerDataController : NetworkBehaviour
             card.transform.Find("Target").position = new Vector3(card.transform.position.x, card.transform.position.y, 0);
         }
 
-        ////Target
-        //SpriteRenderer sprite = card.transform.Find("Target").GetComponent<SpriteRenderer>();
-        //Texture2D tex;
-        //if (sprite.enabled == true && sprite != null)
-        //{
-        //    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Target.png");
-        //    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
-        //}
+        if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard && card.GetComponent<CardDataController>().Data.TypeName != "Hero" && card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().Data.IsActivePLayer && !card.GetComponent<CardDataController>().Data.hasAttacked)
+        {
+            Texture2D tex;
+            SpriteRenderer sprite;
 
-        //sprite = card.transform.Find("Target").GetComponentsInChildren<SpriteRenderer>()[0];
-        ////Triangle
-        //if (sprite.enabled == true && sprite != null)
-        //{
-        //    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Triangle.png");
-        //    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
-        //}
+            //Target
+            if (card.transform.Find("Target").GetComponent<SpriteRenderer>() != null)
+            {
+                sprite = card.transform.Find("Target").GetComponent<SpriteRenderer>();
+
+                if (sprite.enabled == true)
+                {
+                    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Target.png");
+                    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+                }
+            }
+
+            if (card.transform.Find("Target").GetComponentsInChildren<SpriteRenderer>()[1] != null)
+            {
+                sprite = card.transform.Find("Target").GetComponentsInChildren<SpriteRenderer>()[1];
+                //Triangle
+                if (sprite.enabled == true)
+                {
+                    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Triangle.png");
+                    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+                }
+            }
+        }
     }
 
     void Update()

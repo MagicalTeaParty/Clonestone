@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menueClip: {fileID: 8300000, guid: af2d850d1a93e344eb2acf459ffa01b0, type: 3}
-  gameClip: {fileID: 8300000, guid: 02d0c597589e20c4390a3b045fbd7623, type: 3}
+  gameClip: {fileID: 8300000, guid: 903ead2448686094b94bfec111ade844, type: 3}
 --- !u!4 &286845600
 Transform:
   m_ObjectHideFlags: 0
