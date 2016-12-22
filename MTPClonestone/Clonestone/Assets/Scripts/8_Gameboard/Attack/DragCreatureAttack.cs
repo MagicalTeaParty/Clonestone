@@ -143,7 +143,7 @@ public class DragCreatureAttack : DraggingActions
             //Die aktuelle Karte muss sich von der geraycasteten Unterscheiden!
             if (myData != rayData)
             {
-                if(myData.Owner != rayData.Owner)
+                if(myData.Owner != rayData.Owner && myData != null && rayData != null)
                 {
                     Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack + ") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
 
