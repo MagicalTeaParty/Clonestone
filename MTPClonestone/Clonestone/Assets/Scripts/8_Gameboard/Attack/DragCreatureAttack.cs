@@ -101,12 +101,16 @@ public class DragCreatureAttack : DraggingActions
             CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
             if (myData != rayData)
             {
-                if (myData.Owner != rayData.Owner)
+                if (myData.Owner != rayData.Owner && myData != null && rayData != null)
                 {
                     if (rayData.Data.Health - myData.Data.Attack <= 0)
                         rayData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                    else if (myData.Data.Attack > 0)
+                        rayData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 1, 0, 0.8f);
                     if (myData.Data.Health - rayData.Data.Attack <= 0)
                         myData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                    else if (rayData.Data.Attack > 0)
+                        myData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 1, 0, 0.8f);
                 }
             }
 
