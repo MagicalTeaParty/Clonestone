@@ -86,25 +86,25 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     /// <summary>
-    /// !!! Deaktiviert das gesamte Objekt! 1. Aktiviert/Deaktiviert das "Target"-Child der Karte
-    /// 2. Aktiviert/Deaktiviert das "Draggable"-Script
-    /// 3. Setzt das Frontpanel der Karte auf Blau, während sie aktiv ist
-    /// 4. Aktiviert/Deaktiviert das "Dragable"-Script
-    /// 5. Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
+    /// Aktiviert/Deaktiviert die Scripts und ChildObjects, die für das Ausspielen (von der Hand) oder Attackieren (vom Board) verantwortlich sind.
+    /// Markiert die Karte außerdem farblich, wenn sie spielbar ist (grün), oder mit ihr attackiert werden kann (blau).
     /// </summary>
     /// <param name="card">Die Karte</param>
     private void MarkCard(GameObject card)
     {
-        //if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard)
-        //    card.transform.Find("Target").gameObject.SetActive(true);
-        //else
-        //    card.transform.Find("Target").gameObject.SetActive(false);
+        if (card == null || card.GetComponent<CardDataController>().Owner == null)
+            return;
 
-        //Wenn Karte (!onBoard oder !isLocalPlayer) ist, wird "Target" deaktiviert
+        card.transform.Find("Target").gameObject.SetActive(true);
+        card.transform.Find("Target").Find("LineRenderer").gameObject.SetActive(true);
+
         if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().Data.IsActivePLayer || card.GetComponent<CardDataController>().Data.hasAttacked)
         {
             card.GetComponentInChildren<Draggable>().enabled = false;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
+            if (card.GetComponent<CardDataController>().Data.hasAttacked)
+                card.transform.Find("Target").Find("LineRenderer").gameObject.SetActive(false);
         }
         else if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
         {
@@ -122,6 +122,9 @@ public class PlayerDataController : NetworkBehaviour
             card.GetComponent<Dragable>().enabled = false;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
+
+        if (!card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard)
+            card.transform.Find("Target").gameObject.SetActive(false);
     }
 
     void Update()
