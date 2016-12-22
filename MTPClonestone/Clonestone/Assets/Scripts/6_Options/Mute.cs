@@ -19,7 +19,12 @@ public class Mute : MonoBehaviour {
 
     void Awake()
     {
-        value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
+        if (!bool.TryParse(PlayerPrefs.GetString("muteValue"), out value))
+        {
+            value = true;
+        }
+
+        //value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
 
         muteToggle = GetComponent<Toggle>();
 

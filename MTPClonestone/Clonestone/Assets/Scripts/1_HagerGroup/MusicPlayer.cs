@@ -49,7 +49,14 @@ public class MusicPlayer : MonoBehaviour {
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        bool value = Convert.ToBoolean(PlayerPrefs.GetString("muteValue"));
+        Debug.Log(PlayerPrefs.GetString("muteValue"));
+        bool value;
+
+        if (!bool.TryParse(PlayerPrefs.GetString("muteValue"), out value))
+        {
+            value = true;
+        }
+        
         AudioListener.volume = value ? 1 : 0;
 
         int level = scene.buildIndex;
