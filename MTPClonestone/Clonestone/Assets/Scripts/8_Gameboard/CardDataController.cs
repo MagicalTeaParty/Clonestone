@@ -36,6 +36,8 @@ public class CardDataController : NetworkBehaviour
         
         public Transform Transform;
         public CardStatus CardState;
+
+        public bool hasAttacked;
     }
 
     //Fields
@@ -98,7 +100,7 @@ public class CardDataController : NetworkBehaviour
     private void setOwner()
     {
         //Hole alle Spieler
-        var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = GameboardInitController.Players;//GameObject.FindGameObjectsWithTag("Player");
 
         if(players.Length < 2)
         {
@@ -106,12 +108,12 @@ public class CardDataController : NetworkBehaviour
             return;
         }
 
-        if(players[0].GetComponent<PlayerDataController>().CardOwnerSetted == true &&
-            players[1].GetComponent<PlayerDataController>().CardOwnerSetted == true)
-        {
-            //Debug.Log("ERROR: setOwner()");
-            return;
-        }
+        //if(players[0].GetComponent<PlayerDataController>().CardOwnerSet == true &&
+        //    players[1].GetComponent<PlayerDataController>().CardOwnerSet == true)
+        //{
+        //    //Debug.Log("ERROR: setOwner()");
+        //    return;
+        //}
 
         var cards = players[0].GetComponent<PlayerDataController>().CardList;
         foreach(var card in cards)
@@ -131,8 +133,8 @@ public class CardDataController : NetworkBehaviour
             }
         }
 
-        players[0].GetComponent<PlayerDataController>().CardOwnerSetted = true;
-        players[1].GetComponent<PlayerDataController>().CardOwnerSetted = true;
+        players[0].GetComponent<PlayerDataController>().CardOwnerSet = true;
+        players[1].GetComponent<PlayerDataController>().CardOwnerSet = true;
 
         //Debug.Log("OK: setOwner()");
     }
@@ -169,10 +171,18 @@ public class CardDataController : NetworkBehaviour
     /// </summary>
     private void checkAlive()
     {
-        if(this.Data.Health <= 0)
+        if(this.Data.Health <= 0 && this.Data.Health > int.MinValue)
         {
             //Debug.Log("Card " + this.Data.CardName + " destroyed");
             this.Data.CardState = CardStatus.inDiscardPile;
+
+            MoveOnDiscardPile();
+
+            this.Data.Health = int.MinValue;
+
+            //Brauchen wir nicht mehr: Hero attackieren funktioniert! :)
+            ////Hero ein Leben abziehen
+            //this.Owner.GetComponent<PlayerDataController>().Data.CurrentHealth--;
         }
     }
 
@@ -185,7 +195,7 @@ public class CardDataController : NetworkBehaviour
         var cardLifeGameObjekt = this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         //Debug.Log(this.GetComponent<CardDataController>().Data.IdCard);
 
-        var players = GameObject.FindGameObjectsWithTag("Player");
+        var players = GameboardInitController.Players;
 
         if (players.Length < 2)
             return;
@@ -235,7 +245,7 @@ public class CardDataController : NetworkBehaviour
             case CardStatus.inDiscardPile:
                 //Debug.Log("Card " + this.Data.CardName + " discarded");
                 //GameObject.Destroy(this); //Vernichte das GameObject
-                MoveOnDiscardPile();
+                
                 break;
             default:
                 break;

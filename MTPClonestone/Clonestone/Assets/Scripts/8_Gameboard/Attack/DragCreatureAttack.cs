@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DragCreatureAttack : DraggingActions
 {
@@ -19,6 +20,8 @@ public class DragCreatureAttack : DraggingActions
     //// Reference to creature manager, attached to the parent game object
     //private OneCreatureManager manager;
 
+    GameObject info;
+
     void Awake()
     {
         // establish all the connections
@@ -30,6 +33,8 @@ public class DragCreatureAttack : DraggingActions
 
         //manager = GetComponentInParent<OneCreatureManager>();
         //whereIsThisCreature = GetComponentInParent<WhereIsTheCardOrCreature>();
+
+        info = GameObject.Find("/Board/Info");
     }
 
     public override bool CanDrag
@@ -82,6 +87,34 @@ public class DragCreatureAttack : DraggingActions
             triangleSR.enabled = false;
         }
 
+
+        RaycastHit[] hits;
+        // TODO: raycast here anyway, store the results in 
+        hits = Physics.RaycastAll(origin: Camera.main.transform.position,
+            direction: (-Camera.main.transform.position + this.transform.position).normalized,
+            maxDistance: 30f);
+
+        CardDataController myData = this.GetComponentInParent<CardDataController>();
+
+        foreach (RaycastHit h in hits)
+        {
+            CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
+            if (myData != rayData)
+            {
+                if (myData.Owner != rayData.Owner && myData != null && rayData != null)
+                {
+                    if (rayData.Data.Health - myData.Data.Attack <= 0)
+                        rayData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                    else if (myData.Data.Attack > 0)
+                        rayData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 1, 0, 0.8f);
+                    if (myData.Data.Health - rayData.Data.Attack <= 0)
+                        myData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 0, 0, 0.8f);
+                    else if (rayData.Data.Attack > 0)
+                        myData.gameObject.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(1, 1, 0, 0.8f);
+                }
+            }
+
+        }
     }
 
     /// <summary>
@@ -101,21 +134,33 @@ public class DragCreatureAttack : DraggingActions
         foreach(RaycastHit h in hits)
         {
             CardDataController rayData = h.transform.gameObject.GetComponentInParent<CardDataController>();
+            Debug.Log(rayData.ToString());
+
+            //Die Karten müssen unterschiedlich sein
+            //Die Besitzer der Karten müssen ray unterschiedlich sein
+            //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
 
             //Die aktuelle Karte muss sich von der geraycasteten Unterscheiden!
-            if(myData != rayData && //Die Karten müssen unterschiedlich sein
-                myData.Owner != rayData.Owner  //Die Besitzer der Karten müssen ray unterschiedlich sein
-                 //&& rayData.Data.CardState == CardDataController.CardStatus.onBoard //Die Karte muss am Brett sein -- GEHT NOCH NICHT
-                )
+            if (myData != rayData)
             {
-                Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack +") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+                if(myData.Owner != rayData.Owner && myData != null && rayData != null)
+                {
+                    Debug.Log(myData.Data.CardName + " (" + myData.Data.Attack + ") hits " + rayData.Data.CardName + "(" + rayData.Data.Health + ")");
 
-                //Die fremde Karte bekommt den Angriff ab
-                rayData.Data.Health -= myData.Data.Attack;
-                //Die Angriffskarte bekommt die Verteidigung ab
-                myData.Data.Health -= rayData.Data.Attack;
+                    if (rayData.Data.TypeName == "Hero")
+                        rayData.Owner.GetComponent<PlayerDataController>().Data.CurrentHealth -= myData.Data.Attack;
+                    else
+                        //Die fremde Karte bekommt den Angriff ab
+                        rayData.Data.Health -= myData.Data.Attack;
+                    //Die Angriffskarte bekommt die Verteidigung ab
+                    myData.Data.Health -= rayData.Data.Attack;
 
-                Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+                    Debug.Log(rayData.Data.CardName + "(" + rayData.Data.Health + ")");
+
+                    ShowAttackInfo(myData);
+
+                    myData.Data.hasAttacked = true;
+                }
             }
 
             //Debug.Log("Ray: " + h.transform.tag);
@@ -186,5 +231,12 @@ public class DragCreatureAttack : DraggingActions
     protected override bool DragSuccessful()
     {
         return true;
+    }
+
+    internal void ShowAttackInfo(CardDataController attacker)
+    {
+        string atkInfo = "-" + attacker.Data.Attack;
+        info.SetActive(true);
+        StartCoroutine(info.GetComponent<InfoTextController>().ShowInfoText(atkInfo, 1));
     }
 }

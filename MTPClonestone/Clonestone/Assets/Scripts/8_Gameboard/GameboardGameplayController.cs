@@ -89,6 +89,8 @@ public class GameboardGameplayController : MonoBehaviour
 
             placeToDrop = GameObject.Find("/Board/Player1HandPosition");
             p1.MoveCard(card, placeToDrop);
+
+            ReactivateMinions(p1);
         }
         //Wenn players[1] aktiv ist
         else
@@ -102,6 +104,8 @@ public class GameboardGameplayController : MonoBehaviour
 
             placeToDrop = GameObject.Find("/Board/Player2HandPosition");
             p2.MoveCard(card, placeToDrop);
+
+            ReactivateMinions(p2);
         }
 
         //Starte den Timer
@@ -139,6 +143,15 @@ public class GameboardGameplayController : MonoBehaviour
 
                 GameboardDataController.GameState = GameboardDataController.GameStatus.ending;
             }
+        }
+    }
+
+    void ReactivateMinions(PlayerDataController player)
+    {
+        foreach (var card in player.CardList)
+        {
+            if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+                card.GetComponent<CardDataController>().Data.hasAttacked = false;
         }
     }
 

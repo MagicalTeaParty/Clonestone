@@ -146,7 +146,7 @@ GameObject:
   - 114: {fileID: 114000011465612224}
   m_Layer: 5
   m_Name: CardBack
-  m_TagString: Untagged
+  m_TagString: CardBack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - 114: {fileID: 114000012872438882}
   m_Layer: 5
   m_Name: Life
-  m_TagString: Untagged
+  m_TagString: CardHealth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -491,7 +491,7 @@ PlayerSettings:
   Game_Performance_ServiceEnabled::Game_Performance_ServiceEnabled: False
   Hub_ServiceEnabled::Hub_ServiceEnabled: False
   Purchasing_ServiceEnabled::Purchasing_ServiceEnabled: False
-  UNet_ServiceEnabled::UNet_ServiceEnabled: False
+  UNet_ServiceEnabled::UNet_ServiceEnabled: True
   Unity_Ads_ServiceEnabled::Unity_Ads_ServiceEnabled: False
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
@@ -533,7 +533,7 @@ PlayerSettings:
   XboxOne::VR::enabledDevices: []
   iOS::VR::enabledDevices: []
   tvOS::VR::enabledDevices: []
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: c42f5c8f-268b-4e40-be62-41de3531fdd9
+  projectName: Clonestone
+  organizationId: magicalteaparty
   cloudEnabled: 0

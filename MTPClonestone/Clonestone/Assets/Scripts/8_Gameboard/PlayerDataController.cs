@@ -59,7 +59,7 @@ public class PlayerDataController : NetworkBehaviour
     internal int MaxHealth = 30;
 
     //Ob bei jeder Karte schon der Besitzer festgelegt wurde
-    public bool CardOwnerSetted = false;
+    public bool CardOwnerSet = false;
 
     /// <summary>
     /// Die Anzahl der Karten, die der Spieler zu Beginn des Spiels auf die Hand bekommt.
@@ -86,71 +86,144 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     /// <summary>
-    /// Setzt das Frontpanel der Karte auf Grün, während sie spielbar (Manakosten) ist
+    /// Aktiviert/Deaktiviert die Scripts und ChildObjects, die für das Ausspielen (von der Hand) oder Attackieren (vom Board) verantwortlich sind.
+    /// Markiert die Karte außerdem farblich, wenn sie spielbar ist (grün), oder mit ihr attackiert werden kann (blau).
     /// </summary>
     /// <param name="card">Die Karte</param>
-    private void ShowCardPlayable(GameObject card)
+    private void MarkCard(GameObject card)
     {
-        if (this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+        if (card == null || card.GetComponent<CardDataController>().Owner == null)
+            return;
+
+        card.transform.Find("Target").gameObject.SetActive(true);
+        card.transform.Find("Target").Find("LineRenderer").gameObject.SetActive(true);
+
+        if (card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer || !card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().Data.IsActivePLayer || card.GetComponent<CardDataController>().Data.hasAttacked)
         {
+            card.GetComponentInChildren<Draggable>().enabled = false;
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
+            if (card.GetComponent<CardDataController>().Data.hasAttacked)
+                card.transform.Find("Target").Find("LineRenderer").gameObject.SetActive(false);
+        }
+        else if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+        {
+            card.GetComponentInChildren<Draggable>().enabled = true;
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 1, 0.8f);
+        }
+
+        if (Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+        {
+            card.GetComponent<Dragable>().enabled = true;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 1, 0, 0.8f);
         }
-        else
+        else if (card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
         {
+            card.GetComponent<Dragable>().enabled = false;
             card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
+
+        if (!card.GetComponent<CardDataController>().Owner.GetComponent<PlayerDataController>().isLocalPlayer && card.GetComponent<CardDataController>().Data.CardState != CardDataController.CardStatus.onBoard)
+            card.transform.Find("Target").gameObject.SetActive(false);
+
+        if (card.GetComponent<CardDataController>().Data.TypeName == "Hero")
+        {
+            card.transform.Find("Canvas/CardPanel").GetComponent<Image>().color = new Color(0, 0, 0, 0);
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, 0);
+            card.transform.Find("Target").position = new Vector3(card.transform.position.x, card.transform.position.y, 0);
+        }
+
+        ////Target
+        //SpriteRenderer sprite = card.transform.Find("Target").GetComponent<SpriteRenderer>();
+        //Texture2D tex;
+        //if (sprite.enabled == true && sprite != null)
+        //{
+        //    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Target.png");
+        //    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        //}
+
+        //sprite = card.transform.Find("Target").GetComponentsInChildren<SpriteRenderer>()[0];
+        ////Triangle
+        //if (sprite.enabled == true && sprite != null)
+        //{
+        //    tex = LoadPNG(Application.dataPath + @"/Images/Gameboard/Arrow/Triangle.png");
+        //    sprite.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        //}
     }
 
     void Update()
     {
+        PlayerDataController p1 = null;
+        GameObject[] players = GameboardInitController.Players;
+        if(players.Length >= 2)
+        {
+            p1 = players[0].GetComponent<PlayerDataController>();
+
+            if(p1.gameObject != this.gameObject)
+            {
+                //GEGNERZUG
+                //Wenn nicht Host - also nicht "Hager"
+                if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+                {
+                    StartCoroutine("playCards");
+
+                    if(Data.CurrentActiveMana == 0)
+                    {
+                        //Wenn nicht Hager am Zug => Computerzug Endturn
+                        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+                        {
+                            StartCoroutine("CompEndTurnExecuteAfterTime", Random.Range(10, 20));
+
+                        }
+                    }
+
+                }
+            }
+        }
+
         foreach(GameObject card in this.CardList)
         {
-            //Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
-            if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = true;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
-            //Wenn aktiver Spieler UND karte auf Board
-            else if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
+            #region s.MarkCard()
+            ////Wenn aktiver Spieler UND kartenmana <= spielermana UND karte in Hand
+            //if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.Mana <= Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = true;
 
-                if(card.transform.Find("Target").gameObject.active == false)
-                    card.transform.Find("Target").gameObject.SetActive(true);
-            }
+            //    //if(card.transform.Find("Target").gameObject.active == true)
+            //    //    card.transform.Find("Target").gameObject.SetActive(false);
+            //}
+            ////Wenn aktiver Spieler UND karte auf Board
+            //else if(this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+
+            //    //if(card.transform.Find("Target").gameObject.active == false)
+            //    //    card.transform.Find("Target").gameObject.SetActive(true);
+            //}
             //Wenn nicht aktiver Spieler
-            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
-            else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
-            {
-                card.gameObject.GetComponent<Dragable>().enabled = false;
-                card.transform.Find("Target").gameObject.SetActive(false);
-            }
+            //else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.onBoard)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //    if(card.transform.Find("Target").gameObject.active == true)
+            //        card.transform.Find("Target").gameObject.SetActive(false);
+            //}
+            //else if(!this.Data.IsActivePLayer && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
+            //{
+            //    card.gameObject.GetComponent<Dragable>().enabled = false;
+            //    if(card.transform.Find("Target").gameObject.active == true)
+            //        card.transform.Find("Target").gameObject.SetActive(false);
+            //}
 
 
             //if(card.GetComponent<CardDataController>().Data.Mana > Data.CurrentActiveMana && card.GetComponent<CardDataController>().Data.CardState == CardDataController.CardStatus.inHand)
             //{
             //    card.gameObject.GetComponent<Dragable>().enabled = false;
             //}
+            #endregion
 
-            ShowCardPlayable(card);
-        }
-
-        //Wenn nicht Host - also nicht "Hager"
-        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList!=null)
-        {
-            StartCoroutine("playCards");
-
-            //playCards();
-            //attackWithCards();
+            MarkCard(card);
         }
         
-        //HIER WAR DER BERNDL_SANDMAN_PFEIFFER CODE
-
         if (!GameboardInitController.DetermineIfGameIsReady() || GameboardDataController.GameState == GameboardDataController.GameStatus.running)
             return;
 
@@ -187,7 +260,7 @@ public class PlayerDataController : NetworkBehaviour
     }
 
     private IEnumerator playCards()
-    {        
+    {
         foreach(var item in CardList)
         {
             //if(Data.IsReadyPlayer)
@@ -196,17 +269,42 @@ public class PlayerDataController : NetworkBehaviour
             CardDataController cdc = item.GetComponent<CardDataController>();
 
             if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
-            {                
-                yield return new WaitForSecondsRealtime(Random.Range(2, 8));
+            {
+                yield return new WaitForSecondsRealtime(Random.Range(3, 10));
                 //StartCoroutine("playCard", item);
                 if(cdc.Data.CardState == CardDataController.CardStatus.inHand && cdc.Data.Mana <= this.Data.CurrentActiveMana)
                 {
                     playCard(item);
                 }
+
             }
         }
+
+        //Wenn nicht Hager am Zug => Computerzug Endturn
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+        {
+            StartCoroutine("CompEndTurnExecuteAfterTime", Random.Range(10,20));
+            
+        }
     }
-        
+
+    IEnumerator CompEndTurnExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if(this.Data.IsActivePLayer && !this.isLocalPlayer && this.CardList != null)
+        {
+            // Code to execute after the delay
+            CompEndTurn();
+        }
+    }
+
+    private void CompEndTurn()
+    {
+        GameObject board = GameObject.Find("Board");
+        board.GetComponent<GameboardGameplayController>().EndTurn();
+    }
+
     private void playCard(GameObject card)
     {
         GameObject placeToDrop = GameObject.Find("/Board/DropZoneP2Position");
@@ -412,19 +510,35 @@ public class PlayerDataController : NetworkBehaviour
         cdc.Data = cardData;
         cdc.Data.CardState = CardDataController.CardStatus.onBoard;
 
+        if (this.CardList == null)
+            this.CardList = new List<GameObject>();
+
+        this.CardList.Add(card);
+
         #endregion
 
+        #region Sprites zuweisen
+
         //Bild setzen
-        var image = card.GetComponentsInChildren<Image>()[1];
+        Image image = card.GetComponentsInChildren<Image>()[1];
+        Texture2D tex = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        //Hero Health
+        image = card.GetComponentsInChildren<Image>()[2];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/health.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+        //Hero Mana
+        image = card.GetComponentsInChildren<Image>()[3];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/mana.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+
+        #endregion
 
         //Warnung von Unity: Ausgebessert von LP & TF
         //card.transform.parent = placeHeroCard.transform;
         card.transform.SetParent(placeHeroCard.transform);
-
 
         NetworkServer.SpawnWithClientAuthority(card, this.connectionToClient);
     }
@@ -459,12 +573,24 @@ public class PlayerDataController : NetworkBehaviour
 
         this.CardList.Add(card);
 
+        #region Sprites zuweisen
+
         // Get all components of type Image that are children of this GameObject.
         Image image = card.GetComponentsInChildren<Image>()[1];
+        Texture2D tex = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        Texture2D txt2d = LoadPNG(Application.dataPath + @"/Images/Cards/" + cardData.FileName);
+        //Card Back
+        image = card.GetComponentsInChildren<Image>()[3];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/cardBack.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-        image.sprite = Sprite.Create(txt2d, new Rect(0, 0, txt2d.width, txt2d.height), new Vector2(0.5f, 0.5f));
+        //Card Health
+        image = card.GetComponentsInChildren<Image>()[2];
+        tex = LoadPNG(Application.dataPath + @"/Images/Cards/health.png");
+        image.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+
+        #endregion
 
         #region Testladen eines Bildes
 
@@ -504,7 +630,7 @@ public class PlayerDataController : NetworkBehaviour
         //Beispiel für ein Json-Objekt
         //{\"IdDeck\":1,\"DeckName\":\"default 1\",	\"IdClass\":7,	\"Class\":\"Paladin\",	\"IdType\":2,	\"TypeName\":\"Hero\",	\"IdCard\":705,	\"CardName\":\"Paladin\",	\"Mana\":0, \"Attack\":0,	\"Health\":30,		\"Flavour\":null, \"IdDeckCard\":31,	\"FileName\":\"705.png\",	\"zahl\":\"00000000-0000-0000-0000-000000000000\" }
 
-        string url = "http://localhost:53861/Deck/GetDeck";
+        string url = "http://mtp.a-k-t.at/clonestone/Deck/GetDeck";
         WWWForm form = new WWWForm();
         form.AddField("idDeck", 1);
 
@@ -580,6 +706,8 @@ public class PlayerDataController : NetworkBehaviour
                 //Wenn die Anzahl der Karten in der Hand 10 ist, wird jede weitere gezogene Karte als "inDiscardPile" markiert
                 else
                     cardDrawn.GetComponent<CardDataController>().Data.CardState = CardDataController.CardStatus.inDiscardPile;
+
+                cardDrawn.GetComponent<CardDataController>().Data.hasAttacked = true;
 
                 return cardDrawn;
             }
